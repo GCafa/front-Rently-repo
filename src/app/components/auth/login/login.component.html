@@ -1,0 +1,94 @@
+<app-navbar></app-navbar>
+<div class ="auth-background">
+  <div class ="container">
+<div class="container registration-container">
+  <div class="card login-form">
+    <div class="card-body p-4 p-md-5">
+      <div class="text-center mb-4">
+        <img src="assets/loghi/logo-rently.png" alt="Logo Rently" class="logo" style="max-height: 120px;" />
+      </div>
+      <h2 class="text-center mb-4">
+        <i class="bi bi-box-arrow-in-right"></i> Accedi
+      </h2>
+
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" novalidate>
+        <!-- Username o Email -->
+        <div class="mb-3">
+          <label for="usernameOrEmail" class="form-label">
+            <i class="bi bi-person"></i> Username o Email
+          </label>
+          <div class="input-group">
+            <span class="input-group-text">
+              <i class="bi bi-person-fill"></i>
+            </span>
+            <input
+              type="text"
+              class="form-control"
+              id="usernameOrEmail"
+              formControlName="usernameOrEmail"
+              [ngClass]="{'is-invalid': submitted && f['usernameOrEmail'].invalid, 'is-valid': submitted && f['usernameOrEmail'].valid}"
+              placeholder="Inserisci username o email"
+              autocomplete="username"
+            />
+          </div>
+          <div *ngIf="submitted && f['usernameOrEmail'].errors" class="text-danger mt-1">
+            <div *ngIf="f['usernameOrEmail'].errors['required']">Il campo è obbligatorio.</div>
+          </div>
+        </div>
+
+        <!-- Password -->
+        <div class="mb-3">
+          <label for="password" class="form-label">
+            <i class="bi bi-lock"></i> Password
+          </label>
+          <div class="input-group">
+    <span class="input-group-text">
+      <i class="bi bi-lock-fill"></i>
+    </span>
+            <input
+              [type]="showPassword ? 'text' : 'password'"
+              class="form-control"
+              id="password"
+              formControlName="password"
+              [ngClass]="{'is-invalid': submitted && f['password'].invalid, 'is-valid': submitted && f['password'].valid}"
+              placeholder="Inserisci password"
+              autocomplete="current-password"
+            />
+            <button
+              class="btn btn-outline-secondary"
+              type="button"
+              (click)="togglePasswordVisibility()"
+            >
+              <i class="bi" [ngClass]="showPassword ? 'bi-eye-slash' : 'bi-eye'"></i>
+            </button>
+          </div>
+          <div *ngIf="submitted && f['password'].errors" class="text-danger mt-1">
+            <div *ngIf="f['password'].errors['required']">La password è obbligatoria.</div>
+          </div>
+        </div>
+
+        <!-- Messaggi di errore -->
+        <div *ngIf="errorMessage" class="alert alert-danger">
+          <i class="bi bi-exclamation-triangle"></i> {{ errorMessage }}
+        </div>
+
+        <!-- Bottone Accedi -->
+        <button
+          type="submit"
+          class="btn btn-primary btn-login"
+        >
+          <i class="bi bi-door-open"></i> Accedi
+        </button>
+      </form>
+
+      <div class="text-center mt-4">
+        <p>
+          <i class="bi bi-person-plus"></i> Non hai un account?
+          <a routerLink="/register" class="text-decoration-none">Registrati</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+  </div>
+</div>

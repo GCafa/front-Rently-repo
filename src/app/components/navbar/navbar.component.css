@@ -1,0 +1,65 @@
+/* Stili base della navbar */
+.navbar {
+  background-color: #ffffff;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  position: sticky;
+  top: 0;
+  padding: 1rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Logo e brand */
+.navbar-brand {
+  color: #87419E;
+  font-size: 28px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: opacity 0.3s ease;
+}
+
+.navbar-brand:hover {
+  opacity: 0.8;
+}
+
+/* Links di navigazione */
+.navbar-nav {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.nav-item {
+  list-style-type: none;
+}
+
+.nav-link {
+  color: #333;
+  font-size: 16px;
+  text-decoration: none;
+  padding: 0.5rem 0.75rem;
+  border-radius: 15px;
+  transition: all 0.3s ease;
+}
+
+.nav-link:hover {
+  background-color: #e6e6e6;
+  color: #87419E;
+  transform: translateY(-2px);
+}
+
+/* Responsività */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    padding: 1rem;
+  }
+
+  .navbar-nav {
+    margin-top: 1rem;
+    width: 100%;
+    justify-content: center;
+  }
+}

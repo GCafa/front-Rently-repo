@@ -1,0 +1,79 @@
+<app-navbar></app-navbar>
+
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-header bg-primary text-white">
+          <h3 class="mb-0">Modifica Profilo</h3>
+        </div>
+        <div class="card-body">
+          <div *ngIf="loading" class="text-center">
+            <div class="spinner-border text-primary" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+          </div>
+
+          <!-- Usa il metodo getUsernameInitial() invece di accedere direttamente -->
+          <div class="text-center mb-4">
+            <div class="profile-image">
+              {{ getUsernameInitial() }}
+            </div>
+          </div>
+
+          <div *ngIf="errorMessage" class="alert alert-danger">
+            {{ errorMessage }}
+          </div>
+
+          <div *ngIf="successMessage" class="alert alert-success">
+            {{ successMessage }}
+          </div>
+
+          <form [formGroup]="modifyForm" (ngSubmit)="onSubmit()" *ngIf="!loading">
+            <div class="mb-3">
+              <label for="profileImage" class="form-label">Immagine Profilo</label>
+              <div class="d-flex align-items-center mb-3">
+                <img [src]="getUserImageUrl()" alt="Profile Image" class="me-3" style="width: 60px; height: 60px; border-radius: 50%">
+                <input type="file" class="form-control" id="profileImage" (change)="onImageSelected($event)" accept="image/*">
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="username" class="form-label">Username</label>
+              <input type="text" class="form-control" id="username" formControlName="username"
+                     [ngClass]="{'is-invalid': submitted && f['username'].errors}">
+              <div class="invalid-feedback" *ngIf="submitted && f['username'].errors">
+                <div *ngIf="f['username'].errors['required']">Username è obbligatorio</div>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="email" class="form-label">Email</label>
+              <input type="email" class="form-control" id="email" formControlName="email"
+                     [ngClass]="{'is-invalid': submitted && f['email'].errors}">
+              <div class="invalid-feedback" *ngIf="submitted && f['email'].errors">
+                <div *ngIf="f['email'].errors['required']">Email è obbligatoria</div>
+                <div *ngIf="f['email'].errors['email']">Email non valida</div>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="password" class="form-label">Password (per confermare modifiche)</label>
+              <input type="password" class="form-control" id="password" formControlName="password"
+                     [ngClass]="{'is-invalid': submitted && f['password'].errors}">
+              <div class="invalid-feedback" *ngIf="submitted && f['password'].errors">
+                <div *ngIf="f['password'].errors['required']">Password è obbligatoria</div>
+              </div>
+            </div>
+
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+              <button type="button" class="btn btn-secondary me-md-2" (click)="logout()">Logout</button>
+              <button type="submit" class="btn btn-primary" [disabled]="loading">
+                <span *ngIf="loading" class="spinner-border spinner-border-sm me-1"></span>
+                Salva Modifiche
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <

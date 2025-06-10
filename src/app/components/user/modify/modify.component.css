@@ -1,0 +1,202 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  position: relative;
+}
+
+.img-div {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  left: 0;
+  z-index: -1;
+  overflow: hidden;
+  width: 100%;
+}
+
+.img-div .image {
+  width: 40%;
+  height: 40%;
+  object-fit: cover;
+  opacity: 0.3;
+}
+
+.content-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  margin-top: 5rem;
+}
+
+.modify-card {
+  width: 100%;
+  max-width: 800px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 25px;
+  overflow: hidden;
+}
+
+.card-header {
+  background-color: #f8f9fa;
+  padding: 1.5rem;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.title {
+  font-size: 25px;
+  font-weight: bold;
+  color: #87419E;
+  margin: 0;
+  text-align: center;
+}
+
+.card-content {
+  padding: 1.5rem;
+}
+
+.profile-image-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.profile-image-wrapper {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-bottom: 1rem;
+}
+
+.profile-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.image-upload-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: opacity 0.3s;
+}
+
+.upload-button {
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.image-hint {
+  color: #6c757d;
+  font-size: 0.875rem;
+  text-align: center;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+  color: #2D404E;
+}
+
+.optional {
+  font-weight: normal;
+  font-size: 0.875rem;
+  color: #6c757d;
+}
+
+.error-message {
+  color: #dc3545;
+  display: block;
+  margin-top: 0.5rem;
+}
+
+.w-100 {
+  width: 100%;
+}
+
+.button-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2rem;
+}
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem;
+}
+
+/* PrimeNG Button Styles */
+:host ::ng-deep .p-button-primary {
+  background-color: #f68d44;
+  border: none;
+  color: white;
+}
+
+:host ::ng-deep .p-button-primary:hover {
+  background-color: #e67e22;
+}
+
+:host ::ng-deep .p-button-secondary {
+  background-color: #6c757d;
+  border: none;
+  color: white;
+}
+
+:host ::ng-deep .p-button-secondary:hover {
+  background-color: #5a6268;
+}
+
+:host ::ng-deep .p-card {
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  border-radius: 25px;
+}
+
+:host ::ng-deep .p-inputtext {
+  border-radius: 8px;
+}
+
+:host ::ng-deep .p-password {
+  width: 100%;
+}
+
+:host ::ng-deep .p-password-input {
+  width: 100%;
+  border-radius: 8px;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .content-container {
+    padding: 1rem;
+  }
+
+  .button-container {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  :host ::ng-deep .p-button {
+    width: 100%;
+  }
+}

@@ -1,0 +1,51 @@
+<app-navbar></app-navbar>
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-6 col-md-8">
+      <div class="card shadow-lg border-0 rounded-3">
+        <div class="card-body p-4">
+          <h2 class="text-center mb-4">
+            <i class="bi bi-person-gear me-2"></i>Richiesta Cambio Ruolo
+          </h2>
+
+          <form (ngSubmit)="onSubmit()" class="needs-validation" novalidate>
+            <div class="mb-4">
+              <label for="motivation" class="form-label fw-bold">
+                Motivazione della richiesta
+              </label>
+              <textarea
+                id="motivation"
+                class="form-control shadow-sm"
+                [(ngModel)]="motivation"
+                name="motivation"
+                rows="5"
+                placeholder="Descrivi perché desideri cambiare ruolo..."
+                required></textarea>
+              <small class="text-muted">
+                Fornisci una motivazione dettagliata per la tua richiesta (10-500 caratteri)
+              </small>
+            </div>
+
+            <div class="d-grid gap-2">
+              <button
+                type="submit"
+                class="btn btn-primary btn-lg"
+                [disabled]="isSubmitting">
+                <i class="bi bi-send me-2"></i>
+                {{ isSubmitting ? 'Invio in corso...' : 'Invia richiesta' }}
+              </button>
+              <button
+                type="button"
+                class="btn btn-outline-secondary"
+                (click)="cancel()">
+                <i class="bi bi-arrow-left me-2"></i>Torna indietro
+              </button>
+            </div>
+          </form>
+
+          <p-toast></p-toast>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
