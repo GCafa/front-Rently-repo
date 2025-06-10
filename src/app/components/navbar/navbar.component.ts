@@ -5,6 +5,7 @@ import {Router, RouterLink} from '@angular/router';
 import {OverlayPanelModule} from "primeng/overlaypanel";
 import {MenuModule} from "primeng/menu";
 import {AvatarModule} from "primeng/avatar";
+import { MenuItem } from 'primeng/api';
 
 @Component({
     selector: 'app-navbar',
@@ -18,6 +19,7 @@ import {AvatarModule} from "primeng/avatar";
     ],
 })
 export class NavbarComponent implements OnInit {
+  menuItems: MenuItem[] = [];
   userId: number = 0;
   username: string | null = '';
   userRole: string = '';
@@ -27,9 +29,6 @@ export class NavbarComponent implements OnInit {
   isModerator: boolean = false;
   isAdmin: boolean = false;
   isModeratorOrAdmin= this.isModerator || this.isAdmin;
-
-
-  menuItems: any[] = [];
 
 
   constructor(
