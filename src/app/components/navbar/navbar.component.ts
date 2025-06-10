@@ -16,7 +16,6 @@ import {AvatarModule} from "primeng/avatar";
         MenuModule,
         AvatarModule
     ],
-    encapsulation: ViewEncapsulation.None
 })
 export class NavbarComponent implements OnInit {
   userId: number = 0;
@@ -41,12 +40,14 @@ export class NavbarComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log('Navbar ngOnInit');
     this.getUserData();
   }
 
   getUserData() {
     if (!this.username) {
       if (!this.isAdmin && !this.isModerator) {
+        console.log('getUserData chiamato, username:', this.username);
         this.username = this.authService.getUserLoggedUsername();
       }
     }
