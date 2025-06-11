@@ -62,17 +62,6 @@ export class ModifyComponent implements OnInit {
     return this.modifyForm.controls;
   }
 
-  getUserImageUrl(): string {
-    return this.user?.imageUrl
-      ? `http://localhost:8080/api/v1/user/image/${this.user.imageUrl}`
-      : 'http://localhost:8080/api/v1/user/image/defaultProfileImage.png';
-  }
-
-  // Metodo per gestire l'iniziale dell'username nel template
-  getUsernameInitial(): string {
-    return this.user?.username ? this.user.username.charAt(0).toUpperCase() : 'U';
-  }
-
   onImageSelected(event: any): void {
     const file = event.target.files[0];
     if (file) this.selectedImage = file;

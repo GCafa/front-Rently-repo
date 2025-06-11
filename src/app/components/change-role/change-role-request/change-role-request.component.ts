@@ -11,18 +11,20 @@ import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { ToastModule } from 'primeng/toast';
 import {NavbarComponent} from "../../navbar/navbar.component";
+import {Textarea} from 'primeng/textarea';
 
 @Component({
     selector: 'app-change-role-request',
-    imports: [
-        CommonModule,
-        FormsModule,
-        ReactiveFormsModule,
-        ButtonModule,
-        CardModule,
-        ToastModule,
-        NavbarComponent
-    ],
+  imports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    ButtonModule,
+    CardModule,
+    ToastModule,
+    NavbarComponent,
+    Textarea
+  ],
     providers: [MessageService],
     templateUrl: './change-role-request.component.html',
     styleUrl: './change-role-request.component.css'

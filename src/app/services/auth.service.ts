@@ -13,7 +13,6 @@ import {UserModel} from "../models/user-model";
 @Injectable({
   providedIn: 'root'
 })
-
 export class AuthService {
   private currentUserSubject: BehaviorSubject<UserModel | null> = new BehaviorSubject<UserModel | null>(null);
   public currentUser$: Observable<UserModel | null> = this.currentUserSubject.asObservable();
@@ -27,7 +26,6 @@ export class AuthService {
   constructor(
     private http: HttpClient,
     private router: Router,
-    //private errorUtils: ErrorUtils
   ) {
     this.loadStoredUser();
   }
@@ -71,8 +69,9 @@ export class AuthService {
   login(loginData: UserLoginRequest): Observable<LoginResponse> {
     return this.http.post<LoginResponse>(`${this.getAuthPath()}/login`, loginData).pipe(
       tap(response => {
-        if (response.token) {
-          localStorage.setItem(this.tokenKey, response.token);
+        if (response.jwt) { // ✅ Fix: usa 'jwt' invece di 'token'
+          localStorage.setItem(this.tokenKey, response.jwt);
+          this.loadStoredUser(); // opzionale: se vuoi popolare currentUserSubject
         }
       }),
       catchError(error => this.handleError(error, 'accesso'))
@@ -109,15 +108,15 @@ export class AuthService {
   private decodeToken(token: string): any {
     const payload = token.split('.')[1];
     return JSON.parse(atob(payload));
-
   }
 
-  getUserLoggedUsername(): string  | null {
-   const token = this.getToken();
+  getUserLoggedUsername(): string | null {
+    const token = this.getToken();
     if (token) {
       const payload = this.decodeToken(token);
-      return payload ? payload.username : null;
+      console.log('Decoded JWT payload:', payload);
+      return payload?.username || payload?.sub || null;
     }
-      return null;
-    }
+    return null;
+  }
 }

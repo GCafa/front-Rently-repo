@@ -1,51 +1,77 @@
 <app-navbar></app-navbar>
-<div class="container py-5">
-  <div class="row justify-content-center">
-    <div class="col-lg-6 col-md-8">
-      <div class="card shadow-lg border-0 rounded-3">
-        <div class="card-body p-4">
-          <h2 class="text-center mb-4">
-            <i class="bi bi-person-gear me-2"></i>Richiesta Cambio Ruolo
-          </h2>
-
-          <form (ngSubmit)="onSubmit()" class="needs-validation" novalidate>
-            <div class="mb-4">
-              <label for="motivation" class="form-label fw-bold">
-                Motivazione della richiesta
-              </label>
-              <textarea
-                id="motivation"
-                class="form-control shadow-sm"
-                [(ngModel)]="motivation"
-                name="motivation"
-                rows="5"
-                placeholder="Descrivi perché desideri cambiare ruolo..."
-                required></textarea>
-              <small class="text-muted">
-                Fornisci una motivazione dettagliata per la tua richiesta (10-500 caratteri)
-              </small>
+<div class="page-container">
+  <div class="background-pattern"></div>
+  <div class="container py-5">
+    <div class="row justify-content-center">
+      <div class="col-lg-6 col-md-8">
+        <div class="form-card">
+          <div class="card-content">
+            <div class="card-header">
+              <div class="icon-circle">
+                <i class="bi bi-person-gear"></i>
+              </div>
+              <h2 class="title">Richiesta Cambio Ruolo</h2>
+              <p class="subtitle">
+                Compila il modulo sottostante per richiedere un cambio del tuo ruolo attuale
+              </p>
             </div>
 
-            <div class="d-grid gap-2">
-              <button
-                type="submit"
-                class="btn btn-primary btn-lg"
-                [disabled]="isSubmitting">
-                <i class="bi bi-send me-2"></i>
-                {{ isSubmitting ? 'Invio in corso...' : 'Invia richiesta' }}
-              </button>
-              <button
-                type="button"
-                class="btn btn-outline-secondary"
-                (click)="cancel()">
-                <i class="bi bi-arrow-left me-2"></i>Torna indietro
-              </button>
-            </div>
-          </form>
+            <form (ngSubmit)="onSubmit()" class="needs-validation" novalidate>
+              <div class="form-group">
+                <label for="motivation" class="form-label">
+                  Motivazione della richiesta
+                  <span class="required">*</span>
+                </label>
 
-          <p-toast></p-toast>
+                <div class="textarea-wrapper">
+                  <textarea
+                    pInputTextarea
+                    id="motivation"
+                    [(ngModel)]="motivation"
+                    name="motivation"
+                    rows="5"
+                    [autoResize]="true"
+                    placeholder="Descrivi perché desideri cambiare ruolo..."
+                    required>
+                  </textarea>
+                </div>
+
+                <small class="helper-text">
+                  <i class="bi bi-info-circle me-1"></i>
+                  Fornisci una motivazione dettagliata (10-500 caratteri)
+                </small>
+
+                <div class="error-message" [class.visible]="!motivation">
+                  <i class="bi bi-exclamation-circle me-1"></i>
+                  La motivazione è obbligatoria
+                </div>
+              </div>
+
+              <div class="button-group">
+                <button
+                  pButton
+                  type="button"
+                  class="btn-back"
+                  (click)="cancel()">
+                  <i class="bi bi-arrow-left me-2"></i>
+                  Torna indietro
+                </button>
+
+                <button
+                  pButton
+                  type="submit"
+                  class="btn-submit"
+                  [disabled]="isSubmitting">
+                  <i class="bi bi-send me-2"></i>
+                  {{ isSubmitting ? 'Invio in corso...' : 'Invia richiesta' }}
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </div>
+
+<p-toast position="top-center"></p-toast>

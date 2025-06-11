@@ -5,9 +5,9 @@ import { UserModel } from '../models/user-model';
 import { CustomResponse } from '../dto/CustomResponse';
 import { ApiPathUtil } from '../utils/ApiPathUtil';
 import { UserRegistrationRequest } from '../dto/request/UserRegistrationRequest';
-import {UserModifyRequest} from "../dto/request/UserModifyRequest";
-import {UserPasswordChangeRequest} from "../dto/request/UserPasswordChangeRequest";
-import {PropertyModel} from "../models/property-model";
+import { UserModifyRequest } from "../dto/request/UserModifyRequest";
+import { UserPasswordChangeRequest } from "../dto/request/UserPasswordChangeRequest";
+import { PropertyModel } from "../models/property-model";
 
 @Injectable({
   providedIn: 'root'
@@ -39,7 +39,7 @@ export class UserService {
     );
   }
 
-  disable(userId: number):Observable<CustomResponse> {
+  disable(userId: number): Observable<CustomResponse> {
     return this.http.patch<CustomResponse>(`${this.apiUrl}/disable/${userId}`, {});
   }
 
@@ -54,31 +54,38 @@ export class UserService {
   getAllUsers(): Observable<UserModel[]> {
     return this.http.get<UserModel[]>(`${this.apiUrl}/all`);
   }
+
   getAllFavoriteProperties(username: string): Observable<PropertyModel[]> {
     return this.http.get<PropertyModel[]>(`${this.apiUrl}/favorite-properties`, {
-        params: { username }
-      });
+      params: { username }
+    });
   }
 
   addFavoriteProperty(username: string, propertyId: number): Observable<UserModel> {
-    return this.http.post<UserModel>(`${this.apiUrl}/favorite-properties/${propertyId}`, null, {
-      params: { username }
-    });
+    return this.http.post<UserModel>(
+      `${this.apiUrl}/favorite-properties/${propertyId}`,
+      null,
+      { params: { username } }
+    );
   }
 
   removeFavoriteProperty(username: string, propertyId: number): Observable<UserModel> {
-    return this.http.post<UserModel>(`${this.apiUrl}/favorite-properties/${propertyId}`, {
-      params: { username }
-    });
+    return this.http.delete<UserModel>(
+      `${this.apiUrl}/favorite-properties/${propertyId}`,
+      { params: { username } }
+    );
   }
 
-  rechargeBalance(username: string, amount: number): Observable<UserModel> {
-    return this.http.post<UserModel>(`${this.apiUrl}/recharge/${username}`, { amount });
+  rechargeBalance(username: string, amount: number): Observable<CustomResponse> {
+    return this.http.post<CustomResponse>(
+      `${this.apiUrl}/recharge`,
+      { username, amount }
+    );
   }
 
   getImageUrl(imagePath: string | undefined): string {
     if (!imagePath) {
-      return 'assets/images/default-ProfileImage.png'; // Default image path
+      return 'assets/images/default-ProfileImage.png';
     }
     return `${this.apiUrl}/images/${imagePath}`;
   }

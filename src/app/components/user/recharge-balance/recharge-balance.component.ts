@@ -1,18 +1,19 @@
+// recharge-balance.component.ts
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { UserService } from '../../../services/user.service';
-import { UserModel } from "../../../models/user-model";
+import { UserModel } from '../../../models/user-model';
+import { NavbarComponent } from '../../navbar/navbar.component';
 
 @Component({
   selector: 'app-recharge-balance',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, NavbarComponent],
   templateUrl: './recharge-balance.component.html',
   styleUrls: ['./recharge-balance.component.css']
 })
 export class RechargeBalanceComponent implements OnInit {
-  username: string = '';
   amount: number = 0;
   errorMessage: string = '';
   successMessage: string = '';
@@ -29,7 +30,7 @@ export class RechargeBalanceComponent implements OnInit {
       next: (user) => {
         this.currentUser = user;
       },
-      error: (error) => {
+      error: () => {
         this.errorMessage = 'Errore nel caricamento dei dati utente';
       }
     });
@@ -41,28 +42,29 @@ export class RechargeBalanceComponent implements OnInit {
       return;
     }
 
-    if (!this.currentUser) {
+    if (!this.currentUser?.username) {
       this.errorMessage = 'Utente non trovato';
       return;
     }
 
-    const username = this.currentUser.username;
     const amountValue = Math.round(this.amount * 100) / 100;
     if (isNaN(amountValue)) {
       this.errorMessage = 'Importo non valido';
       return;
     }
 
-    this.userService.rechargeBalance(username, amountValue).subscribe({
+    this.userService.rechargeBalance(this.currentUser.username, amountValue).subscribe({
       next: () => {
         this.successMessage = 'Ricarica effettuata con successo';
         this.loadUserData();
         this.amount = 0;
         this.errorMessage = '';
+        setTimeout(() => this.successMessage = '', 3000);
       },
       error: (error) => {
         this.errorMessage = error?.error?.message || 'Errore durante la ricarica';
         this.successMessage = '';
+        setTimeout(() => this.errorMessage = '', 3000);
       }
     });
   }
