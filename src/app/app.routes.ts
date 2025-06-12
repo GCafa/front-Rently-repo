@@ -9,8 +9,11 @@ import { AboutUsComponent } from './components/about-us/about-us.component';
 import { ProfileComponent } from './components/profile/profile.component';
 //import { BookingListComponent } from './components/booking/booking-list/booking-list.component';
 //import { BookingDetailComponent } from './components/booking/booking-detail/booking-detail.component';
-import { authGuard } from './guard/auth.guard';
+import {adminGuard, authGuard, moderatorGuard} from './guard/auth.guard';
 import {RechargeBalanceComponent} from './components/user/recharge-balance/recharge-balance.component';
+import {usersVisualizationComponent} from './components/users-visualization/users-visualization.component';
+import {FindAllChangeRoleRequestComponent} from './components/change-role/find-all-change-role-request/find-all-change-role-request.component';
+import {CreatePropertyComponent} from './components/create-property/create-property.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -25,6 +28,9 @@ export const routes: Routes = [
   { path: 'change-password', component: ChangePasswordComponent, canActivate: [authGuard]},
   { path: 'modify', component: ModifyComponent, canActivate: [authGuard]},
   { path: 'recharge-balance', component: RechargeBalanceComponent, canActivate: [authGuard]},
+  { path: 'users-visualization',component:usersVisualizationComponent, canActivate: [authGuard] },
+  { path: 'find-all-change-role-request', component: FindAllChangeRoleRequestComponent, canActivate: [authGuard] },
+  { path: 'create-property', component: CreatePropertyComponent, canActivate: [authGuard] },
 
   // Fallback route
   { path: '**', redirectTo: '/home' }

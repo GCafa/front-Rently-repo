@@ -1,131 +1,60 @@
-<div class="users-visualization-container">
-  <!-- Header Section -->
-  <header class="dashboard-header">
-    <h1>User Management Dashboard</h1>
-    <div class="actions">
-      <button class="logout-btn" (click)="logout()">
-        <i class="fas fa-sign-out-alt"></i> Logout
+<div class="container mt-4">
+  <h1 class="mb-4">Gestione Utenti</h1>
+
+  <!-- Lista degli utenti -->
+  <div class="card mb-4">
+    <div class="card-header d-flex justify-content-between align-items-center">
+      <h2 class="h5 mb-0">Lista Utenti</h2>
+      <button class="btn btn-outline-danger" (click)="logout()">
+        <i class="bi bi-box-arrow-right"></i> Logout
       </button>
     </div>
-  </header>
-
-  <!-- Loading Indicator -->
-  <div class="loading-container" *ngIf="loading">
-    <div class="spinner"></div>
-    <p>Loading data...</p>
-  </div>
-
-  <!-- Main Content -->
-  <div class="dashboard-content" *ngIf="!loading">
-    <!-- Users Section -->
-    <section class="users-section">
-      <div class="section-header">
-        <h2>All Users</h2>
-        <div class="search-container">
-          <input type="text" placeholder="Search users..." #searchInput (input)="searchUsers(searchInput.value)">
-          <i class="fas fa-search"></i>
+    <div class="card-body">
+      <div class="text-center" *ngIf="loading">
+        <div class="spinner-border" role="status">
+          <span class="visually-hidden">Caricamento...</span>
         </div>
       </div>
 
-      <!-- Users Grid -->
-      <div class="users-grid">
-        <div class="user-card" *ngFor="let user of filteredUsers">
-          <div class="user-header">
-            <img [src]="user.imageUrl || 'assets/images/default-user.png'" alt="{{ user.firstname }} {{ user.lastname }}" class="avatar">
-            <div class="user-status" [ngClass]="{'active': user.isActive, 'inactive': !user.isActive}">
-              {{ getUserStatusText(user.isActive) }}
-            </div>
-          </div>
-          <div class="user-info">
-            <h3>{{ user.firstname }} {{ user.lastname }}</h3>
-            <p class="user-role">{{ user.role }}</p>
-            <p class="user-email">
-              <i class="fas fa-envelope"></i> {{ user.email }}
-            </p>
-            <p class="user-username">
-              <i class="fas fa-user"></i> {{ user.username }}
-            </p>
-            <p class="user-date">
-              <i class="fas fa-calendar-alt"></i> Joined: {{ user.createdAt | date:'mediumDate' }}
-            </p>
-          </div>
-          <div class="user-actions">
-            <button class="btn-enable" *ngIf="!user.isActive" (click)="enableUser(user.id)">
-              <i class="fas fa-user-check"></i> Enable
-            </button>
-            <button class="btn-disable" *ngIf="user.isActive" (click)="disableUser(user.id)">
-              <i class="fas fa-user-times"></i> Disable
-            </button>
-            <button class="btn-details" [routerLink]="['/user', user.id]">
-              <i class="fas fa-info-circle"></i> Details
-            </button>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Role Change Requests Section -->
-    <section class="requests-section" *ngIf="pendingRequests.length > 0">
-      <div class="section-header">
-        <h2>Pending Role Change Requests</h2>
+      <div class="table-responsive" *ngIf="!loading && users.length > 0">
+        <table class="table table-hover">
+          <thead>
+          <tr>
+            <th>ID</th>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Ruolo</th>
+            <th>Stato</th>
+            <th>Azioni</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let user of users">
+            <td>{{user.id}}</td>
+            <td>{{user.username}}</td>
+            <td>{{user.email}}</td>
+            <td>{{user.role}}</td>
+            <td>
+                <span class="badge" [ngClass]="{'bg-success': user.isActive, 'bg-danger': !user.isActive}">
+                  {{getUserStatusText(user.isActive)}}
+                </span>
+            </td>
+            <td>
+              <button class="btn btn-sm"
+                      [ngClass]="{'btn-success': !user.isActive, 'btn-danger': user.isActive}"
+                      (click)="user.isActive ? disable(user.id) : enable(user.id)">
+                {{user.isActive ? 'Disabilita' : 'Abilita'}}
+              </button>
+            </td>
+          </tr>
+          </tbody>
+        </table>
       </div>
 
-      <div class="requests-grid">
-        <div class="request-card" *ngFor="let request of pendingRequests">
-          <div class="request-info">
-            <h3>Request #{{ request.requestid }}</h3>
-            <p class="request-user">
-              <i class="fas fa-user"></i> {{ request.username }}
-            </p>
-          </div>
-          <div class="request-actions">
-            <button class="btn-accept" (click)="acceptChangeRole(request.requestid)">
-              <i class="fas fa-check"></i> Accept
-            </button>
-            <button class="btn-reject" (click)="showRejectionDialog(request.requestid)">
-              <i class="fas fa-times"></i> Reject
-            </button>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- No Pending Requests Message -->
-    <section class="no-requests" *ngIf="!loading && pendingRequests.length === 0">
-      <div class="empty-state">
-        <i class="fas fa-check-circle"></i>
-        <h3>No Pending Requests</h3>
-        <p>There are no pending role change requests at this time.</p>
-      </div>
-    </section>
-  </div>
-
-  <!-- Rejection Modal -->
-  <div class="modal-overlay" *ngIf="showRejectionForm">
-    <div class="modal-container">
-      <div class="modal-header">
-        <h3>Reject Role Change Request</h3>
-        <button class="close-btn" (click)="cancelRejection()">
-          <i class="fas fa-times"></i>
-        </button>
-      </div>
-      <div class="modal-body">
-        <p>Please provide a reason for rejecting this request:</p>
-        <div class="form-group">
-          <textarea
-            [(ngModel)]="rejectionMotivation"
-            placeholder="Enter rejection reason..."
-            rows="4"
-            required
-          ></textarea>
-          <div class="error-message" *ngIf="errorMessage">
-            {{ errorMessage }}
-          </div>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button class="btn-cancel" (click)="cancelRejection()">Cancel</button>
-        <button class="btn-submit" (click)="rejectChangeRole()">Submit Rejection</button>
+      <div class="empty-state" *ngIf="!loading && users.length === 0">
+        <i class="bi bi-people"></i>
+        <h3>Nessun utente trovato</h3>
+        <p>Non ci sono utenti registrati nel sistema</p>
       </div>
     </div>
   </div>

@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { UserService } from '../../services/user.service';
 import { RouterModule, Router } from '@angular/router';
-
 import { UserModel } from '../../models/user-model';
 
 @Component({
@@ -14,13 +13,9 @@ import { UserModel } from '../../models/user-model';
   imports: [CommonModule, FormsModule, RouterModule]
 })
 export class usersVisualizationComponent implements OnInit {
-  currentUser: UserModel | null = null;
-  users: UserModel [] = [];
-  filteredUsers: UserModel[] = [];
+  users: UserModel[] = [];
   loading = false;
-  showRejectionForm = false;
   errorMessage: string = '';
-  selectedRequestId: number | null = null;
 
   constructor(private userService: UserService, private router: Router) { }
 
@@ -33,26 +28,45 @@ export class usersVisualizationComponent implements OnInit {
     this.userService.getAllUsers().subscribe({
       next: (users) => {
         this.users = users;
-        this.filteredUsers = [...this.users];
+        this.loading = false;
+      },
+      error: () => {
+        this.handleError('Errore nel caricamento degli utenti');
         this.loading = false;
       }
     });
   }
 
-  searchUsers(searchTerm: string): void {
-    if (!searchTerm) {
-      this.filteredUsers = [...this.users];
-      return;
-    }
+  getUserStatusText(isActive: boolean): string {
+    return isActive ? 'Abilitato' : 'Disabilitato';
+  }
 
-    searchTerm = searchTerm.toLowerCase().trim();
-    this.filteredUsers = this.users.filter(user =>
-      user.firstname.toLowerCase().includes(searchTerm) ||
-      user.lastname.toLowerCase().includes(searchTerm) ||
-      user.email.toLowerCase().includes(searchTerm) ||
-      user.username.toLowerCase().includes(searchTerm) ||
-      user.role.toLowerCase().includes(searchTerm)
-    );
+  enable(userId: number): void {
+    this.userService.enable(userId).subscribe({
+      next: () => {
+        this.loadUsers();
+        this.showSuccess('Utente abilitato con successo');
+      },
+      error: () => this.handleError('Errore durante l\'abilitazione dell\'utente')
+    });
+  }
+
+  disable(userId: number): void {
+    this.userService.disable(userId).subscribe({
+      next: () => {
+        this.loadUsers();
+        this.showSuccess('Utente disabilitato con successo');
+      },
+      error: () => this.handleError('Errore durante la disabilitazione dell\'utente')
+    });
+  }
+
+  private showSuccess(message: string): void {
+    console.log('Successo:', message);
+  }
+
+  private handleError(error: string): void {
+    console.error('Errore:', error);
   }
 
   logout(): void {

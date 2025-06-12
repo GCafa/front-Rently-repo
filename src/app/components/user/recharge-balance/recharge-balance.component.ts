@@ -1,4 +1,3 @@
-// recharge-balance.component.ts
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -15,6 +14,7 @@ import { NavbarComponent } from '../../navbar/navbar.component';
 })
 export class RechargeBalanceComponent implements OnInit {
   amount: number = 0;
+  username: string = '';
   errorMessage: string = '';
   successMessage: string = '';
   currentUser: UserModel | null = null;
@@ -28,21 +28,27 @@ export class RechargeBalanceComponent implements OnInit {
   loadUserData(): void {
     this.userService.getCurrentUser().subscribe({
       next: (user) => {
+        console.log('Utente caricato:', user);
         this.currentUser = user;
+        this.username = user.username;
+        console.log('Username salvato:', this.username);
       },
-      error: () => {
+      error: (error) => {
+        console.error('Errore caricamento:', error);
         this.errorMessage = 'Errore nel caricamento dei dati utente';
       }
     });
   }
 
   rechargeBalance(): void {
+    console.log('Inizio ricarica:', { username: this.username, amount: this.amount });
+
     if (!this.amount || this.amount <= 0) {
       this.errorMessage = 'L\'importo deve essere maggiore di 0';
       return;
     }
 
-    if (!this.currentUser?.username) {
+    if (!this.username) {
       this.errorMessage = 'Utente non trovato';
       return;
     }
@@ -53,8 +59,11 @@ export class RechargeBalanceComponent implements OnInit {
       return;
     }
 
-    this.userService.rechargeBalance(this.currentUser.username, amountValue).subscribe({
-      next: () => {
+    console.log('Invio ricarica:', { username: this.username, amount: amountValue });
+
+    this.userService.rechargeBalance(this.username, amountValue).subscribe({
+      next: (response) => {
+        console.log('Risposta successo:', response);
         this.successMessage = 'Ricarica effettuata con successo';
         this.loadUserData();
         this.amount = 0;
@@ -62,6 +71,7 @@ export class RechargeBalanceComponent implements OnInit {
         setTimeout(() => this.successMessage = '', 3000);
       },
       error: (error) => {
+        console.error('Errore ricarica:', error);
         this.errorMessage = error?.error?.message || 'Errore durante la ricarica';
         this.successMessage = '';
         setTimeout(() => this.errorMessage = '', 3000);

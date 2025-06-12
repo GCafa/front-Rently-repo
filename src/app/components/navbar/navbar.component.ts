@@ -194,11 +194,11 @@ export class NavbarComponent implements OnInit {
   }
 
   goTofindAllChangeRoleRequest(): void {
-    this.router.navigate(['/findAllChangeRoleRequest']);
+    this.router.navigate(['/find-all-change-role-request']);
   }
 
   goToCreateProperty(): void {
-    this.router.navigate(['/createProperty']);
+    this.router.navigate(['/create-property']);
   }
 
   logout(): void {

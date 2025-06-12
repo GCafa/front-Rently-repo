@@ -21,7 +21,7 @@ export class RegisterComponent {
   registerForm: FormGroup;
   showPassword = false;
   submitted = false;
-  selectedImage!: File; //TODO: ATTENZIONE al punto esclamativo, indica che il file può essere undefined
+  selectedImage!: File;
   errorMessage = '';
   successMessage = '';
   loading = false;

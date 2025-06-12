@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { UserModel } from '../models/user-model';
 import { CustomResponse } from '../dto/CustomResponse';
@@ -52,7 +52,7 @@ export class UserService {
   }
 
   getAllUsers(): Observable<UserModel[]> {
-    return this.http.get<UserModel[]>(`${this.apiUrl}/all`);
+    return this.http.get<UserModel[]>(`${this.apiUrl}`);
   }
 
   getAllFavoriteProperties(username: string): Observable<PropertyModel[]> {
@@ -76,12 +76,14 @@ export class UserService {
     );
   }
 
-  rechargeBalance(username: string, amount: number): Observable<CustomResponse> {
-    return this.http.post<CustomResponse>(
-      `${this.apiUrl}/recharge`,
-      { username, amount }
-    );
+  rechargeBalance(username: string, amount: number): Observable<any> {
+    const params = new HttpParams()
+      .set('username', username)
+      .set('amount', amount.toString());
+
+    return this.http.post(`${this.apiUrl}/recharge-balance`, null, { params });
   }
+
 
   getImageUrl(imagePath: string | undefined): string {
     if (!imagePath) {
