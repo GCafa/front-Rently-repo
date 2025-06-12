@@ -1,0 +1,89 @@
+<app-navbar></app-navbar>
+<div class="create-property-container mt-5 shadow bg-white rounded p-4">
+  <h2>Inserisci un Nuovo Appartamento</h2>
+
+  <form [formGroup]="propertyForm" (ngSubmit)="onSubmit()">
+    <!-- Titolo e descrizione -->
+    <div class="mb-3">
+      <label class="form-label">Titolo</label>
+      <input type="text" class="form-control" formControlName="title" />
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Descrizione</label>
+      <textarea class="form-control" rows="3" formControlName="description"></textarea>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Indirizzo</label>
+      <input type="text" class="form-control" formControlName="address" />
+    </div>
+
+    <!-- Dropdown dinamici Country / State / City -->
+    <div class="country-state-city-wrapper mb-4">
+      <div class="country-select-container">
+        <label for="country">Paese</label>
+        <select id="country" class="form-select" formControlName="country" (change)="onCountryChange($event)">
+          <option value="">-- Seleziona un paese --</option>
+          <option *ngFor="let country of countries" [value]="country.isoCode">
+            {{ country.name }}
+          </option>
+        </select>
+      </div>
+
+      <div class="state-select-container">
+        <label for="state">Stato/Regione</label>
+        <select id="state" class="form-select" formControlName="state" (change)="onStateChange($event)">
+          <option value="">-- Seleziona uno stato --</option>
+          <option *ngFor="let state of states" [value]="state.isoCode">
+            {{ state.name }}
+          </option>
+        </select>
+      </div>
+
+      <div class="city-select-container">
+        <label for="city">Città</label>
+        <select id="city" class="form-select" formControlName="city">
+          <option value="">-- Seleziona una città --</option>
+          <option *ngFor="let city of cities" [value]="city.name">
+            {{ city.name }}
+          </option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Dati numerici -->
+    <div class="row">
+      <div class="col-md-4 mb-3">
+        <label class="form-label">Prezzo a Notte (€)</label>
+        <input type="number" class="form-control" formControlName="pricePerNight" min="0" />
+      </div>
+      <div class="col-md-4 mb-3">
+        <label class="form-label">Ospiti Massimi</label>
+        <input type="number" class="form-control" formControlName="maxGuests" min="0" />
+      </div>
+      <div class="col-md-2 mb-3">
+        <label class="form-label">Camere</label>
+        <input type="number" class="form-control" formControlName="bedrooms" min="0" />
+      </div>
+      <div class="col-md-2 mb-3">
+        <label class="form-label">Bagni</label>
+        <input type="number" class="form-control" formControlName="bathrooms" min="0" />
+      </div>
+    </div>
+
+    <!-- Immagini -->
+    <div class="mb-3">
+      <label class="form-label">Immagini</label>
+      <input type="file" (change)="onFileChange($event)" multiple class="form-control" />
+    </div>
+
+    <!-- Messaggi -->
+    <div *ngIf="errorMessage" class="alert alert-danger mt-3">{{ errorMessage }}</div>
+    <div *ngIf="successMessage" class="alert alert-success mt-3">{{ successMessage }}</div>
+
+    <!-- Pulsanti -->
+    <button type="submit" class="create-property-submit btn mt-3">Crea Appartamento</button>
+    <button type="button" class="create-property-back btn btn-outline-secondary mt-2" (click)="goBack()">Indietro</button>
+  </form>
+</div>
