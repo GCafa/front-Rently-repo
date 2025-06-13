@@ -1,0 +1,70 @@
+/* Contenitore generale */
+.container {
+  max-width: 1100px;
+}
+
+/* Titolo principale */
+h2 {
+  text-align: center;
+  font-weight: 700;
+  color: #2d3436;
+  border-bottom: 2px solid #6c5ce7;
+  padding-bottom: 0.5rem;
+}
+
+/* Card proprietà */
+.card {
+  border: none;
+  border-radius: 1rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background: #ffffff;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.08);
+}
+
+/* Immagine appartamento */
+.card-img-top {
+  height: 180px;
+  object-fit: cover;
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
+}
+
+/* Testo card */
+.card-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.card-text {
+  color: #636e72;
+  font-size: 0.95rem;
+}
+
+/* Stato */
+.text-success {
+  font-weight: 600;
+}
+
+.text-danger {
+  font-weight: 600;
+}
+
+/* Bottoni */
+.btn-sm {
+  font-size: 0.85rem;
+  padding: 0.4rem 0.7rem;
+  border-radius: 0.4rem;
+  font-weight: 500;
+}
+
+/* Messaggi di stato */
+.alert {
+  border-radius: 0.75rem;
+  font-size: 0.95rem;
+  padding: 1rem 1.5rem;
+}

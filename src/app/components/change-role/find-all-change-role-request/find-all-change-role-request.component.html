@@ -1,3 +1,4 @@
+<!-- find-all-change-role-request.component.html -->
 <div class="container mt-4">
   <h2>Richieste di Cambio Ruolo in Sospeso</h2>
 
@@ -19,30 +20,24 @@
     <table class="table table-striped table-hover">
       <thead class="table-light">
       <tr>
-        <th scope="col">ID Richiesta</th>
-        <th scope="col">Username</th>
-        <th scope="col">Motivazione</th>
-        <th scope="col">Stato</th>
-        <th scope="col">Azioni</th>
+        <th>ID Richiesta</th>
+        <th>Username</th>
+        <th>Motivazione</th>
+        <th>Stato</th>
+        <th>Azioni</th>
       </tr>
       </thead>
       <tbody>
       <tr *ngFor="let request of pendingRequests">
-        <td>{{ request.requestid }}</td>
+        <td>{{ request.id }}</td>
         <td>{{ request.username }}</td>
         <td>{{ request.motivation }}</td>
+        <td><span class="badge bg-warning text-dark">{{ request.status }}</span></td>
         <td>
-          <span class="badge bg-warning text-dark">{{ request.status }}</span>
-        </td>
-        <td>
-          <button class="btn btn-success btn-sm me-2"
-                  [disabled]="loading || !request.requestid"
-                  (click)="acceptChangeRole(request.requestid)">
+          <button class="btn btn-success btn-sm me-2" [disabled]="loading" (click)="acceptChangeRole(request.id)">
             <i class="bi bi-check-lg"></i> Accetta
           </button>
-          <button class="btn btn-danger btn-sm"
-                  [disabled]="loading || !request.requestid"
-                  (click)="showRejectionDialog(request.requestid)">
+          <button class="btn btn-danger btn-sm" [disabled]="loading" (click)="showRejectionDialog(request.id)">
             <i class="bi bi-x-lg"></i> Rifiuta
           </button>
         </td>
@@ -51,10 +46,9 @@
     </table>
   </div>
 
-  <!-- Messaggio nessuna richiesta -->
+  <!-- Nessuna richiesta -->
   <div *ngIf="!loading && pendingRequests.length === 0" class="alert alert-info">
-    <i class="bi bi-info-circle me-2"></i>
-    Non ci sono richieste di cambio ruolo in sospeso.
+    <i class="bi bi-info-circle me-2"></i> Non ci sono richieste di cambio ruolo in sospeso.
   </div>
 
   <!-- Modal rifiuto -->
@@ -63,41 +57,36 @@
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title">
-            <i class="bi bi-exclamation-triangle-fill text-warning me-2"></i>
-            Rifiuta Richiesta
+            <i class="bi bi-exclamation-triangle-fill text-warning me-2"></i> Rifiuta Richiesta
           </h5>
           <button type="button" class="btn-close" (click)="cancelRejection()"></button>
         </div>
         <div class="modal-body">
           <div class="form-group">
             <label for="rejectionMotivation" class="form-label">Motivazione del rifiuto:</label>
-            <textarea id="rejectionMotivation"
-                      class="form-control"
-                      [(ngModel)]="rejectionMotivation"
-                      rows="3"
-                      [class.is-invalid]="errorMessage && !rejectionMotivation.trim()"
-                      placeholder="Inserisci la motivazione del rifiuto"></textarea>
-            <div class="invalid-feedback" *ngIf="errorMessage && !rejectionMotivation.trim()">
+            <textarea
+              id="rejectionMotivation"
+              name="motivation"
+              class="form-control"
+              [(ngModel)]="rejectionMotivation"
+              rows="3"
+              [class.is-invalid]="errorMessage && rejectionMotivation.trim() === ''"
+              placeholder="Inserisci la motivazione del rifiuto">
+            </textarea>
+            <div class="invalid-feedback" *ngIf="errorMessage && rejectionMotivation.trim() === ''">
               La motivazione è obbligatoria
             </div>
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button"
-                  class="btn btn-secondary"
-                  [disabled]="loading"
-                  (click)="cancelRejection()">
+          <button class="btn btn-secondary" [disabled]="loading" (click)="cancelRejection()">
             <i class="bi bi-x"></i> Annulla
           </button>
-          <button type="button"
-                  class="btn btn-danger"
-                  [disabled]="loading || !rejectionMotivation.trim()"
-                  (click)="rejectChangeRole()">
+          <button class="btn btn-danger" [disabled]="loading" (click)="rejectChangeRole()">
             <i class="bi bi-check"></i> Conferma Rifiuto
           </button>
         </div>
       </div>
     </div>
-    <div class="modal-backdrop fade show"></div>
   </div>
 </div>

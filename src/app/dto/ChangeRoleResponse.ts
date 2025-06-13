@@ -1,12 +1,12 @@
 
 export class ChangeRoleResponse {
-  requestid: number;
+  id: number;
   username: string;
   motivation: string;
   status: string;
 
-  constructor(requestid: number, username: string, motivation: string, status: string) {
-    this.requestid = requestid;
+  constructor(id: number, username: string, motivation: string, status: string) {
+    this.id = id;
     this.username = username;
     this.motivation = motivation;
     this.status = status;

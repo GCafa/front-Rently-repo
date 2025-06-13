@@ -36,16 +36,11 @@ export class FindAllChangeRoleRequestComponent implements OnInit {
       next: (requests) => {
         this.changeRoleRequests = requests
           .filter(r => r.status === 'PENDING')
-          .map(request => ({
-            ...request,
-            requestid: request.requestid
-          }));
-        this.loading = false;
-        if (this.changeRoleRequests.length === 0) {
-          this.showSuccess('Nessuna richiesta pendente trovata');
-        } else {
-          this.showSuccess(`Trovate ${this.changeRoleRequests.length} richieste pendenti`);
+          .map(request => ({ ...request }));
+        for(let sos of this.changeRoleRequests) {
+          console.log(sos);
         }
+        this.loading = false;
       },
       error: (error) => {
         this.handleError(`Errore nel caricamento delle richieste: ${error.message || 'Errore sconosciuto'}`);
@@ -58,8 +53,9 @@ export class FindAllChangeRoleRequestComponent implements OnInit {
     return this.changeRoleRequests;
   }
 
-  acceptChangeRole(requestid: number): void {
-    if (!requestid || isNaN(requestid)) {
+  acceptChangeRole(id: number): void {
+    if (!id || isNaN(id)) {
+      console.log(this.changeRoleRequests );
       this.handleError('ID richiesta non valido o mancante');
       return;
     }
@@ -67,7 +63,7 @@ export class FindAllChangeRoleRequestComponent implements OnInit {
     this.loading = true;
     this.errorMessage = '';
 
-    this.changeRoleService.acceptChangeRole(requestid).subscribe({
+    this.changeRoleService.acceptChangeRole(id).subscribe({
       next: () => {
         this.showSuccess('Richiesta accettata con successo');
         this.fetchRequests();
@@ -79,13 +75,8 @@ export class FindAllChangeRoleRequestComponent implements OnInit {
     });
   }
 
-  showRejectionDialog(requestId: number): void {
-    if (!requestId || isNaN(requestId)) {
-      this.handleError('ID richiesta non valido per il rifiuto');
-      return;
-    }
-
-    this.selectedRequestId = requestId;
+  showRejectionDialog(id: number): void {
+    this.selectedRequestId = id;
     this.rejectionMotivation = '';
     this.errorMessage = '';
     this.showRejectionForm = true;
@@ -97,7 +88,7 @@ export class FindAllChangeRoleRequestComponent implements OnInit {
       return;
     }
 
-    if (!this.rejectionMotivation.trim()) {
+    if (!this.rejectionMotivation || this.rejectionMotivation.trim() === '') {
       this.errorMessage = 'La motivazione è obbligatoria';
       return;
     }
@@ -126,12 +117,11 @@ export class FindAllChangeRoleRequestComponent implements OnInit {
   }
 
   private showSuccess(message: string): void {
-    console.log('Successo:', message);
-    // Qui potresti implementare un sistema di notifiche toast
+    console.log('✅', message);
   }
 
   private handleError(error: string): void {
     this.errorMessage = error;
-    console.error('Errore:', error);
+    console.error('❌', error);
   }
 }
