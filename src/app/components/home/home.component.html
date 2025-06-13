@@ -8,9 +8,9 @@
       <span #typewriterElement class="typewriter-text"></span>
     </div>
     <p class="hero-subtitle">Discover amazing properties for your next adventure</p>
-    <div class="hero-cta">
-      <a routerLink="/login" class="btn-primary">Login Now</a>
-      <a routerLink="/register" class="btn-secondary">Sign Up Now</a>
+    <div class="auth-buttons" *ngIf="!isAuthenticated">
+      <button class="btn login-btn" routerLink="/login">Login</button>
+      <button class="btn signup-btn" routerLink="/register">Sign up</button>
     </div>
   </div>
 </section>

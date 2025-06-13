@@ -17,13 +17,12 @@
     <div class="col-md-6 col-lg-4 mb-4" *ngFor="let property of properties">
       <div class="card h-100 shadow-sm">
         <!-- Immagine -->
-        <img
-          *ngIf="property.propertyImages.length > 0"
-          [src]="property.propertyImages[0]"
-          class="card-img-top"
-          alt="Immagine Appartamento"
-          style="height: 200px; object-fit: cover;"
-        />
+        <img *ngIf="property.propertyImages.length > 0"
+             [src]="ApiPathUtil.getImageBaseUrl() + property.propertyImages[0]"
+             class="card-img-top"
+             alt="Immagine Appartamento"
+             style="height: 200px; object-fit: cover;" />
+
 
         <div class="card-body d-flex flex-column">
           <h5 class="card-title">{{ property.title }}</h5>

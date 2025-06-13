@@ -4,6 +4,7 @@ import {UserService} from '../../services/user.service';
 import {Router, RouterLink, RouterModule} from '@angular/router';
 import {UserModel} from '../../models/user-model';
 import {CommonModule} from '@angular/common';
+import {ApiPathUtil} from '../../utils/ApiPathUtil';
 
 // Definizione dell'interfaccia MenuItem
 interface MenuItem {
@@ -157,10 +158,6 @@ export class NavbarComponent implements OnInit {
     ];
   }
 
-  getImageUrl(imageUrl: string | undefined): string {
-    return this.userService.getImageUrl(imageUrl);
-  }
-
   goToProfile(): void {
     this.router.navigate(['/profile']);
   }
@@ -209,4 +206,6 @@ export class NavbarComponent implements OnInit {
     this.userImage = 'assets/images/default-profile.png'; // Assicurati di avere un'immagine di default
     console.error('Errore nel caricamento dell\'immagine del profilo');
   }
+
+  protected readonly ApiPathUtil = ApiPathUtil;
 }

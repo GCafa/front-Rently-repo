@@ -96,6 +96,6 @@ export class UserService {
     if (!imagePath) {
       return 'assets/images/default-ProfileImage.png';
     }
-    return `${this.apiUrl}/images/${imagePath}`;
+    return imagePath;
   }
 }

@@ -5,6 +5,7 @@ import { NavbarComponent } from '../navbar/navbar.component';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
+import {ApiPathUtil} from '../../utils/ApiPathUtil';
 
 @Component({
   selector: 'app-profile',
@@ -49,4 +50,6 @@ export class ProfileComponent implements OnInit {
     sessionStorage.clear();
     this.router.navigate(['/home']).then(() => location.reload());
   }
+
+  protected readonly ApiPathUtil = ApiPathUtil;
 }

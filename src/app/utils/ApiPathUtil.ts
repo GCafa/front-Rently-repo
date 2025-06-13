@@ -6,7 +6,13 @@ import {Injectable} from "@angular/core";
 )
 
 export class ApiPathUtil {
+  private static readonly IMAGE_BASE_URL = 'http://localhost:8080/images/';
+
   private static readonly BASE_URL = 'http://localhost:8080/api/v1';
+
+  public static getImageBaseUrl(): string {
+    return this.IMAGE_BASE_URL;
+  }
 
   public static getAuthPath(): string {
     return `${this.BASE_URL}/auth`;

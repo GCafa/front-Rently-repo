@@ -18,7 +18,7 @@
 
             <div class="d-flex align-items-center">
               <div class="avatar-circle">
-                <img [src]="'http://localhost:8080/' + user?.imageUrl"
+                <img [src]="ApiPathUtil.getImageBaseUrl() + user?.imageUrl"
                      (error)="onImageError()"
                      alt="Foto profilo"
                      class="profile-image"

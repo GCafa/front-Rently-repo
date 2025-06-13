@@ -14,7 +14,7 @@ import {RechargeBalanceComponent} from './components/user/recharge-balance/recha
 import {usersVisualizationComponent} from './components/users-visualization/users-visualization.component';
 import {FindAllChangeRoleRequestComponent} from './components/change-role/find-all-change-role-request/find-all-change-role-request.component';
 import {CreatePropertyComponent} from './components/create-property/create-property.component';
-import {PropertyListComponent} from './components/property-list/property-list.component';
+import {PropertyListComponent} from './components/property/property-list/property-list.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },

@@ -8,7 +8,7 @@
           <!-- Foto profilo -->
           <div class="avatar-circle mb-3">
             <img
-              [src]="'http://localhost:8080/images/' + user?.imageUrl"
+              [src]="ApiPathUtil.getImageBaseUrl() + user?.imageUrl"
               (error)="onImageError()"
               alt="Foto profilo"
               class="profile-image"

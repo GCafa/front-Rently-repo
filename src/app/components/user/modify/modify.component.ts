@@ -7,6 +7,7 @@ import { NgClass, CommonModule } from '@angular/common';
 import { UserModel } from "../../../models/user-model";
 import { NavbarComponent } from "../../navbar/navbar.component";
 import { AuthService } from '../../../services/auth.service';
+import {ApiPathUtil} from '../../../utils/ApiPathUtil';
 
 @Component({
     selector: 'app-user-modify',
@@ -152,4 +153,5 @@ export class ModifyComponent implements OnInit {
     this.router.navigate(['/login']).then(() => location.reload());
   }
 
+  protected readonly ApiPathUtil = ApiPathUtil;
 }

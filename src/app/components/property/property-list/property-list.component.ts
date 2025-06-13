@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { PropertyModel } from '../../models/property-model';
-import { PropertyService } from '../../services/property.service';
+import { PropertyModel} from '../../../models/property-model';
+import { PropertyService } from '../../../services/property.service';
 import { Router } from '@angular/router';
-import { AuthService } from '../../services/auth.service';
-import { NavbarComponent } from '../navbar/navbar.component';
-import {UserService} from '../../services/user.service';
+import { NavbarComponent } from '../../navbar/navbar.component';
+import {UserService} from '../../../services/user.service';
+import {ApiPathUtil} from '../../../utils/ApiPathUtil';
 
 @Component({
   selector: 'app-property-list',
@@ -28,7 +28,7 @@ export class PropertyListComponent implements OnInit {
   ngOnInit(): void {
 
     this.userService.getCurrentUser().subscribe({
-      next: (user) => {
+      next: (user: { id: any; }) => {
         if (!user) {
           this.errorMessage = 'Utente non autenticato.';
           return;
@@ -36,7 +36,7 @@ export class PropertyListComponent implements OnInit {
 
         const hostId = user.id;
         this.propertyService.getPropertiesByHostId(hostId).subscribe({
-          next: (props) => {
+          next: (props: PropertyModel[]) => {
             this.properties = props;
           },
           error: () => {
@@ -81,4 +81,6 @@ export class PropertyListComponent implements OnInit {
       }
     });
   }
+
+  protected readonly ApiPathUtil = ApiPathUtil;
 }

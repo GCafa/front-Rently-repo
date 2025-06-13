@@ -1,16 +1,17 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { PropertyService } from '../../services/property.service';
 import { PropertyModel } from '../../models/property-model';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import {NavbarComponent} from "../navbar/navbar.component";
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { NavbarComponent } from "../navbar/navbar.component";
 import Typewriter from "typewriter-effect/dist/core";
+import { AuthService } from '../../services/auth.service';
 
 const CAROUSEL_RESPONSIVE_OPTIONS = [
-  {breakpoint: '1199px', numVisible: 1, numScroll: 1},
-  {breakpoint: '991px', numVisible: 2, numScroll: 1},
-  {breakpoint: '767px', numVisible: 1, numScroll: 1},
+  { breakpoint: '1199px', numVisible: 1, numScroll: 1 },
+  { breakpoint: '991px', numVisible: 2, numScroll: 1 },
+  { breakpoint: '767px', numVisible: 1, numScroll: 1 },
 ];
 
 const TYPEWRITER_TEXTS = [
@@ -20,22 +21,20 @@ const TYPEWRITER_TEXTS = [
 ];
 
 @Component({
-    selector: 'app-home',
-    templateUrl: './home.component.html',
-    styleUrls: ['./home.component.css'],
-    imports: [CommonModule, RouterModule, ReactiveFormsModule, NavbarComponent]
+  selector: 'app-home',
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.css'],
+  standalone: true,
+  imports: [CommonModule, RouterModule, ReactiveFormsModule, NavbarComponent]
 })
-
-
 export class HomeComponent implements OnInit {
   featuredProperties: PropertyModel[] = [];
   isLoading = true;
   errorMessage = '';
-
+  isAuthenticated = false;
 
   private typewriterElement!: ElementRef;
   private typewriterInitialized = false;
-
 
   @ViewChild('typewriterElement') set _typewriterElement(el: ElementRef) {
     if (el && !this.typewriterInitialized) {
@@ -56,11 +55,11 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private propertyService: PropertyService,
-    private formBuilder: FormBuilder
-  ) {
-
-  }
+    private formBuilder: FormBuilder,
+    private authService: AuthService
+  ) {}
 
   ngOnInit(): void {
+    this.isAuthenticated = this.authService.isAuthenticated();
   }
 }
