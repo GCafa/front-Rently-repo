@@ -17,6 +17,13 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
+  modify(userModifyRequest: FormData): Observable<CustomResponse> {
+    return this.http.post<CustomResponse>(
+      `${this.apiUrl}/modify`,
+      userModifyRequest
+    );
+  }
+
   modifyWithImage(userModifyRequest: FormData, image: undefined | File): Observable<CustomResponse> {
     const formData = new FormData();
     const userModifyRequestJson = JSON.stringify(userModifyRequest);

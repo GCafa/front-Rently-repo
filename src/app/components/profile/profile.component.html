@@ -1,15 +1,19 @@
 <app-navbar></app-navbar>
+
 <div class="container py-5">
   <div class="row">
     <div class="col-lg-6 col-md-8">
       <div class="card personal-area-glass animate__animated animate__fadeInDown">
         <div class="card-body p-5">
+          <!-- Foto profilo -->
           <div class="avatar-circle mb-3">
-            <img [src]=" 'http://localhost:8080/images/'+ user?.imageUrl"
-                 (error)="onImageError()"
-                 alt="Foto profilo"
-                 class="profile-image"
-                 *ngIf="!loading && user?.imageUrl">
+            <img
+              [src]="'http://localhost:8080/images/' + user?.imageUrl"
+              (error)="onImageError()"
+              alt="Foto profilo"
+              class="profile-image"
+              *ngIf="!loading && user?.imageUrl"
+            />
             <div class="no-image" *ngIf="!loading && !user?.imageUrl">
               <span>Nessuna immagine profilo</span>
             </div>
@@ -20,35 +24,30 @@
           </h2>
           <p class="mb-4 text-muted text-start">Benvenuto nella tua area riservata!</p>
 
+          <!-- Info utente -->
           <div *ngIf="user">
-            <div class="row mb-3">
-              <div class="col-5 text-end fw-bold text-secondary">Nome:</div>
-              <div class="col-7 text-start user-field">{{ user.firstname }}</div>
-            </div>
-            <div class="row mb-3">
-              <div class="col-5 text-end fw-bold text-secondary">Cognome:</div>
-              <div class="col-7 text-start user-field">{{ user.lastname }}</div>
-            </div>
-            <div class="row mb-3">
-              <div class="col-5 text-end fw-bold text-secondary">Username:</div>
-              <div class="col-7 text-start user-field">{{ user.username }}</div>
-            </div>
-            <div class="row mb-3">
-              <div class="col-5 text-end fw-bold text-secondary">Email:</div>
-              <div class="col-7 text-start user-field">{{ user.email }}</div>
+            <div class="row mb-3" *ngFor="let field of [
+              { label: 'Nome', value: user.firstname },
+              { label: 'Cognome', value: user.lastname },
+              { label: 'Username', value: user.username },
+              { label: 'Email', value: user.email }
+            ]">
+              <div class="col-5 text-end fw-bold text-secondary">{{ field.label }}:</div>
+              <div class="col-7 text-start user-field">{{ field.value }}</div>
             </div>
 
+            <!-- Pulsanti principali -->
             <div class="d-flex flex-wrap gap-3 mb-3">
-              <a class="btn btn-outline-primary px-4" href="">
+              <a class="btn btn-outline-primary px-4" routerLink="/booking-history">
                 <i class="bi bi-clock"></i> Storico Prenotazioni
               </a>
-              <a class="btn btn-outline-primary px-4" href="/modify">
+              <a class="btn btn-outline-primary px-4" routerLink="/modify">
                 <i class="bi bi-pencil"></i> Modifica Profilo
               </a>
-              <a class="btn btn-outline-primary px-4" href="/change-password">
-                <i class="bi bi-pencil"></i> Cambia Password
+              <a class="btn btn-outline-primary px-4" routerLink="/change-password">
+                <i class="bi bi-lock"></i> Cambia Password
               </a>
-              <a class="btn btn-outline-primary px-4" href="/recharge-balance">
+              <a class="btn btn-outline-primary px-4" routerLink="/recharge-balance">
                 <i class="bi bi-wallet2"></i> Ricarica Saldo
               </a>
               <button class="btn btn-outline-danger px-4" (click)="logout()">
@@ -56,15 +55,32 @@
               </button>
             </div>
 
-            <div class="mt-3" *ngIf="userRole !== 'HOST'">
-              <button class="btn btn-success" routerLink="/change-role">
+            <!-- Sezione visibile solo agli Host -->
+            <div class="mt-3" *ngIf="isHost">
+              <a class="btn btn-outline-secondary w-100" routerLink="/property-list">
+                <i class="bi bi-houses"></i> Visualizza le tue proprietà
+              </a>
+              <a class="btn btn-outline-success mt-2 w-100" routerLink="/create-property">
+                <i class="bi bi-plus-circle"></i> Inserisci una nuova proprietà
+              </a>
+            </div>
+
+            <!-- Sezione visibile solo ai NON Host -->
+            <div class="mt-3" *ngIf="!isHost">
+              <button class="btn btn-success w-100" routerLink="/change-role">
                 <i class="bi bi-house-heart"></i> Vuoi diventare un Host? Clicca qui per richiederlo!
+              </button>
+            </div>
+
+            <!-- Chat -->
+            <div class="mt-4">
+              <button class="btn btn-outline-info w-100" routerLink="/chat">
+                <i class="bi bi-chat-dots"></i> Apri Chat
               </button>
             </div>
           </div>
 
-          <button routerLink="/chat">Apri Chat</button>
-
+          <!-- Messaggio errore -->
           <div *ngIf="errorMessage" class="alert alert-danger mt-3">
             <i class="bi bi-exclamation-triangle-fill"></i> {{ errorMessage }}
           </div>

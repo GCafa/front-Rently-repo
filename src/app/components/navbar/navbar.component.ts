@@ -186,7 +186,7 @@ export class NavbarComponent implements OnInit {
   }
 
   goToFavoritePropertyList(): void {
-    this.router.navigate(['/propertyList']);
+    this.router.navigate(['/property-list']);
   }
 
   goToUserVisualization(): void {

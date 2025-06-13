@@ -184,6 +184,30 @@ h2.text-primary {
   color: white;
 }
 
+.btn-outline-secondary {
+  border: 2px solid #6c757d;
+  color: #6c757d;
+  background: transparent;
+}
+
+.btn-outline-secondary:hover {
+  background: #6c757d;
+  color: white;
+  box-shadow: 0 5px 15px rgba(108, 117, 125, 0.2);
+}
+
+.btn-outline-success {
+  border: 2px solid #28a745;
+  color: #28a745;
+  background: transparent;
+}
+
+.btn-outline-success:hover {
+  background: #28a745;
+  color: white;
+  box-shadow: 0 5px 15px rgba(40, 167, 69, 0.2);
+}
+
 .btn-success {
   background: linear-gradient(135deg, #28a745, #20c997);
   border: none;
@@ -195,6 +219,22 @@ h2.text-primary {
 
 .btn-success:hover {
   background: linear-gradient(135deg, #20c997, #28a745);
+  box-shadow: 0 5px 15px rgba(40, 167, 69, 0.2);
+}
+
+.btn-success[routerLink="/change-role"] {
+  background: linear-gradient(135deg, #28a745, #20c997);
+  color: white;
+  font-weight: 600;
+  padding: 1rem;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  text-align: center;
+}
+
+.btn-success[routerLink="/change-role"]:hover {
+  background: linear-gradient(135deg, #20c997, #28a745);
+  transform: translateY(-2px);
   box-shadow: 0 5px 15px rgba(40, 167, 69, 0.2);
 }
 

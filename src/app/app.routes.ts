@@ -14,6 +14,7 @@ import {RechargeBalanceComponent} from './components/user/recharge-balance/recha
 import {usersVisualizationComponent} from './components/users-visualization/users-visualization.component';
 import {FindAllChangeRoleRequestComponent} from './components/change-role/find-all-change-role-request/find-all-change-role-request.component';
 import {CreatePropertyComponent} from './components/create-property/create-property.component';
+import {PropertyListComponent} from './components/property-list/property-list.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -31,7 +32,7 @@ export const routes: Routes = [
   { path: 'users-visualization',component:usersVisualizationComponent, canActivate: [authGuard] },
   { path: 'find-all-change-role-request', component: FindAllChangeRoleRequestComponent, canActivate: [authGuard] },
   { path: 'create-property', component: CreatePropertyComponent, canActivate: [authGuard] },
-
+  { path: 'property-list', component: PropertyListComponent, canActivate: [authGuard] },
   // Fallback route
   { path: '**', redirectTo: '/home' }
 ];

@@ -6,6 +6,7 @@ import { CustomResponse } from '../../../dto/CustomResponse';
 import { NgClass, CommonModule } from '@angular/common';
 import { UserModel } from "../../../models/user-model";
 import { NavbarComponent } from "../../navbar/navbar.component";
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
     selector: 'app-user-modify',
@@ -30,8 +31,9 @@ export class ModifyComponent implements OnInit {
   constructor(
     private userService: UserService,
     private fb: FormBuilder,
-    private router: Router
-  ) {}
+    private router: Router,
+    private authService: AuthService
+) {}
 
   ngOnInit(): void {
     this.userService.getCurrentUser().subscribe({
@@ -109,11 +111,45 @@ export class ModifyComponent implements OnInit {
         }
       }
     });
+
+
+    this.userService.modify(formData).subscribe({
+      next: (resp: CustomResponse) => {
+        this.successMessage = 'Profilo aggiornato con successo! Verrai reindirizzato alla pagina di login.';
+        this.loading = false;
+        setTimeout(() => this.logout(), 1200)
+      },
+      error: (err: any) => {
+        this.loading = false;
+        console.error('Errore aggiornamento utente:', err);
+
+        switch (err.status) {
+          case 400:
+            this.errorMessage = 'Password errata.';
+            break;
+          case 401:
+            this.errorMessage = 'Sessione scaduta. Effettua nuovamente il login.';
+            setTimeout(() => this.router.navigate(['/login']), 1200);
+            break;
+          case 403:
+            this.errorMessage = 'Non hai i permessi necessari per questa operazione.';
+            break;
+          case 404:
+            this.errorMessage = 'Utente non trovato.';
+            break;
+          default:
+            this.errorMessage = err.error?.message || 'Errore durante l\'aggiornamento del profilo.';
+            break;
+        }
+      }
+    });
+
+
   }
 
   logout() {
-    localStorage.removeItem('token');
-    sessionStorage.removeItem('token');
-    this.router.navigate(['/login']);
+    this.authService.logout(); // Questo rimuove token e utente dal localStorage/sessionStorage
+    this.router.navigate(['/login']).then(() => location.reload());
   }
+
 }
