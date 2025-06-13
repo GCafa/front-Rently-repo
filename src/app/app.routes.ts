@@ -15,6 +15,7 @@ import {usersVisualizationComponent} from './components/users-visualization/user
 import {FindAllChangeRoleRequestComponent} from './components/change-role/find-all-change-role-request/find-all-change-role-request.component';
 import {CreatePropertyComponent} from './components/create-property/create-property.component';
 import {PropertyListComponent} from './components/property/property-list/property-list.component';
+import { PropertyDetailsComponent } from './components/property/property-details/property-details.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -33,6 +34,8 @@ export const routes: Routes = [
   { path: 'find-all-change-role-request', component: FindAllChangeRoleRequestComponent, canActivate: [authGuard] },
   { path: 'create-property', component: CreatePropertyComponent, canActivate: [authGuard] },
   { path: 'property-list', component: PropertyListComponent, canActivate: [authGuard] },
+  { path: 'property-details/:id', component: PropertyDetailsComponent, canActivate: [authGuard] },
+
   // Fallback route
   { path: '**', redirectTo: '/home' }
 ];

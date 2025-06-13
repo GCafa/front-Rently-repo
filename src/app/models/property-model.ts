@@ -4,7 +4,7 @@ import {ReviewModel} from "./review-model";
 
 export class PropertyModel {
 
-  propertyId: number;
+  id: number;
   host: UserModel;
   title: string;
   description: string;
@@ -27,7 +27,7 @@ export class PropertyModel {
   serviceFee: number;
 
   constructor(
-    propertyId: number,
+    id: number,
     host: UserModel,
     title: string,
     description: string,
@@ -49,7 +49,7 @@ export class PropertyModel {
     cleaningFee: number = 0,
     serviceFee: number = 0
   ) {
-    this.propertyId = propertyId;
+    this.id = id;
     this.host = host;
     this.title = title;
     this.description = description;

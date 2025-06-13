@@ -38,13 +38,14 @@
 
           <!-- Azioni -->
           <div class="mt-auto d-flex justify-content-between gap-2 pt-2">
-            <button class="btn btn-outline-primary btn-sm w-100" (click)="viewDetails(property.propertyId)">
+            <button class="btn btn-outline-primary btn-sm w-100" (click)="viewDetails(property)">
               Dettagli
             </button>
-            <button class="btn btn-outline-warning btn-sm w-100" (click)="toggleStatus(property.propertyId)">
+
+            <button class="btn btn-outline-warning btn-sm w-100" (click)="toggleStatus(property.id)">
               {{ property.isAvailable ? 'Disattiva' : 'Attiva' }}
             </button>
-            <button class="btn btn-outline-danger btn-sm w-100" (click)="deleteProperty(property.propertyId)">
+            <button class="btn btn-outline-danger btn-sm w-100" (click)="deleteProperty(property.id)">
               Elimina
             </button>
           </div>

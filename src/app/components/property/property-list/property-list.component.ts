@@ -38,6 +38,7 @@ export class PropertyListComponent implements OnInit {
         this.propertyService.getPropertiesByHostId(hostId).subscribe({
           next: (props: PropertyModel[]) => {
             this.properties = props;
+            console.log('Proprietà recuperate:', this.properties);
           },
           error: () => {
             this.errorMessage = 'Errore durante il caricamento delle proprietà.';
@@ -51,14 +52,14 @@ export class PropertyListComponent implements OnInit {
     });
   }
 
-  viewDetails(propertyId: number): void {
-    this.router.navigate(['/property', propertyId]);
+  viewDetails(property: PropertyModel): void {
+    this.router.navigate(['/property-details', property.id])
   }
 
   toggleStatus(propertyId: number): void {
     this.propertyService.toggleActiveStatus(propertyId).subscribe({
       next: () => {
-        const property = this.properties.find(p => p.propertyId === propertyId);
+        const property = this.properties.find(p => p.id === propertyId);
         if (property) {
           property.isAvailable = !property.isAvailable;
         }
@@ -73,7 +74,7 @@ export class PropertyListComponent implements OnInit {
   deleteProperty(propertyId: number): void {
     this.propertyService.deleteProperty(propertyId).subscribe({
       next: () => {
-        this.properties = this.properties.filter(p => p.propertyId !== propertyId);
+        this.properties = this.properties.filter(p => p.id !== propertyId);
         this.successMessage = 'Proprietà eliminata con successo.';
       },
       error: () => {
