@@ -1,0 +1,32 @@
+<!-- src/app/components/notifications/notifications.component.html -->
+<div class="notifications-container">
+  <div class="notification-icon" (click)="toggleDropdown()">
+    <i class="fa fa-bell"></i>
+    @if (unreadCount > 0) {
+      <span class="notification-badge">{{ unreadCount }}</span>
+    }
+  </div>
+
+  @if (isDropdownOpen) {
+    <div class="notification-dropdown">
+      <div class="notification-header">
+        <h3>Notifiche</h3>
+      </div>
+
+      <div class="notification-list">
+        @if (notifications.length > 0) {
+          @for (notification of notifications; track notification.id) {
+            <app-notification-item
+              [notification]="notification"
+              (updated)="loadNotifications()">
+            </app-notification-item>
+          }
+        } @else {
+          <div class="no-notifications">
+            <p>Non ci sono notifiche</p>
+          </div>
+        }
+      </div>
+    </div>
+  }
+</div>
