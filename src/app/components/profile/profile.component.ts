@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserModel } from '../../models/user-model';
 import { UserService } from '../../services/user.service';
-import { NavbarComponent } from '../navbar/navbar.component';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -12,7 +11,7 @@ import {ApiPathUtil} from '../../utils/ApiPathUtil';
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css'],
   standalone: true,
-  imports: [CommonModule, RouterModule, ReactiveFormsModule, NavbarComponent]
+  imports: [CommonModule, RouterModule, ReactiveFormsModule]
 })
 export class ProfileComponent implements OnInit {
   user?: UserModel;

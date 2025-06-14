@@ -3,12 +3,11 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { UserService } from '../../../services/user.service';
 import { UserModel } from '../../../models/user-model';
-import { NavbarComponent } from '../../navbar/navbar.component';
 
 @Component({
   selector: 'app-recharge-balance',
   standalone: true,
-  imports: [CommonModule, FormsModule, NavbarComponent],
+  imports: [CommonModule, FormsModule],
   templateUrl: './recharge-balance.component.html',
   styleUrls: ['./recharge-balance.component.css']
 })

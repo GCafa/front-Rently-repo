@@ -5,13 +5,12 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { UserService } from '../../../services/user.service';
 import { UserPasswordChangeRequest } from '../../../dto/request/UserPasswordChangeRequest';
-import {NavbarComponent} from "../../navbar/navbar.component";
 
 @Component({
     selector: 'app-change-password',
     templateUrl: './change-password.component.html',
     styleUrls: ['./change-password.component.css'],
-    imports: [CommonModule, FormsModule, NavbarComponent]
+    imports: [CommonModule, FormsModule]
 })
 export class ChangePasswordComponent {
   passwordData: UserPasswordChangeRequest= {

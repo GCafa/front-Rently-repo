@@ -11,7 +11,7 @@
   left: 0;
   right: 0;
   height: 100%;
-  background-image: radial-gradient(#FF385C 0.5px, transparent 0.5px);
+  background-image: radial-gradient(#9B57D6 0.5px, transparent 0.5px);
   background-size: 15px 15px;
   opacity: 0.1;
   z-index: 0;
@@ -39,7 +39,7 @@
 .icon-circle {
   width: 70px;
   height: 70px;
-  background: #FF385C;
+  background: #9B57D6;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -81,8 +81,8 @@ textarea {
 }
 
 textarea:focus {
-  border-color: #FF385C;
-  box-shadow: 0 0 0 4px rgba(255, 56, 92, 0.1);
+  border-color: #9B57D6;
+  box-shadow: 0 0 0 4px rgba(155, 87, 214, 0.2);
   outline: none;
 }
 
@@ -94,15 +94,9 @@ textarea:focus {
 }
 
 .error-message {
-  color: #FF385C;
-  font-size: 0.9rem;
+  color: #dc3545;
+  font-size: 0.85rem;
   margin-top: 0.5rem;
-  display: none;
-  align-items: center;
-}
-
-.error-message.visible {
-  display: flex;
 }
 
 .button-group {
@@ -112,7 +106,8 @@ textarea:focus {
   margin-top: 2.5rem;
 }
 
-.btn-back, .btn-submit {
+.btn-back,
+.btn-submit {
   padding: 1rem !important;
   border-radius: 12px !important;
   font-weight: 500 !important;
@@ -120,28 +115,28 @@ textarea:focus {
 }
 
 .btn-back {
-  background: #333 !important;
+  background: #6c757d !important;
   border: none !important;
 }
 
 .btn-back:hover {
-  background: #444 !important;
+  background: #5a6268 !important;
   transform: translateY(-2px);
 }
 
 .btn-submit {
-  background: #FF385C !important;
+  background: #9B57D6 !important;
   border: none !important;
 }
 
 .btn-submit:hover {
-  background: #ff1f48 !important;
+  background: #8845c0 !important;
   transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(255, 56, 92, 0.3);
+  box-shadow: 0 5px 15px rgba(192, 56, 255, 0.3);
 }
 
 .required {
-  color: #FF385C;
+  color: #9B57D6;
 }
 
 @media (max-width: 768px) {

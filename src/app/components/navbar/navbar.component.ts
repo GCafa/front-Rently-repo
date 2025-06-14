@@ -5,6 +5,7 @@ import {Router, RouterLink, RouterModule} from '@angular/router';
 import {UserModel} from '../../models/user-model';
 import {CommonModule} from '@angular/common';
 import {ApiPathUtil} from '../../utils/ApiPathUtil';
+import {NotificationsComponent} from '../notifications/notifications.component';
 
 // Definizione dell'interfaccia MenuItem
 interface MenuItem {
@@ -14,7 +15,6 @@ interface MenuItem {
   command: () => void;
 }
 
-
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -23,7 +23,8 @@ interface MenuItem {
   imports: [
     RouterLink,
     RouterModule,
-    CommonModule
+    CommonModule,
+    NotificationsComponent
   ]
 })
 export class NavbarComponent implements OnInit {

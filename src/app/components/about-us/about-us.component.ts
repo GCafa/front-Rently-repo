@@ -1,12 +1,11 @@
 import { Component, AfterViewInit, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import {NavbarComponent} from '../navbar/navbar.component';
 
 @Component({
   selector: 'app-about-us',
   standalone: true,
-  imports: [CommonModule, RouterModule, NavbarComponent],
+  imports: [CommonModule, RouterModule],
   templateUrl: './about-us.component.html',
   styleUrls: ['./about-us.component.css']
 })

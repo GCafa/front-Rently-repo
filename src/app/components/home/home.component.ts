@@ -4,7 +4,6 @@ import { RouterModule } from '@angular/router';
 import { PropertyService } from '../../services/property.service';
 import { PropertyModel } from '../../models/property-model';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
-import { NavbarComponent } from "../navbar/navbar.component";
 import Typewriter from "typewriter-effect/dist/core";
 import { AuthService } from '../../services/auth.service';
 
@@ -25,7 +24,7 @@ const TYPEWRITER_TEXTS = [
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
   standalone: true,
-  imports: [CommonModule, RouterModule, ReactiveFormsModule, NavbarComponent]
+  imports: [CommonModule, RouterModule, ReactiveFormsModule]
 })
 export class HomeComponent implements OnInit {
   featuredProperties: PropertyModel[] = [];

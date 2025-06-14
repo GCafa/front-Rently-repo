@@ -80,4 +80,8 @@ export class usersVisualizationComponent implements OnInit {
         location.reload();
       });
   }
+
+  goback(): void {
+    this.router.navigate(['/home']);
+  }
 }

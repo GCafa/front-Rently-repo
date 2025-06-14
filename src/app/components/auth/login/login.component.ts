@@ -4,7 +4,6 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { AuthService} from "../../../services/auth.service";
 import { Router, RouterModule } from '@angular/router';
 import { UserLoginRequest } from '../../../dto/request/UserLoginRequest';
-import {NavbarComponent} from "../../navbar/navbar.component";
 
 
 @Component({
@@ -14,8 +13,7 @@ import {NavbarComponent} from "../../navbar/navbar.component";
         CommonModule,
         ReactiveFormsModule,
         NgClass,
-        RouterModule,
-        NavbarComponent
+        RouterModule
     ],
     styleUrls: ['./login.component.css'],
 })

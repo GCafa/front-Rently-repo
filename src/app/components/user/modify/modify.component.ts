@@ -5,7 +5,6 @@ import { Router } from '@angular/router';
 import { CustomResponse } from '../../../dto/CustomResponse';
 import { NgClass, CommonModule } from '@angular/common';
 import { UserModel } from "../../../models/user-model";
-import { NavbarComponent } from "../../navbar/navbar.component";
 import { AuthService } from '../../../services/auth.service';
 import {ApiPathUtil} from '../../../utils/ApiPathUtil';
 
@@ -17,7 +16,6 @@ import {ApiPathUtil} from '../../../utils/ApiPathUtil';
         CommonModule,
         ReactiveFormsModule,
         NgClass,
-        NavbarComponent
     ]
 })
 export class ModifyComponent implements OnInit {

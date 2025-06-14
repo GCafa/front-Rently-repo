@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { PropertyModel} from '../../../models/property-model';
 import { PropertyService } from '../../../services/property.service';
 import { Router } from '@angular/router';
-import { NavbarComponent } from '../../navbar/navbar.component';
 import {UserService} from '../../../services/user.service';
 import {ApiPathUtil} from '../../../utils/ApiPathUtil';
 
@@ -12,7 +11,7 @@ import {ApiPathUtil} from '../../../utils/ApiPathUtil';
   standalone: true,
   templateUrl: './property-list.component.html',
   styleUrls: ['./property-list.component.css'],
-  imports: [CommonModule, NavbarComponent],
+  imports: [CommonModule],
 })
 export class PropertyListComponent implements OnInit {
   properties: PropertyModel[] = [];

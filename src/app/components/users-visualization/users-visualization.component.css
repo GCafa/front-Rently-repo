@@ -88,6 +88,20 @@
   color: #6c757d;
 }
 
+/* Stile bottone personalizzato */
+.btn-custom-purple {
+  color: #202026BC;
+  border-color: #202026BC;
+  background-color: transparent;
+  transition: all 0.2s;
+}
+
+.btn-custom-purple:hover {
+  background-color: #202026BC;
+  border-color: #202026BC;
+  color: #ffffff;
+}
+
 /* Media query per responsività */
 @media (max-width: 768px) {
   .container {
@@ -106,5 +120,16 @@
   .card-header {
     flex-direction: column;
     gap: 1rem;
+  }
+
+  .card-header .btn-outline-danger {
+    color: rgba(30, 54, 114, 0.93);
+    border-color: rgba(32, 32, 38, 0.74);
+  }
+
+  .card-header .btn-outline-danger:hover {
+    color: #fff;
+    background-color: rgba(32, 32, 38, 0.74);
+    border-color: rgba(32, 32, 38, 0.74);
   }
 }

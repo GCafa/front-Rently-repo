@@ -28,7 +28,7 @@
   margin-bottom: 1.5rem;
   font-size: 1.8rem;
   text-align: center;
-  color: #333;
+  color: #341d49;
 }
 
 /* Input group */
@@ -66,8 +66,8 @@
   width: 100%;
   border: none;
   border-radius: 12px;
-  background-color: #A3BFD9;
-  color: #333;
+  background-color: #9B57D6;
+  color: white;
   font-size: 1.1rem;
   font-weight: bold;
   cursor: pointer;
@@ -75,7 +75,7 @@
 }
 
 .login-btn:hover {
-  background-color: #e14c4f;
+  background-color: #9B57D6;
 }
 
 /* Link login */
@@ -87,7 +87,7 @@
 }
 
 .register-link a {
-  color: #ff5a5f;
+  color: #9B57D6;
   text-decoration: none;
   font-weight: 500;
 }

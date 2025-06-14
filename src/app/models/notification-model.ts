@@ -1,25 +1,25 @@
 import {UserModel} from "./user-model";
 
 export class NotificationModel {
-  notificationId: number;
+  id: number;
   message: string;
   type: string;
-  isRead: boolean;
+  read: boolean;
   createdAt: Date;
   user: UserModel;
 
   constructor(
-    notificationId: number,
+    id: number,
     message: string,
     type: string,
-    isRead: boolean,
+    read: boolean,
     createdAt: Date,
     user: UserModel
   ) {
-    this.notificationId = notificationId;
+    this.id = id;
     this.message = message;
     this.type = type;
-    this.isRead = isRead;
+    this.read = read;
     this.createdAt = createdAt;
     this.user = user;
   }

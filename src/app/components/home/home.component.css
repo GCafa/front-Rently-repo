@@ -104,14 +104,14 @@ a {
 }
 
 .btn-primary {
-  background-color: #FF385C;
+  background-color: #9B57D6;
   color: white;
-  border: 2px solid #FF385C;
+  border: 2px solid #9B57D6;
 }
 
 .btn-primary:hover {
-  background-color: #E61E4D;
-  border-color: #E61E4D;
+  background-color: #9B57D6;
+  border-color: #9B57D6;
   transform: translateY(-3px);
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
 }
@@ -186,12 +186,12 @@ a {
 
 .form-control:focus {
   outline: none;
-  border-color: #FF385C;
-  box-shadow: 0 0 0 2px rgba(255, 56, 92, 0.2);
+  border-color: #9B57D6;
+  box-shadow: 0 0 0 2px rgb(92, 31, 145);
 }
 
 .btn-search {
-  background-color: #FF385C;
+  background-color: #9B57D6;
   color: white;
   border: none;
   border-radius: 8px;
@@ -205,9 +205,9 @@ a {
 }
 
 .btn-search:hover {
-  background-color: #E61E4D;
+  background-color: #9B57D6;
   transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(230, 30, 77, 0.2);
+  box-shadow: 0 5px 15px rgb(92, 31, 145);
 }
 
 /* Featured Properties Section */
@@ -301,7 +301,7 @@ a {
 
 .btn-view-property {
   display: block;
-  background-color: #FF385C;
+  background-color: #9B57D6;
   color: white;
   text-align: center;
   padding: 12px;
@@ -311,7 +311,7 @@ a {
 }
 
 .btn-view-property:hover {
-  background-color: #E61E4D;
+  background-color: #9B57D6;
   transform: translateY(-2px);
 }
 
@@ -325,9 +325,9 @@ a {
   display: inline-block;
   width: 60px;
   height: 60px;
-  border: 5px solid rgba(255, 56, 92, 0.2);
+  border: 5px solid rgb(92, 31, 145);
   border-radius: 50%;
-  border-top-color: #FF385C;
+  border-top-color: #9B57D6;
   animation: spin 1s ease-in-out infinite;
   margin-bottom: 20px;
 }
@@ -338,7 +338,7 @@ a {
 
 .error-message {
   text-align: center;
-  color: #dc3545;
+  color: #9B57D6;
   padding: 20px;
   background-color: #f8d7da;
   border-radius: 10px;
@@ -383,7 +383,7 @@ a {
 .step-icon {
   width: 80px;
   height: 80px;
-  background-color: #FF385C;
+  background-color: #9B57D6;
   color: white;
   border-radius: 50%;
   display: flex;
@@ -436,7 +436,7 @@ a {
 .testimonial-content::before {
   content: '"';
   font-size: 4rem;
-  color: #FF385C;
+  color: #9B57D6;
   opacity: 0.2;
   position: absolute;
   top: -20px;
@@ -471,7 +471,7 @@ a {
 /* Newsletter Section */
 .newsletter-section {
   padding: 80px 0;
-  background-color: #FF385C;
+  background-color: #9B57D6;
   color: white;
 }
 
@@ -542,7 +542,7 @@ a {
 .footer-logo h2 {
   font-size: 2rem;
   margin-bottom: 15px;
-  color: #FF385C;
+  color: #9B57D6;
 }
 
 .footer-logo p {
@@ -576,7 +576,7 @@ a {
 }
 
 .footer-column ul li a:hover {
-  color: #FF385C;
+  color: #9B57D6;
 }
 
 .footer-bottom {
@@ -609,7 +609,7 @@ a {
 }
 
 .social-links a:hover {
-  background-color: #FF385C;
+  background-color: #9B57D6;
   transform: translateY(-3px);
 }
 
@@ -745,14 +745,14 @@ a {
 
 /* Login Now Button */
 .auth-buttons .btn-login {
-  background-color: #FF385C;
+  background-color: #9B57D6;
   color: #fff;
   border: none;
-  box-shadow: 0 6px 15px rgba(255, 56, 92, 0.3);
+  box-shadow: 0 6px 15px rgb(92, 31, 145);
 }
 
 .auth-buttons .btn-login:hover {
-  background-color: #e61e4d;
+  background-color: #9B57D6;
   transform: translateY(-2px);
 }
 
@@ -805,13 +805,13 @@ a {
 
 /* === Login Button === */
 .auth-buttons .login-btn {
-  background-color: #FF385C;
+  background-color: #9B57D6;
   color: #fff;
-  box-shadow: 0 6px 15px rgba(255, 56, 92, 0.3);
+  box-shadow: 0 6px 15px rgb(92, 31, 145);
 }
 
 .auth-buttons .login-btn:hover {
-  background-color: #e61e4d;
+  background-color: #9B57D6;
   transform: translateY(-2px);
 }
 

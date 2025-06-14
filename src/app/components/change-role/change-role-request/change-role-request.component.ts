@@ -1,42 +1,30 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ChangeRoleService } from '../../../services/changeRole.service';
 import { ChangeRoleRequest } from '../../../dto/request/ChangeRoleRequest';
-import { MessageService } from 'primeng/api';
-import { InputTextarea } from 'primeng/inputtextarea';
-import { ButtonModule } from 'primeng/button';
-import { CardModule } from 'primeng/card';
-import { ToastModule } from 'primeng/toast';
-import {NavbarComponent} from "../../navbar/navbar.component";
-import {Textarea} from 'primeng/textarea';
 
 @Component({
-    selector: 'app-change-role-request',
+  selector: 'app-change-role-request',
+  standalone: true,
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    ButtonModule,
-    CardModule,
-    ToastModule,
-    NavbarComponent,
-    Textarea
   ],
-    providers: [MessageService],
-    templateUrl: './change-role-request.component.html',
-    styleUrl: './change-role-request.component.css'
+  templateUrl: './change-role-request.component.html',
+  styleUrl: './change-role-request.component.css'
 })
 export class ChangeRoleRequestComponent implements OnInit {
   motivation: string = '';
   isSubmitting = false;
   roleChangeForm!: FormGroup;
+  errorMessage: string = '';
+  successMessage: string = '';
 
   constructor(
     private changeRoleService: ChangeRoleService,
-    private messageService: MessageService,
     private router: Router,
     private fb: FormBuilder
   ) {}
@@ -50,39 +38,28 @@ export class ChangeRoleRequestComponent implements OnInit {
       motivation: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(500)]]
     });
   }
+
   onSubmit(): void {
+    this.errorMessage = '';
+    this.successMessage = '';
+
     if (this.motivation.length < 10 || this.motivation.length > 500) {
-      this.messageService.add({
-        severity: 'error',
-        summary: 'Error',
-        detail: 'Please provide a valid motivation (10-500 characters)'
-      });
+      this.errorMessage = 'La motivazione deve essere tra 10 e 500 caratteri';
       return;
     }
 
     this.isSubmitting = true;
-    const motivation = this.motivation;
-    const request = new ChangeRoleRequest(motivation);
+    const request = new ChangeRoleRequest(this.motivation);
 
     this.changeRoleService.requestChangeRole(request).subscribe({
-      next: (response) => {
+      next: () => {
         this.isSubmitting = false;
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Success',
-          detail: 'Your role change request has been submitted successfully'
-        });
-        setTimeout(() => {
-          this.router.navigate(['/profile']);
-        }, 2000);
+        this.successMessage = 'Richiesta inviata con successo';
+        setTimeout(() => this.router.navigate(['/profile']), 2000);
       },
       error: (error) => {
         this.isSubmitting = false;
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Error',
-          detail: error.error.message || 'Failed to submit role change request'
-        });
+        this.errorMessage = error?.error?.message || 'Errore durante l\'invio della richiesta';
       }
     });
   }

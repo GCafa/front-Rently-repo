@@ -3,7 +3,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { PropertyService } from '../../../services/property.service';
 import { PropertyModel } from '../../../models/property-model';
 import { ApiPathUtil } from '../../../utils/ApiPathUtil';
-import { NavbarComponent } from '../../navbar/navbar.component';
 import { CommonModule, Location, NgOptimizedImage } from '@angular/common';
 
 @Component({
@@ -12,7 +11,6 @@ import { CommonModule, Location, NgOptimizedImage } from '@angular/common';
   standalone: true,
   imports: [
     CommonModule,
-    NavbarComponent,
     NgOptimizedImage
   ],
   styleUrls: ['./property-details.component.css']

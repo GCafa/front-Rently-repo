@@ -6,7 +6,6 @@ import { Router } from '@angular/router';
 import { PropertyCreateRequest } from '../../dto/request/PropertyCreateRequest';
 import { Country, State, City } from 'country-state-city';
 import { FormsModule } from '@angular/forms';
-import { NavbarComponent } from '../navbar/navbar.component';
 
 @Component({
   selector: 'app-create-property',
@@ -16,8 +15,7 @@ import { NavbarComponent } from '../navbar/navbar.component';
   imports: [
     CommonModule,
     FormsModule,
-    ReactiveFormsModule,
-    NavbarComponent
+    ReactiveFormsModule
   ]
 })
 export class CreatePropertyComponent {

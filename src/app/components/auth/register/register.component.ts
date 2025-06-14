@@ -4,7 +4,6 @@ import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/
 import {AuthService} from '../../../services/auth.service';
 import {UserRegistrationRequest} from '../../../dto/request/UserRegistrationRequest';
 import {Router, RouterModule} from '@angular/router';
-import {NavbarComponent} from "../../navbar/navbar.component";
 
 @Component({
     selector: 'app-register',
@@ -12,8 +11,7 @@ import {NavbarComponent} from "../../navbar/navbar.component";
     imports: [
         ReactiveFormsModule,
         RouterModule,
-        CommonModule,
-        NavbarComponent
+        CommonModule
     ],
     styleUrls: ['./register.component.css']
 })
