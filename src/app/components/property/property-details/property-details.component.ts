@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PropertyService } from '../../../services/property.service';
 import { PropertyModel } from '../../../models/property-model';
@@ -22,6 +22,8 @@ export class PropertyDetailsComponent implements OnInit {
   errorMessage: string = '';
   loading: boolean = true;
   imageBaseUrl = ApiPathUtil.getImageBaseUrl();
+  currentImageIndex: number = 0;
+  showFullscreen: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -35,6 +37,8 @@ export class PropertyDetailsComponent implements OnInit {
     if (propertyId) {
       this.propertyService.getPropertyById(propertyId).subscribe({
         next: (data) => {
+          console.log('Dati ricevuti:', data);
+          console.log('Valore available:', data.available);
           this.property = data;
           this.loading = false;
         },
@@ -50,7 +54,46 @@ export class PropertyDetailsComponent implements OnInit {
     }
   }
 
+  nextImage(): void {
+    if (this.property?.propertyImages?.length) {
+      this.currentImageIndex = (this.currentImageIndex + 1) % this.property.propertyImages.length;
+    }
+  }
+
+  prevImage(): void {
+    if (this.property?.propertyImages?.length) {
+      this.currentImageIndex = (this.currentImageIndex - 1 + this.property.propertyImages.length) % this.property.propertyImages.length;
+    }
+  }
+
+  selectImage(index: number): void {
+    if (this.property?.propertyImages && index >= 0 && index < this.property.propertyImages.length) {
+      this.currentImageIndex = index;
+    }
+  }
+
   goBack(): void {
     this.location.back();
+  }
+
+  toggleFullscreen(): void {
+    this.showFullscreen = !this.showFullscreen;
+  }
+
+  closeFullscreen(): void {
+    this.showFullscreen = false;
+  }
+
+  @HostListener('document:keydown', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent): void {
+    if (this.showFullscreen) {
+      if (event.key === 'Escape') {
+        this.closeFullscreen();
+      } else if (event.key === 'ArrowRight') {
+        this.nextImage();
+      } else if (event.key === 'ArrowLeft') {
+        this.prevImage();
+      }
+    }
   }
 }
