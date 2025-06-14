@@ -61,7 +61,7 @@ export class PropertyListComponent implements OnInit {
       next: () => {
         const property = this.properties.find(p => p.id === propertyId);
         if (property) {
-          property.isAvailable = !property.isAvailable;
+          property.available = !property.available;
         }
         this.successMessage = 'Stato aggiornato con successo.';
       },

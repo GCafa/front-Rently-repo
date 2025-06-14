@@ -1,53 +1,86 @@
 <app-navbar></app-navbar>
 
-<div class="container mt-5">
-  <h2 class="mb-4 text-center">Le Mie Proprietà</h2>
+<div class="container-fluid property-list-container py-5">
+  <div class="container">
+    <!-- Header migliorato -->
+    <div class="section-header mb-5 text-center">
+      <h2 class="display-5 fw-bold">Le Mie Proprietà</h2>
+      <p class="text-muted">Gestisci i tuoi immobili in affitto</p>
+      <div class="divider mx-auto"></div>
+    </div>
 
-  <!-- Messaggi di errore e successo -->
-  <div *ngIf="errorMessage" class="alert alert-danger text-center">{{ errorMessage }}</div>
-  <div *ngIf="successMessage" class="alert alert-success text-center">{{ successMessage }}</div>
+    <!-- Messaggi di stato migliorati -->
+    <div class="alert-container">
+      <div *ngIf="errorMessage" class="alert alert-danger alert-dismissible fade show shadow-sm" role="alert">
+        <i class="bi bi-exclamation-triangle-fill me-2"></i> {{ errorMessage }}
+        <button type="button" class="btn-close" (click)="errorMessage = ''"></button>
+      </div>
+      <div *ngIf="successMessage" class="alert alert-success alert-dismissible fade show shadow-sm" role="alert">
+        <i class="bi bi-check-circle-fill me-2"></i> {{ successMessage }}
+        <button type="button" class="btn-close" (click)="successMessage = ''"></button>
+      </div>
+    </div>
 
-  <!-- Nessuna proprietà -->
-  <div *ngIf="properties.length === 0 && !errorMessage" class="alert alert-info text-center">
-    Non hai ancora inserito appartamenti.
-  </div>
+    <!-- Nessuna proprietà - design migliorato -->
+    <div *ngIf="properties.length === 0 && !errorMessage" class="empty-state text-center py-5">
+      <i class="bi bi-house-add display-1 text-muted mb-3"></i>
+      <h3>Non hai ancora inserito appartamenti</h3>
+      <p class="text-muted mb-4">Inizia aggiungendo il tuo primo immobile</p>
+      <button class="btn btn-primary btn-lg" routerLink="/add-property">
+        <i class="bi bi-plus-circle me-2"></i>Aggiungi Proprietà
+      </button>
+    </div>
 
-  <!-- Lista proprietà -->
-  <div class="row" *ngIf="properties.length > 0">
-    <div class="col-md-6 col-lg-4 mb-4" *ngFor="let property of properties">
-      <div class="card h-100 shadow-sm">
-        <!-- Immagine -->
-        <img *ngIf="property.propertyImages.length > 0"
-             [src]="ApiPathUtil.getImageBaseUrl() + property.propertyImages[0]"
-             class="card-img-top"
-             alt="Immagine Appartamento"
-             style="height: 200px; object-fit: cover;" />
-
-
-        <div class="card-body d-flex flex-column">
-          <h5 class="card-title">{{ property.title }}</h5>
-          <p class="card-text text-truncate">{{ property.description }}</p>
-          <p><strong>📍 Città:</strong> {{ property.city }}</p>
-          <p><strong>💰 Prezzo:</strong> €{{ property.pricePerNight }} / notte</p>
-          <p>
-            <strong>📌 Stato:</strong>
-            <span [class.text-success]="property.isAvailable" [class.text-danger]="!property.isAvailable">
-              {{ property.isAvailable ? 'Attivo' : 'Disattivato' }}
+    <!-- Lista proprietà -->
+    <div class="row g-4 property-grid" *ngIf="properties.length > 0">
+      <div class="col-md-6 col-lg-4" *ngFor="let property of properties">
+        <div class="property-card card h-100 shadow-sm animate-card">
+          <!-- Immagine con badge di stato -->
+          <div class="position-relative">
+            <img *ngIf="property.propertyImages.length > 0"
+                 [src]="ApiPathUtil.getImageBaseUrl() + property.propertyImages[0]"
+                 class="card-img-top"
+                 alt="Immagine Appartamento" />
+            <div *ngIf="property.propertyImages.length === 0" class="no-image">
+              <i class="bi bi-image text-muted"></i>
+              <span>Nessuna immagine</span>
+            </div>
+            <span class="status-badge" [ngClass]="property.available ? 'badge-available' : 'badge-unavailable'">
+              {{ property.available ? 'Attivo' : 'Non disponibile' }}
             </span>
-          </p>
+          </div>
 
-          <!-- Azioni -->
-          <div class="mt-auto d-flex justify-content-between gap-2 pt-2">
-            <button class="btn btn-outline-primary btn-sm w-100" (click)="viewDetails(property)">
-              Dettagli
-            </button>
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title fw-bold">{{ property.title }}</h5>
+            <p class="card-text text-truncate text-muted">{{ property.description }}</p>
 
-            <button class="btn btn-outline-warning btn-sm w-100" (click)="toggleStatus(property.id)">
-              {{ property.isAvailable ? 'Disattiva' : 'Attiva' }}
-            </button>
-            <button class="btn btn-outline-danger btn-sm w-100" (click)="deleteProperty(property.id)">
-              Elimina
-            </button>
+            <div class="property-details">
+              <div class="detail-item">
+                <i class="bi bi-geo-alt-fill"></i>
+                <span>{{ property.city }}</span>
+              </div>
+              <div class="detail-item">
+                <i class="bi bi-currency-euro"></i>
+                <span>{{ property.pricePerNight }} / notte</span>
+              </div>
+            </div>
+
+            <!-- Azioni -->
+            <div class="mt-auto pt-3 card-actions">
+              <button class="btn btn-outline-primary" (click)="viewDetails(property)">
+                <i class="bi bi-eye me-1"></i> Dettagli
+              </button>
+              <div class="btn-group">
+                <button class="btn" [ngClass]="property.available ? 'btn-outline-warning' : 'btn-outline-success'"
+                        (click)="toggleStatus(property.id)">
+                  <i class="bi" [ngClass]="property.available ? 'bi-pause-circle' : 'bi-play-circle'"></i>
+                  {{ property.available ? 'Disattiva' : 'Attiva' }}
+                </button>
+                <button class="btn btn-outline-danger" (click)="deleteProperty(property.id)">
+                  <i class="bi bi-trash me-1"></i> Elimina
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>

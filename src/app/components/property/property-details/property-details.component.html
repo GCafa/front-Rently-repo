@@ -3,20 +3,45 @@
 <div class="container mt-5">
   <!-- Visualizzazione dettaglio proprietà -->
   <div *ngIf="!loading && property" class="property-details-container">
-    <h2 class="text-center mb-4">{{ property.title }}</h2>
+    <h2 class="text-center mb-4">{{ property!.title }}</h2>
 
     <div class="card shadow-sm mb-4">
       <div class="row g-0">
         <!-- Sezione immagine -->
         <div class="col-md-6">
           <div class="image-container">
-            <img *ngIf="property.propertyImages?.length"
-                 [ngSrc]="imageBaseUrl + property.propertyImages[0]"
-                 width="500"
-                 height="300"
-                 class="img-fluid rounded-start"
-                 alt="Immagine della proprietà" />
-            <div *ngIf="!property.propertyImages?.length" class="no-image-placeholder">
+            <div *ngIf="property!.propertyImages && property!.propertyImages.length" class="image-gallery">
+              <img [ngSrc]="imageBaseUrl + property!.propertyImages[currentImageIndex]"
+                   width="500"
+                   height="300"
+                   class="img-fluid rounded-start"
+                   alt="Immagine della proprietà"
+                   (click)="toggleFullscreen()" />
+
+              <!-- Controlli navigazione -->
+              <div *ngIf="property!.propertyImages && property!.propertyImages.length > 1" class="image-controls">
+                <button class="nav-btn prev" (click)="prevImage()">
+                  <i class="bi bi-chevron-left"></i>
+                </button>
+                <button class="nav-btn next" (click)="nextImage()">
+                  <i class="bi bi-chevron-right"></i>
+                </button>
+              </div>
+
+              <!-- Indicatori -->
+              <div *ngIf="property!.propertyImages && property!.propertyImages.length > 1" class="image-indicators">
+                <span *ngFor="let image of property!.propertyImages; let i = index"
+                      [class.active]="i === currentImageIndex"
+                      (click)="selectImage(i)"></span>
+              </div>
+
+              <!-- Contatore immagini -->
+              <div class="image-counter">
+                {{ currentImageIndex + 1 }} / {{ property!.propertyImages.length }}
+              </div>
+            </div>
+
+            <div *ngIf="!property!.propertyImages?.length" class="no-image-placeholder">
               <i class="bi bi-house"></i>
               <p>Nessuna immagine disponibile</p>
             </div>
@@ -28,32 +53,33 @@
           <div class="card-body">
             <div class="property-section">
               <h4 class="section-title">Descrizione</h4>
-              <p class="property-description">{{ property.description }}</p>
+              <p class="property-description">{{ property!.description }}</p>
             </div>
 
             <div class="property-section">
               <h5 class="section-title"><i class="bi bi-geo-alt"></i> Posizione</h5>
-              <p><strong>Città:</strong> {{ property.city }}</p>
-              <p *ngIf="property.address"><strong>Indirizzo:</strong> {{ property.address }}</p>
+              <p><strong>Città:</strong> {{ property!.city }}</p>
+              <p *ngIf="property!.address"><strong>Indirizzo:</strong> {{ property!.address }}</p>
             </div>
 
             <div class="property-section">
               <h5 class="section-title"><i class="bi bi-cash"></i> Prezzo</h5>
-              <p class="price-tag">€{{ property.pricePerNight }} / notte</p>
+              <p class="price-tag">€{{ property!.pricePerNight }} / notte</p>
             </div>
 
             <div class="property-section">
               <h5 class="section-title"><i class="bi bi-info-circle"></i> Stato</h5>
-              <p [class.text-success]="property.isAvailable" [class.text-danger]="!property.isAvailable">
-                <span class="availability-badge" [ngClass]="property.isAvailable ? 'available' : 'not-available'">
-                  {{ property.isAvailable ? 'Disponibile' : 'Non disponibile' }}
+              <p [class.text-success]="property!.available" [class.text-danger]="!property!.available">
+                <span class="availability-badge" [ngClass]="property!.available ? 'available' : 'not-available'">
+                  {{ property!.available ? 'Disponibile' : 'Non disponibile' }}
                 </span>
+                <small class="text-muted ms-2">(Stato di prenotabilità)</small>
               </p>
             </div>
 
             <!-- Pulsanti azione -->
             <div class="action-buttons mt-4">
-              <button *ngIf="property.isAvailable" class="btn btn-primary">
+              <button *ngIf="property!.available" class="btn btn-primary">
                 <i class="bi bi-calendar-check"></i> Prenota
               </button>
               <button (click)="goBack()" class="btn btn-outline-secondary ms-2">
@@ -82,6 +108,33 @@
       <button (click)="goBack()" class="btn btn-outline-danger">
         <i class="bi bi-arrow-left"></i> Torna alla lista
       </button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal visualizzazione a schermo intero -->
+<div *ngIf="showFullscreen && property && property.propertyImages && property.propertyImages.length" class="fullscreen-modal" tabindex="0">
+  <div class="fullscreen-content">
+    <img [src]="imageBaseUrl + property!.propertyImages[currentImageIndex]"
+         alt="Immagine a schermo intero">
+
+    <div class="fullscreen-controls">
+      <button class="nav-btn fs-prev" (click)="prevImage()"
+              *ngIf="property!.propertyImages && property!.propertyImages.length > 1">
+        <i class="bi bi-chevron-left"></i>
+      </button>
+      <button class="nav-btn fs-next" (click)="nextImage()"
+              *ngIf="property!.propertyImages && property!.propertyImages.length > 1">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+
+    <button class="close-btn" (click)="closeFullscreen()">
+      <i class="bi bi-x-lg"></i>
+    </button>
+
+    <div class="fs-counter">
+      {{ currentImageIndex + 1 }} / {{ property!.propertyImages.length }}
     </div>
   </div>
 </div>

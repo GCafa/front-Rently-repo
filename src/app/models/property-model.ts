@@ -16,7 +16,7 @@ export class PropertyModel {
   maxGuests: number;
   bedrooms: number;
   bathrooms: number;
-  isAvailable: boolean;
+  available: boolean;
   createdAt: Date;
   updatedAt: Date;
   favoritedBy: UserModel[];
@@ -39,7 +39,7 @@ export class PropertyModel {
     maxGuests: number,
     bedrooms: number,
     bathrooms: number,
-    isAvailable: boolean,
+    available: boolean,
     createdAt: Date,
     updatedAt: Date,
     favoritedBy: UserModel[],
@@ -61,7 +61,7 @@ export class PropertyModel {
     this.maxGuests = maxGuests;
     this.bedrooms = bedrooms;
     this.bathrooms = bathrooms;
-    this.isAvailable = isAvailable;
+    this.available = available;
     this.createdAt = createdAt;
     this.updatedAt = updatedAt;
     this.favoritedBy = favoritedBy;
