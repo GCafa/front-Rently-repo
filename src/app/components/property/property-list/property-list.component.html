@@ -1,4 +1,4 @@
-<div class="container-fluid property-list-container py-5">
+ <div class="container-fluid property-list-container py-5">
   <div class="container">
     <!-- Header migliorato -->
     <div class="section-header mb-5 text-center">
@@ -43,8 +43,8 @@
               <i class="bi bi-image text-muted"></i>
               <span>Nessuna immagine</span>
             </div>
-            <span class="status-badge" [ngClass]="property.available ? 'badge-available' : 'badge-unavailable'">
-              {{ property.available ? 'Attivo' : 'Non disponibile' }}
+            <span class="status-badge" [ngClass]="property.isAvailable ? 'badge-available' : 'badge-unavailable'">
+              {{ property.isAvailable ? 'Attivo' : 'Non disponibile' }}
             </span>
           </div>
 
@@ -69,10 +69,10 @@
                 <i class="bi bi-eye me-1"></i> Dettagli
               </button>
               <div class="btn-group">
-                <button class="btn" [ngClass]="property.available ? 'btn-outline-warning' : 'btn-outline-success'"
+                <button class="btn" [ngClass]="property.isAvailable ? 'btn-outline-warning' : 'btn-outline-success'"
                         (click)="toggleStatus(property.id)">
-                  <i class="bi" [ngClass]="property.available ? 'bi-pause-circle' : 'bi-play-circle'"></i>
-                  {{ property.available ? 'Disattiva' : 'Attiva' }}
+                  <i class="bi" [ngClass]="property.isAvailable ? 'bi-pause-circle' : 'bi-play-circle'"></i>
+                  {{ property.isAvailable ? 'Disattiva' : 'Attiva' }}
                 </button>
                 <button class="btn btn-outline-danger" (click)="deleteProperty(property.id)">
                   <i class="bi bi-trash me-1"></i> Elimina

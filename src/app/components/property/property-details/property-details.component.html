@@ -67,9 +67,9 @@
 
             <div class="property-section">
               <h5 class="section-title"><i class="bi bi-info-circle"></i> Stato</h5>
-              <p [class.text-success]="property!.available" [class.text-danger]="!property!.available">
-                <span class="availability-badge" [ngClass]="property!.available ? 'available' : 'not-available'">
-                  {{ property!.available ? 'Disponibile' : 'Non disponibile' }}
+              <p [class.text-success]="property!.isAvailable" [class.text-danger]="!property!.isAvailable">
+                <span class="availability-badge" [ngClass]="property!.isAvailable ? 'available' : 'not-available'">
+                  {{ property!.isAvailable ? 'Disponibile' : 'Non disponibile' }}
                 </span>
                 <small class="text-muted ms-2">(Stato di prenotabilità)</small>
               </p>
@@ -77,7 +77,7 @@
 
             <!-- Pulsanti azione -->
             <div class="action-buttons mt-4">
-              <button *ngIf="property!.available" class="btn btn-primary">
+              <button *ngIf="property!.isAvailable" class="btn btn-primary">
                 <i class="bi bi-calendar-check"></i> Prenota
               </button>
               <button (click)="goBack()" class="btn btn-outline-secondary ms-2">

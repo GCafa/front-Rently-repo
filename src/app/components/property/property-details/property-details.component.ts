@@ -38,7 +38,7 @@ export class PropertyDetailsComponent implements OnInit {
       this.propertyService.getPropertyById(propertyId).subscribe({
         next: (data) => {
           console.log('Dati ricevuti:', data);
-          console.log('Valore available:', data.available);
+          console.log('Valore available:', data.isAvailable);
           this.property = data;
           this.loading = false;
         },
