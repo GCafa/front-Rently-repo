@@ -1,6 +1,6 @@
 <div class="ticket-chat-container" *ngIf="ticket">
   <h3>{{ ticket.title }}</h3>
-  <p class="mb-1"><strong>Stato:</strong> {{ ticket.status }}</p>
+  <p class="mb-1"><strong>Stato:</strong> {{ ticket.status | ticketStatusTranslate }}</p>
   <p><strong>Descrizione:</strong> {{ ticket.description }}</p>
 
   <hr />

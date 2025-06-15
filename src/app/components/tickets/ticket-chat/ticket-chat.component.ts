@@ -4,6 +4,8 @@ import { TicketService } from '../../../services/ticket.service';
 import { TicketDetailResponse } from '../../../dto/TicketDetailResponse';
 import { FormsModule } from '@angular/forms';
 import { DatePipe, NgClass, NgIf, NgForOf } from '@angular/common';
+import { TicketStatus } from '../../../models/ticket-status';
+import { TicketStatusTranslatePipe } from '../../../pipes/ticket-status-translate.pipe';
 
 @Component({
   selector: 'app-ticket-chat',
@@ -16,7 +18,8 @@ import { DatePipe, NgClass, NgIf, NgForOf } from '@angular/common';
     DatePipe,
     NgIf,
     NgForOf,
-    RouterModule
+    RouterModule,
+    TicketStatusTranslatePipe
   ]
 })
 export class TicketChatComponent implements OnInit {
@@ -26,6 +29,7 @@ export class TicketChatComponent implements OnInit {
   error = '';
   loading = false;
   sending = false;
+  TicketStatus = TicketStatus;
 
   constructor(private route: ActivatedRoute, private ticketService: TicketService) {}
 

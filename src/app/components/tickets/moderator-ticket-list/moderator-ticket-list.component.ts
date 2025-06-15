@@ -5,6 +5,7 @@ import {Router, RouterLink} from '@angular/router';
 import {DatePipe, NgClass, NgForOf, NgIf} from '@angular/common';
 import {TicketSummaryWidgetComponent} from '../ticket-summary-widget/ticket-summary-widget.component';
 import {TicketStatus} from '../../../models/ticket-status';
+import {TicketStatusTranslatePipe} from '../../../pipes/ticket-status-translate.pipe';
 
 @Component({
   selector: 'app-moderator-ticket-list',
@@ -15,7 +16,8 @@ import {TicketStatus} from '../../../models/ticket-status';
     NgForOf,
     NgIf,
     NgClass,
-    RouterLink
+    RouterLink,
+    TicketStatusTranslatePipe
   ],
   styleUrls: ['./moderator-ticket-list.component.css']
 })

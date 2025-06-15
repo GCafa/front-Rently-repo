@@ -36,7 +36,7 @@
                   'badge bg-info': ticket.status === TicketStatus.IN_PROGRESS,
                   'badge bg-success': ticket.status === TicketStatus.SOLVED,
                   'badge bg-secondary': ticket.status === TicketStatus.CLOSED
-                }" class="me-2">{{ ticket.status }}</span>
+                }" class="me-2">{{ ticket.status | ticketStatusTranslate }}</span>
                                 <small class="text-muted">
                                     <i class="bi bi-calendar-event me-1"></i>Creato il: {{ ticket.creationDate | date:'short' }}
                                 </small>

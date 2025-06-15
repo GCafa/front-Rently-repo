@@ -4,6 +4,7 @@ import { TicketModel } from '../../../models/ticket-model';
 import {Router, RouterLink} from '@angular/router';
 import { DatePipe, NgClass, NgForOf, NgIf } from '@angular/common';
 import {TicketStatus} from '../../../models/ticket-status';
+import {TicketStatusTranslatePipe} from '../../../pipes/ticket-status-translate.pipe';
 
 @Component({
   selector: 'app-my-tickets',
@@ -15,7 +16,8 @@ import {TicketStatus} from '../../../models/ticket-status';
     NgForOf,
     NgIf,
     NgClass,
-    RouterLink
+    RouterLink,
+    TicketStatusTranslatePipe
   ]
 })
 export class MyTicketsComponent implements OnInit {
