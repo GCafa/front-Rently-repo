@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { TicketService} from '../../../services/ticket.service';
 import { TicketModel} from '../../../models/ticket-model';
 import { NgIf, CommonModule } from '@angular/common';
+import {TicketStatus} from '../../../models/ticket-status';
 
 @Component({
   selector: 'app-ticket-summary-widget',
@@ -17,10 +18,13 @@ export class TicketSummaryWidgetComponent implements OnInit {
   total = 0;
   pending = 0;
   inProgress = 0;
-  resolved = 0;
+  solved = 0;
   closed = 0;
   loading = true;
   error = false;
+
+  // Add an event emitter for status filter
+  @Output() filterByStatus = new EventEmitter<string | null>();
 
   constructor(private ticketService: TicketService) {}
 
@@ -34,10 +38,10 @@ export class TicketSummaryWidgetComponent implements OnInit {
       next: (tickets: TicketModel[]) => {
         console.log('Tickets ricevuti:', tickets);
         this.total = tickets.length;
-        this.pending = tickets.filter(t => t.status === 'OPEN').length;
-        this.inProgress = tickets.filter(t => t.status === 'IN_PROGRESS').length;
-        this.resolved = tickets.filter(t => t.status === 'RESOLVED').length;
-        this.closed = tickets.filter(t => t.status === 'CLOSED').length;
+        this.pending = tickets.filter(t => t.status === TicketStatus.OPEN).length;
+        this.inProgress = tickets.filter(t => t.status === TicketStatus.IN_PROGRESS).length;
+        this.solved = tickets.filter(t => t.status === TicketStatus.SOLVED).length;
+        this.closed = tickets.filter(t => t.status === TicketStatus.CLOSED).length;
         this.loading = false;
       },
       error: (err) => {
@@ -46,5 +50,26 @@ export class TicketSummaryWidgetComponent implements OnInit {
         this.error = true;
       }
     });
+  }
+
+  // Add methods to handle clicks on status widgets
+  onTotalClick(): void {
+    this.filterByStatus.emit(null); // null means show all tickets
+  }
+
+  onPendingClick(): void {
+    this.filterByStatus.emit(TicketStatus.OPEN);
+  }
+
+  onInProgressClick(): void {
+    this.filterByStatus.emit(TicketStatus.IN_PROGRESS);
+  }
+
+  onSolvedClick(): void {
+    this.filterByStatus.emit(TicketStatus.SOLVED);
+  }
+
+  onClosedClick(): void {
+    this.filterByStatus.emit(TicketStatus.CLOSED);
   }
 }

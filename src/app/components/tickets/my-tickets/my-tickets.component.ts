@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { TicketService } from '../../../services/ticket.service';
 import { TicketModel } from '../../../models/ticket-model';
-import { Router } from '@angular/router';
+import {Router, RouterLink} from '@angular/router';
 import { DatePipe, NgClass, NgForOf, NgIf } from '@angular/common';
+import {TicketStatus} from '../../../models/ticket-status';
 
 @Component({
   selector: 'app-my-tickets',
@@ -13,7 +14,8 @@ import { DatePipe, NgClass, NgForOf, NgIf } from '@angular/common';
     DatePipe,
     NgForOf,
     NgIf,
-    NgClass
+    NgClass,
+    RouterLink
   ]
 })
 export class MyTicketsComponent implements OnInit {
@@ -45,4 +47,6 @@ export class MyTicketsComponent implements OnInit {
     console.log(id);
     this.router.navigate(['/ticket', id]);
   }
+
+  protected readonly TicketStatus = TicketStatus;
 }

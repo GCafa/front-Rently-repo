@@ -10,7 +10,13 @@
     <div class="spinner-border" role="status"></div>
   </div>
 
-  <app-ticket-summary-widget></app-ticket-summary-widget>
+  <app-ticket-summary-widget (filterByStatus)="onFilterByStatus($event)"></app-ticket-summary-widget>
+
+  <!-- Optional: Show current filter status -->
+  <div *ngIf="currentStatus" class="alert alert-info mt-3">
+    Filtrando per stato: {{ currentStatus }}
+    <button class="btn btn-sm btn-outline-secondary ms-2" (click)="onFilterByStatus(null)">Rimuovi filtro</button>
+  </div>
 
   <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
 
@@ -25,16 +31,15 @@
         <p class="mb-1">{{ ticket.description }}</p>
         <div class="d-flex gap-2 align-items-center">
           <span class="badge" [ngClass]="{
-            'bg-warning': ticket.status === 'OPEN',
-            'bg-info': ticket.status === 'IN_PROGRESS',
-            'bg-success': ticket.status === 'RESOLVED' || ticket.status === 'CLOSED',
-            'bg-danger': ticket.status === 'REJECTED'
+            'bg-warning': ticket.status === TicketStatus.OPEN,
+            'bg-info': ticket.status === TicketStatus.IN_PROGRESS,
+            'bg-success': ticket.status === TicketStatus.SOLVED || ticket.status === TicketStatus.CLOSED
           }">{{ ticket.status }}</span>
           <small>Creato da <strong>{{ ticket.user.username }}</strong> - {{ ticket.creationDate | date:'short' }}</small>
         </div>
       </div>
       <div class="d-flex flex-column align-items-end gap-2">
-        <button *ngIf="ticket.status === 'OPEN'" class="btn btn-outline-success" (click)="acceptTicket(ticket.id)">Accetta</button>
+        <button *ngIf="ticket.status === TicketStatus.OPEN" class="btn btn-outline-success" (click)="acceptTicket(ticket.id)">Accetta</button>
         <button class="btn btn-outline-primary" (click)="viewTicket(ticket.id)">Visualizza</button>
       </div>
     </div>

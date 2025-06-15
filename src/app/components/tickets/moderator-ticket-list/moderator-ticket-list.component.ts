@@ -4,6 +4,7 @@ import { TicketService} from '../../../services/ticket.service';
 import {Router, RouterLink} from '@angular/router';
 import {DatePipe, NgClass, NgForOf, NgIf} from '@angular/common';
 import {TicketSummaryWidgetComponent} from '../ticket-summary-widget/ticket-summary-widget.component';
+import {TicketStatus} from '../../../models/ticket-status';
 
 @Component({
   selector: 'app-moderator-ticket-list',
@@ -22,6 +23,8 @@ export class ModeratorTicketListComponent implements OnInit {
   tickets: TicketModel[] = [];
   loading = false;
   error = '';
+  currentStatus: string | null = null;
+  TicketStatus = TicketStatus;
 
   constructor(private ticketService: TicketService, private router: Router) {}
 
@@ -29,18 +32,24 @@ export class ModeratorTicketListComponent implements OnInit {
     this.loadTickets();
   }
 
-  loadTickets(): void {
+  loadTickets(status: string | null = null): void {
     this.loading = true;
-    this.ticketService.getAllTickets().subscribe({
+    this.currentStatus = status;
+
+    this.ticketService.getAllTickets(status || undefined).subscribe({
       next: (tickets) => {
         this.tickets = tickets;
         this.loading = false;
       },
       error: () => {
-        this.error = 'Errore nel caricamento dei ticket aperti';
+        this.error = 'Errore nel caricamento dei ticket';
         this.loading = false;
       }
     });
+  }
+
+  onFilterByStatus(status: string | null): void {
+    this.loadTickets(status);
   }
 
   acceptTicket(id: number): void {

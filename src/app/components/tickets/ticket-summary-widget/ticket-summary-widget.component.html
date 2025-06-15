@@ -14,23 +14,23 @@
     </div>
 
     <div *ngIf="!loading && !error" class="summary-stats">
-      <div class="stat-item total">
+      <div class="stat-item total" (click)="onTotalClick()" style="cursor: pointer;">
         <div class="stat-value">{{total}}</div>
         <div class="stat-label">Totale</div>
       </div>
-      <div class="stat-item pending">
+      <div class="stat-item pending" (click)="onPendingClick()" style="cursor: pointer;">
         <div class="stat-value">{{pending}}</div>
         <div class="stat-label">In attesa</div>
       </div>
-      <div class="stat-item in-progress">
+      <div class="stat-item in-progress" (click)="onInProgressClick()" style="cursor: pointer;">
         <div class="stat-value">{{inProgress}}</div>
         <div class="stat-label">In corso</div>
       </div>
-      <div class="stat-item resolved">
-        <div class="stat-value">{{resolved}}</div>
+      <div class="stat-item resolved" (click)="onSolvedClick()" style="cursor: pointer;">
+        <div class="stat-value">{{solved}}</div>
         <div class="stat-label">Risolti</div>
       </div>
-      <div class="stat-item rejected">
+      <div class="stat-item rejected" (click)="onClosedClick()" style="cursor: pointer;">
         <div class="stat-value">{{closed}}</div>
         <div class="stat-label">Chiusi</div>
       </div>
