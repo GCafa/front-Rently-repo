@@ -16,7 +16,12 @@ import {FindAllChangeRoleRequestComponent} from './components/change-role/find-a
 import {CreatePropertyComponent} from './components/create-property/create-property.component';
 import {PropertyListComponent} from './components/property/property-list/property-list.component';
 import { PropertyDetailsComponent } from './components/property/property-details/property-details.component';
-import {TicketsComponent} from './components/tickets/tickets.component';
+import {CreateTicketComponent} from './components/tickets/create-ticket/create-ticket.component';
+import {MyTicketsComponent} from './components/tickets/my-tickets/my-tickets.component';
+import {ModeratorTicketListComponent} from './components/tickets/moderator-ticket-list/moderator-ticket-list.component';
+import {TicketChatComponent} from './components/tickets/ticket-chat/ticket-chat.component';
+
+
 
 export const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -36,7 +41,10 @@ export const routes: Routes = [
   { path: 'create-property', component: CreatePropertyComponent, canActivate: [authGuard] },
   { path: 'property-list', component: PropertyListComponent, canActivate: [authGuard] },
   { path: 'property-details/:id', component: PropertyDetailsComponent, canActivate: [authGuard] },
-  { path: 'tickets', component: TicketsComponent, canActivate: [authGuard]},
+  { path: 'create-ticket', component: CreateTicketComponent, canActivate: [authGuard]},
+  { path: 'my-tickets', component: MyTicketsComponent, canActivate: [authGuard]},
+  { path: 'moderator-tickets', component: ModeratorTicketListComponent, canActivate: [authGuard]},
+  { path: 'ticket/:id', component: TicketChatComponent, canActivate: [authGuard]},
   // Fallback route
   { path: '**', redirectTo: '/home' }
 ];

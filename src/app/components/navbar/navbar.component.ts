@@ -176,7 +176,7 @@ export class NavbarComponent implements OnInit {
   }
 
   goToTicket(): void {
-    this.router.navigate(['/tickets']);
+    this.router.navigate(['/moderator-tickets']);
   }
 
   goToChangeRoleRequest(): void {

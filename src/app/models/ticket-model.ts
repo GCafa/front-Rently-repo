@@ -1,7 +1,7 @@
 import {UserModel} from "./user-model";
 
 export class TicketModel {
-  ticketId: number;
+  id: number;
   title: string;
   description: string;
   creationDate: Date;
@@ -10,7 +10,7 @@ export class TicketModel {
   status: string;
 
   constructor(
-    ticketId: number,
+    id: number,
     title: string,
     description: string,
     creationDate: Date,
@@ -18,7 +18,7 @@ export class TicketModel {
     user: UserModel,
     status: string
   ) {
-    this.ticketId = ticketId;
+    this.id = id;
     this.title = title;
     this.description = description;
     this.creationDate = creationDate;
