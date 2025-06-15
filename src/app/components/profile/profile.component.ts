@@ -18,6 +18,8 @@ export class ProfileComponent implements OnInit {
   loading: boolean = true;
   errorMessage: string = '';
   isHost: boolean = false;
+  isClient: boolean = false;
+
 
   constructor(
     private userService: UserService,
@@ -29,6 +31,7 @@ export class ProfileComponent implements OnInit {
       next: (user) => {
         this.user = user;
         this.isHost = user.role === 'HOST';
+        this.isClient = user.role === 'CLIENT';
         this.loading = false;
       },
       error: () => {
@@ -37,6 +40,7 @@ export class ProfileComponent implements OnInit {
       }
     });
   }
+
 
   onImageError(): void {
     if (this.user) {

@@ -1,0 +1,98 @@
+/* Stili generali */
+.container {
+  max-width: 1200px;
+}
+
+/* Stili per la card principale */
+.card {
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  border: none;
+}
+
+.card-body {
+  padding: 1.5rem;
+}
+
+.shadow-sm {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08) !important;
+}
+
+/* Stili per gli elementi della lista */
+.list-group-item {
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  border-radius: 8px !important;
+  border-left: 4px solid transparent;
+}
+
+.hover-effect:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  border-left: 4px solid #0d6efd;
+}
+
+/* Stili per i badge di stato */
+.badge {
+  padding: 0.5rem 0.75rem;
+  font-weight: 500;
+  border-radius: 6px;
+  font-size: 0.85rem;
+}
+
+/* Personalizzazione titoli e testi */
+h2 {
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+h5.text-primary {
+  font-weight: 600;
+}
+
+.text-muted {
+  font-size: 0.95rem;
+}
+
+/* Stili per i bottoni */
+.btn-primary {
+  transition: all 0.2s;
+  border-radius: 8px;
+}
+
+.btn-primary:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(13, 110, 253, 0.2);
+}
+
+.btn-outline-secondary {
+  border-radius: 8px;
+  padding: 8px 16px;
+}
+
+.btn-outline-secondary:hover {
+  background-color: #f8f9fa;
+  color: #6c757d;
+}
+
+/* Animazioni per il caricamento */
+.spinner-border {
+  width: 2rem;
+  height: 2rem;
+}
+
+/* Stili responsivi */
+@media (max-width: 768px) {
+  .d-flex.justify-content-between {
+    flex-direction: column;
+    align-items: flex-start !important;
+  }
+
+  .d-flex.justify-content-between a.btn {
+    margin-top: 1rem;
+    align-self: flex-start;
+  }
+
+  .d-flex.justify-content-between.align-items-center div {
+    margin-bottom: 1rem;
+  }
+}

@@ -1,0 +1,38 @@
+.ticket-chat-container {
+  max-width: 800px;
+  margin: auto;
+}
+
+.chat-box {
+  max-height: 400px;
+  overflow-y: auto;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+.reply-user {
+  text-align: left;
+  margin-bottom: 1rem;
+}
+
+.reply-moderator {
+  text-align: right;
+  margin-bottom: 1rem;
+}
+
+.meta {
+  font-size: 0.85rem;
+  color: #666;
+}
+
+.content {
+  background-color: #e2e2e2;
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  border-radius: 12px;
+  max-width: 75%;
+  word-wrap: break-word;
+}

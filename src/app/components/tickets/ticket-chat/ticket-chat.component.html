@@ -1,0 +1,28 @@
+<div class="ticket-chat-container" *ngIf="ticket">
+  <h3>{{ ticket.title }}</h3>
+  <p class="mb-1"><strong>Stato:</strong> {{ ticket.status }}</p>
+  <p><strong>Descrizione:</strong> {{ ticket.description }}</p>
+
+  <hr />
+
+  <div class="chat-box">
+    <div *ngFor="let reply of ticket.replies" [ngClass]="{ 'reply-moderator': reply.fromModerator, 'reply-user': !reply.fromModerator }" class="mb-3 p-2 border rounded">
+      <div class="meta mb-1">
+        <strong>{{ reply.user.username }}</strong>
+        <span class="ms-2 text-muted">{{ reply.creationDate | date:'short' }}</span>
+      </div>
+      <p class="content mb-0">{{ reply.content }}</p>
+    </div>
+  </div>
+
+  <form (ngSubmit)="sendReply()" class="d-flex gap-2 mt-3">
+    <input type="text" class="form-control" [(ngModel)]="newMessage" name="message" placeholder="Scrivi una risposta..." />
+    <button class="btn btn-success" type="submit" [disabled]="sending">Invia</button>
+  </form>
+
+  <div *ngIf="error" class="alert alert-danger mt-2">{{ error }}</div>
+</div>
+
+<div *ngIf="loading" class="text-center my-5">
+  <div class="spinner-border" role="status"></div>
+</div>

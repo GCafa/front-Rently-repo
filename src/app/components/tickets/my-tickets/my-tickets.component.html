@@ -1,0 +1,53 @@
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2><i class="bi bi-ticket-perforated text-primary me-2"></i>I Miei Ticket</h2>
+            <p class="text-muted">Visualizza e gestisci le tue richieste di assistenza</p>
+        </div>
+        <a routerLink="/profile" class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left"></i> Indietro
+        </a>
+    </div>
+
+    <div class="card shadow-sm mb-4">
+        <div class="card-body">
+            <div *ngIf="loading" class="text-center my-3">
+                <div class="spinner-border text-primary" role="status"></div>
+                <p class="mt-2">Caricamento in corso...</p>
+            </div>
+
+            <div *ngIf="error" class="alert alert-danger">
+                <i class="bi bi-exclamation-triangle-fill me-2"></i>{{ error }}
+            </div>
+
+            <div *ngIf="!loading && myTickets.length === 0" class="alert alert-info">
+                <i class="bi bi-info-circle me-2"></i>Nessun ticket trovato.
+            </div>
+
+            <div *ngIf="myTickets.length > 0" class="list-group">
+                <div *ngFor="let ticket of myTickets" class="list-group-item list-group-item-action border rounded mb-3 p-3 hover-effect">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h5 class="mb-1 text-primary">{{ ticket.title }}</h5>
+                            <p class="mb-2">{{ ticket.description }}</p>
+                            <div>
+                <span [ngClass]="{
+                  'badge bg-warning': ticket.status === 'OPEN',
+                  'badge bg-info': ticket.status === 'IN_PROGRESS',
+                  'badge bg-success': ticket.status === 'RESOLVED',
+                  'badge bg-secondary': ticket.status === 'CLOSED'
+                }" class="me-2">{{ ticket.status }}</span>
+                                <small class="text-muted">
+                                    <i class="bi bi-calendar-event me-1"></i>Creato il: {{ ticket.creationDate | date:'short' }}
+                                </small>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary" (click)="viewTicket(ticket.id)">
+                            <i class="bi bi-eye me-1"></i>Visualizza
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
