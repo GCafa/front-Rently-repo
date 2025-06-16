@@ -6,6 +6,7 @@ import { CustomResponse } from '../dto/CustomResponse';
 import { ApiPathUtil } from '../utils/ApiPathUtil';
 import {PropertyCreateRequest} from '../dto/request/PropertyCreateRequest';
 import {PropertyUpdateRequest} from '../dto/request/PropertyUpdateRequest';
+import {AvailablePropertyRequest} from '../dto/request/AvailablePropertyRequest';
 
 @Injectable({
   providedIn: 'root'
@@ -61,5 +62,9 @@ export class PropertyService {
 
   toggleActiveStatus(propertyId: number): Observable<CustomResponse> {
     return this.http.post<CustomResponse>(`${this.apiUrl}/toggle-active/${propertyId}`, null);
+  }
+
+  searchAvailableProperties(availablePropertiesRequest: AvailablePropertyRequest): Observable<PropertyModel[]> {
+    return this.http.post<PropertyModel[]>(`${this.apiUrl}/search-available`, availablePropertiesRequest);
   }
 }
