@@ -69,7 +69,7 @@ export class AuthService {
   login(loginData: UserLoginRequest): Observable<LoginResponse> {
     return this.http.post<LoginResponse>(`${this.getAuthPath()}/login`, loginData).pipe(
       tap(response => {
-        if (response.jwt) { // ✅ Fix: usa 'jwt' invece di 'token'
+        if (response.jwt) {
           localStorage.setItem(this.tokenKey, response.jwt);
           this.loadStoredUser(); // opzionale: se vuoi popolare currentUserSubject
         }

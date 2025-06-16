@@ -120,6 +120,14 @@ export class NavbarComponent implements OnInit {
         visible: this.isClient,
         command: () => this.goToRechargeBalance()
       },
+
+      {
+        label: 'Prenota',
+        icon: 'fa-solid fa-calendar-check',
+        visible: this.isClient,
+        command: () => this.goToViewAllProperties()
+      },
+
       {
         label: 'Appartamenti preferiti',
         icon: 'fa-solid fa-boxes-stacked',
@@ -173,6 +181,10 @@ export class NavbarComponent implements OnInit {
 
   goToRechargeBalance(): void {
     this.router.navigate(['/recharge-balance']);
+  }
+
+  goToViewAllProperties(): void {
+    this.router.navigate(['/properties']);
   }
 
   goToTicket(): void {

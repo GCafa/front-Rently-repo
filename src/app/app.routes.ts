@@ -20,6 +20,8 @@ import {CreateTicketComponent} from './components/tickets/create-ticket/create-t
 import {MyTicketsComponent} from './components/tickets/my-tickets/my-tickets.component';
 import {ModeratorTicketListComponent} from './components/tickets/moderator-ticket-list/moderator-ticket-list.component';
 import {TicketChatComponent} from './components/tickets/ticket-chat/ticket-chat.component';
+import {CreateBookingComponent} from './components/booking/create-booking/create-booking.component';
+import {ViewAllPropertiesComponent} from './components/property/view-all-properties/view-all-properties.component';
 
 
 
@@ -45,6 +47,9 @@ export const routes: Routes = [
   { path: 'my-tickets', component: MyTicketsComponent, canActivate: [authGuard]},
   { path: 'moderator-tickets', component: ModeratorTicketListComponent, canActivate: [authGuard]},
   { path: 'ticket/:id', component: TicketChatComponent, canActivate: [authGuard]},
+  { path: 'create-booking', component: CreateBookingComponent, canActivate: [authGuard]},
+  { path: 'properties', component: ViewAllPropertiesComponent, canActivate: [authGuard]},
+
   // Fallback route
   { path: '**', redirectTo: '/home' }
 ];
