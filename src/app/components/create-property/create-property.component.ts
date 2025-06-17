@@ -81,13 +81,32 @@ export class CreatePropertyComponent {
       return;
     }
 
-    const propertyRequest: PropertyCreateRequest = this.propertyForm.value;
+    // Get form values
+    const formValues = this.propertyForm.value;
+
+    // Create a copy of the form values for the request
+    const propertyRequest: PropertyCreateRequest = { ...formValues };
+
+    // Convert country ISO code to actual name
+    const countryObj = this.countries.find(c => c.isoCode === formValues.country);
+    if (countryObj) {
+      propertyRequest.country = countryObj.name;
+    }
+
+    // Convert state ISO code to actual name
+    const stateObj = this.states.find(s => s.isoCode === formValues.state);
+    if (stateObj) {
+      propertyRequest.state = stateObj.name;
+    }
+
+    // City is already the actual name, no conversion needed
 
     this.propertyService.createProperty(propertyRequest, this.selectedImages).subscribe({
       next: () => {
         this.successMessage = 'Appartamento creato con successo!';
       },
       error: () => {
+        console.log(propertyRequest);
         this.errorMessage = 'Errore durante la creazione dell\'appartamento';
       }
     });

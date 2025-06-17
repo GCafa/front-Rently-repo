@@ -49,6 +49,7 @@ export const routes: Routes = [
   { path: 'ticket/:id', component: TicketChatComponent, canActivate: [authGuard]},
   { path: 'create-booking', component: CreateBookingComponent, canActivate: [authGuard]},
   { path: 'properties', component: ViewAllPropertiesComponent, canActivate: [authGuard]},
+  { path: 'my-bookings', loadComponent: () => import('./components/booking/my-bookings/my-bookings.component').then(m => m.MyBookingsComponent), canActivate: [authGuard]},
 
   // Fallback route
   { path: '**', redirectTo: '/home' }

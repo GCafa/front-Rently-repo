@@ -159,6 +159,12 @@ export class NavbarComponent implements OnInit {
         command: () => this.goToCreateProperty()
       },
       {
+        label: 'Le tue Prenotazioni',
+        icon: 'fa-solid fa-gavel',
+        visible: this.isClient,
+        command: () => this.goToMyBookings()
+      },
+      {
         label: 'Logout',
         icon: 'fa fa-sign-out-alt',
         visible: true,
@@ -209,6 +215,10 @@ export class NavbarComponent implements OnInit {
 
   goToCreateProperty(): void {
     this.router.navigate(['/create-property']);
+  }
+
+  goToMyBookings(): void {
+    this.router.navigate(['/my-bookings']);
   }
 
   logout(): void {

@@ -1,24 +1,78 @@
-<div class="property-list-container">
-  <h2>Scopri le proprietà disponibili</h2>
+<div class="container py-5">
+  <!-- Banner -->
+  <div class="text-center mb-5">
+    <h1 class="display-5 fw-bold custom-primary">Trova la casa perfetta per il tuo soggiorno</h1>
+    <p class="text-muted fs-5">Inserisci i tuoi criteri per visualizzare le proprietà disponibili</p>
+  </div>
 
-  <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+  <!-- Form di ricerca -->
+  <div class="row justify-content-center mb-5">
+    <div class="col-lg-10">
+      <div class="card border-0 shadow rounded-4">
+        <div class="card-body p-4">
+          <form (ngSubmit)="searchAvailable()" class="row g-4 align-items-end">
+            <div class="col-md-6 col-lg-2">
+              <label for="checkInDate" class="form-label">Check-in</label>
+              <input type="date" class="form-control" id="checkInDate" [(ngModel)]="checkInDate" name="checkInDate" required />
+            </div>
 
-  <div class="property-grid">
-    <div
-      class="property-card"
-      *ngFor="let property of properties"
-      (click)="goToDetails(property.id)"
-    >
-      <img
-        [src]="getImageUrl(property)"
-        alt="Immagine proprietà"
-        class="property-image"
-      />
-      <div class="property-info">
-        <h3>{{ property.title }}</h3>
-        <p>{{ property.city }}, {{ property.country }}</p>
-        <p><strong>Prezzo:</strong> €{{ property.pricePerNight }}/notte</p>
+            <div class="col-md-6 col-lg-2">
+              <label for="checkOutDate" class="form-label">Check-out</label>
+              <input type="date" class="form-control" id="checkOutDate" [(ngModel)]="checkOutDate" name="checkOutDate" required />
+            </div>
+
+            <div class="col-md-6 col-lg-3">
+              <label for="city" class="form-label">Città</label>
+              <input type="text" class="form-control" id="city" [(ngModel)]="city" name="city" required placeholder="Es. Milano" />
+            </div>
+
+            <div class="col-md-3 col-lg-2">
+              <label for="numOfAdults" class="form-label">Adulti</label>
+              <input type="number" class="form-control" id="numOfAdults" [(ngModel)]="numOfAdults" name="numOfAdults" required min="1" />
+            </div>
+
+            <div class="col-md-3 col-lg-2">
+              <label for="numOfChildren" class="form-label">Bambini</label>
+              <input type="number" class="form-control" id="numOfChildren" [(ngModel)]="numOfChildren" name="numOfChildren" required min="0" />
+            </div>
+
+            <div class="col-12 col-lg-1 d-grid">
+              <button type="submit" class="btn btn-primary">
+                <i class="fas fa-search me-1"></i> Cerca
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
+    </div>
+  </div>
+
+  <!-- Messaggio di errore -->
+  <div class="row" *ngIf="errorMessage">
+    <div class="col-12">
+      <div class="alert alert-danger text-center fw-semibold">{{ errorMessage }}</div>
+    </div>
+  </div>
+
+  <!-- Lista proprietà -->
+  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4" *ngIf="properties.length > 0">
+    <div class="col" *ngFor="let property of properties">
+      <div class="card h-100 shadow-sm border-0 rounded-4 hover-scale" (click)="goToDetails(property.id)">
+        <img [src]="getImageUrl(property)" class="card-img-top img-fluid rounded-top" alt="Immagine proprietà" />
+        <div class="card-body">
+          <h5 class="card-title fw-bold">{{ property.title }}</h5>
+          <p class="card-text text-muted">{{ property.city }}, {{ property.country }}</p>
+          <p class="card-text fs-5 fw-semibold custom-primary">€{{ property.pricePerNight }}/notte</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Nessuna proprietà trovata -->
+  <div class="row" *ngIf="properties.length === 0 && !errorMessage">
+    <div class="col-12 text-center my-5">
+      <img src="assets/img/empty-state.svg" alt="Nessuna proprietà" class="mb-3" style="max-width: 200px; opacity: 0.5;" />
+      <p class="text-muted fs-5">Nessuna proprietà disponibile. Prova a modificare i criteri di ricerca.</p>
     </div>
   </div>
 </div>

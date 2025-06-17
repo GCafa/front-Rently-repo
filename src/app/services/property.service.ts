@@ -65,6 +65,6 @@ export class PropertyService {
   }
 
   searchAvailableProperties(availablePropertiesRequest: AvailablePropertyRequest): Observable<PropertyModel[]> {
-    return this.http.post<PropertyModel[]>(`${this.apiUrl}/search-available`, availablePropertiesRequest);
+    return this.http.post<PropertyModel[]>(`${this.apiUrl}/search/available`, availablePropertiesRequest);
   }
 }

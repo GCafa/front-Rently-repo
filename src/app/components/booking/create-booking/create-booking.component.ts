@@ -30,11 +30,10 @@ export class CreateBookingComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // Access state from history object
     const state = history.state;
     this.property = state.property as PropertyModel | null;
 
-    console.log('Property from state:', this.property);
+    console.log('📦 Property from state:', this.property);
 
     if (!this.property) {
       this.errorMessage = 'Proprietà non disponibile.';
@@ -72,22 +71,19 @@ export class CreateBookingComponent implements OnInit {
           form.couponCode
         );
 
+        // ✅ Aggiunta del log
+        console.log('📤 BookingCreateRequest inviato:', bookingRequest);
+
         this.bookingService.saveBooking(bookingRequest).subscribe({
           next: (res) => {
             this.successMessage = 'Prenotazione completata con successo!';
           },
           error: (error) => {
-            // Get the error message from the response
             const errorMsg = error.error?.message || error.message || 'Errore sconosciuto';
 
-            // Map specific backend error messages to Italian translations
             if (errorMsg.includes('Unable to complete the payment')) {
               this.errorMessage = 'Saldo insufficiente per completare la prenotazione.';
-
-              // Reindirizzamento automatico alla pagina di ricarica
-              setTimeout(() => {
-                this.router.navigate(['/recharge-balance']);
-              }, 1500);
+              setTimeout(() => this.router.navigate(['/recharge-balance']), 1500);
             }
             else if (errorMsg.includes('Property not available for the selected dates')) {
               this.errorMessage = 'Proprietà non disponibile per le date selezionate. Scegli date diverse.';
