@@ -6,8 +6,8 @@ import { AuthService } from '../../../services/auth.service';
 import { PropertyModel } from '../../../models/property-model';
 import { BookingCreateRequest } from '../../../dto/request/BookingCreateRequest';
 import { CommonModule, NgIf } from '@angular/common';
-import {UserModel} from '../../../models/user-model';
-import {UserService} from '../../../services/user.service';
+import { UserModel } from '../../../models/user-model';
+import { UserService } from '../../../services/user.service';
 
 @Component({
   selector: 'app-create-booking',
@@ -25,7 +25,8 @@ export class CreateBookingComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private bookingService: BookingService,
-    private userService: UserService
+    private userService: UserService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -75,8 +76,28 @@ export class CreateBookingComponent implements OnInit {
           next: (res) => {
             this.successMessage = 'Prenotazione completata con successo!';
           },
-          error: () => {
-            this.errorMessage = 'Errore durante la prenotazione.';
+          error: (error) => {
+            // Get the error message from the response
+            const errorMsg = error.error?.message || error.message || 'Errore sconosciuto';
+
+            // Map specific backend error messages to Italian translations
+            if (errorMsg.includes('Unable to complete the payment')) {
+              this.errorMessage = 'Saldo insufficiente per completare la prenotazione.';
+
+              // Reindirizzamento automatico alla pagina di ricarica
+              setTimeout(() => {
+                this.router.navigate(['/recharge-balance']);
+              }, 1500);
+            }
+            else if (errorMsg.includes('Property not available for the selected dates')) {
+              this.errorMessage = 'Proprietà non disponibile per le date selezionate. Scegli date diverse.';
+            }
+            else if (errorMsg.includes('Coupon not found')) {
+              this.errorMessage = 'Il codice coupon inserito non è valido.';
+            }
+            else {
+              this.errorMessage = 'Errore durante la prenotazione: ' + errorMsg;
+            }
           }
         });
       },
