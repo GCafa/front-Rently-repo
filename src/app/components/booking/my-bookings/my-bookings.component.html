@@ -12,15 +12,16 @@
   <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4" *ngIf="!loading && bookings.length > 0">
     <div class="col" *ngFor="let booking of bookings">
       <div class="card h-100 shadow-sm rounded-4">
-        <img [src]="booking.property.propertyImages?.[0] || 'assets/img/no-image.jpg'"
+        <img [src]="ApiPathUtil.getImageBaseUrl() + booking.property.propertyImages[0]"
              class="card-img-top" style="height: 200px; object-fit: cover;" alt="Foto proprietà">
         <div class="card-body">
           <h5 class="card-title fw-bold">{{ booking.property.title }}</h5>
           <p class="card-text">
-            <strong>Dal:</strong> {{ booking.checkInDate | date:'shortDate' }}<br>
-            <strong>Al:</strong> {{ booking.checkOutDate | date:'shortDate' }}<br>
+            <strong> Check In:</strong> {{ booking.checkInDate | date:'shortDate' }}<br>
+            <strong> Check Out:</strong> {{ booking.checkOutDate | date:'shortDate' }}<br>
             <strong>Ospiti:</strong> {{ booking.numOfAdults + booking.numOfChildren }}<br>
-            <strong>Totale:</strong> €{{ booking.total }}
+            <strong>Totale:</strong> €{{ booking.total }},<br>
+            <strong>Codice Prenotazione:</strong> {{ booking.bookingConfirmationCode }}
           </p>
           <span class="badge" [ngClass]="{
             'bg-success': booking.status === 'CONFIRMED',
