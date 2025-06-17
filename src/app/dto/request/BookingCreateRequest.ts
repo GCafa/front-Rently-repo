@@ -4,9 +4,8 @@ import {PropertyModel} from "../../models/property-model";
 export class BookingCreateRequest {
   checkInDate: Date;
   checkOutDate: Date;
-  numberOfAdults: number;
-  numberOfChildren: number;
-  bookingConfirmationCode: string;
+  numOfAdults: number;
+  numOfChildren: number;
   user: UserModel;
   property: PropertyModel;
   couponCode: string;
@@ -14,18 +13,16 @@ export class BookingCreateRequest {
   constructor(
     checkInDate: Date,
     checkOutDate: Date,
-    numberOfAdults: number,
-    numberOfChildren: number,
-    bookingConfirmationCode: string,
+    numOfAdults: number,
+    numOfChildren: number,
     user: UserModel,
     property: PropertyModel,
     couponCode: string
   ) {
     this.checkInDate = checkInDate;
     this.checkOutDate = checkOutDate;
-    this.numberOfAdults = numberOfAdults;
-    this.numberOfChildren = numberOfChildren;
-    this.bookingConfirmationCode = bookingConfirmationCode;
+    this.numOfAdults = numOfAdults;
+    this.numOfChildren = numOfChildren;
     this.user = user;
     this.property = property;
     this.couponCode = couponCode;

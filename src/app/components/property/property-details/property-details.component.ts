@@ -3,9 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { PropertyService } from '../../../services/property.service';
 import { PropertyModel } from '../../../models/property-model';
 import { ApiPathUtil } from '../../../utils/ApiPathUtil';
-import { CommonModule, Location, NgOptimizedImage } from '@angular/common';
-import { AuthService } from '../../../services/auth.service';
-import {UserModel} from '../../../models/user-model';
+import { CommonModule, Location } from '@angular/common';
 import {UserService} from '../../../services/user.service';
 
 @Component({
@@ -14,7 +12,6 @@ import {UserService} from '../../../services/user.service';
   standalone: true,
   imports: [
     CommonModule,
-    NgOptimizedImage
   ],
   styleUrls: ['./property-details.component.css']
 })
@@ -108,9 +105,10 @@ export class PropertyDetailsComponent implements OnInit {
 
   goToBooking(): void {
     if (this.property) {
-      this.router.navigate(['/booking/create'], { state: { property: this.property } });
+      this.router.navigate(['/create-booking'], { state: { property: this.property } });
     }
   }
+
 
   @HostListener('document:keydown', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent): void {

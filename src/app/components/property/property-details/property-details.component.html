@@ -9,12 +9,14 @@
         <div class="col-md-6">
           <div class="image-container">
             <div *ngIf="property!.propertyImages && property!.propertyImages.length" class="image-gallery">
-              <img [ngSrc]="imageBaseUrl + property!.propertyImages[currentImageIndex]"
-                   width="500"
-                   height="300"
-                   class="img-fluid rounded-start"
-                   alt="Immagine della proprietà"
-                   (click)="toggleFullscreen()" />
+              <img
+                [src]="imageBaseUrl + property!.propertyImages[currentImageIndex]"
+                width="500"
+                height="300"
+                class="img-fluid rounded-start"
+                alt="Immagine della proprietà"
+                (click)="toggleFullscreen()"
+                 />
 
               <!-- Controlli navigazione -->
               <div *ngIf="property!.propertyImages.length > 1" class="image-controls">
@@ -80,13 +82,12 @@
               <button *ngIf="property!.isAvailable && userRole === 'CLIENT'" class="btn btn-primary" (click)="goToBooking()">
                 <i class="bi bi-calendar-check"></i> Prenota
               </button>
-
               <button (click)="goBack()" class="btn btn-outline-secondary ms-2">
                 <i class="bi bi-arrow-left"></i> Torna indietro
               </button>
             </div>
-
           </div>
+        </div>
       </div>
     </div>
   </div>
@@ -135,5 +136,4 @@
       {{ currentImageIndex + 1 }} / {{ property!.propertyImages.length }}
     </div>
   </div>
-</div>
 </div>

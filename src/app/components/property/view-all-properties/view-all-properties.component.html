@@ -1,0 +1,24 @@
+<div class="property-list-container">
+  <h2>Scopri le proprietà disponibili</h2>
+
+  <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+
+  <div class="property-grid">
+    <div
+      class="property-card"
+      *ngFor="let property of properties"
+      (click)="goToDetails(property.id)"
+    >
+      <img
+        [src]="getImageUrl(property)"
+        alt="Immagine proprietà"
+        class="property-image"
+      />
+      <div class="property-info">
+        <h3>{{ property.title }}</h3>
+        <p>{{ property.city }}, {{ property.country }}</p>
+        <p><strong>Prezzo:</strong> €{{ property.pricePerNight }}/notte</p>
+      </div>
+    </div>
+  </div>
+</div>
