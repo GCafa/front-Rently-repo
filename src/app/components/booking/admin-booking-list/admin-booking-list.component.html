@@ -1,0 +1,54 @@
+<div class="container py-4">
+  <h2 class="mb-4 text-center custom-primary">Tutte le prenotazioni</h2>
+
+  <!-- Spinner -->
+  <div *ngIf="loading" class="text-center">
+    <div class="spinner-border text-primary" role="status"></div>
+  </div>
+
+  <!-- Errore -->
+  <div *ngIf="errorMessage" class="alert alert-danger text-center">
+    {{ errorMessage }}
+  </div>
+
+  <!-- Lista prenotazioni -->
+  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4" *ngIf="!loading && bookings.length > 0">
+    <div class="col" *ngFor="let booking of bookings">
+      <div class="card h-100 shadow-sm rounded-4 hover-scale">
+        <img [src]="ApiPathUtil.getImageBaseUrl() + booking.property.propertyImages[0]"
+             class="card-img-top img-fluid"
+             style="height: 200px; object-fit: cover;" alt="Foto proprietà" />
+
+        <div class="card-body">
+          <h5 class="card-title fw-bold">{{ booking.property.title }}</h5>
+          <p class="card-text">
+            <strong>Utente:</strong> {{ booking.user.username }}<br>
+            <strong>Check In:</strong> {{ booking.checkInDate | date:'shortDate' }}<br>
+            <strong>Check Out:</strong> {{ booking.checkOutDate | date:'shortDate' }}<br>
+            <strong>Ospiti:</strong> {{ booking.numOfAdults + booking.numOfChildren }}<br>
+            <strong>Totale:</strong> €{{ booking.total }}<br>
+            <strong>Codice:</strong> {{ booking.bookingConfirmationCode }}
+          </p>
+
+          <span class="badge" [ngClass]="{
+            'bg-success': booking.status === 'CONFIRMED',
+            'bg-danger': booking.status === 'CANCELLED',
+            'bg-warning text-dark': booking.status === 'UPCOMING'
+          }">
+            {{ booking.status }}
+          </span>
+
+          <button class="btn btn-outline-danger btn-sm mt-3 w-100"
+                  (click)="cancelBooking(booking.id)">
+            <i class="fas fa-trash-alt me-1"></i> Cancella Prenotazione
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Nessuna prenotazione -->
+  <div *ngIf="!loading && bookings.length === 0" class="text-center text-muted fs-5 mt-5">
+    Nessuna prenotazione trovata.
+  </div>
+</div>

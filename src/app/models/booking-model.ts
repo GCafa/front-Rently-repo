@@ -2,7 +2,7 @@ import {UserModel} from "./user-model";
 import {PropertyModel} from "./property-model";
 
 export class BookingModel {
-  bookingId: number;
+  id: number;
   checkInDate: Date;
   checkOutDate: Date;
   numOfAdults: number;
@@ -17,7 +17,7 @@ export class BookingModel {
 
 
   constructor(
-    bookingId: number,
+    id: number,
     checkInDate: Date,
     checkOutDate: Date,
     numOfAdults: number,
@@ -30,7 +30,7 @@ export class BookingModel {
     discountAmount: number = 0,
     createdAt: Date = new Date()
   ) {
-    this.bookingId = bookingId;
+    this.id = id;
     this.checkInDate = checkInDate;
     this.checkOutDate = checkOutDate;
     this.numOfAdults = numOfAdults;

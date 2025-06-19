@@ -165,6 +165,12 @@ export class NavbarComponent implements OnInit {
         command: () => this.goToMyBookings()
       },
       {
+        label: 'Gestione Prenotazioni',
+        icon: 'fa-solid fa-gavel',
+        visible: this.isAdmin,
+        command: () => this.goToAdminBookingList()
+      },
+      {
         label: 'Logout',
         icon: 'fa fa-sign-out-alt',
         visible: true,
@@ -219,6 +225,10 @@ export class NavbarComponent implements OnInit {
 
   goToMyBookings(): void {
     this.router.navigate(['/my-bookings']);
+  }
+
+  goToAdminBookingList(): void {
+    this.router.navigate(['/admin-bookings']);
   }
 
   logout(): void {
