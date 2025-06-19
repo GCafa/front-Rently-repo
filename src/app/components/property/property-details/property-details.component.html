@@ -15,8 +15,7 @@
                 height="300"
                 class="img-fluid rounded-start"
                 alt="Immagine della proprietà"
-                (click)="toggleFullscreen()"
-                 />
+                (click)="toggleFullscreen()" />
 
               <!-- Controlli navigazione -->
               <div *ngIf="property!.propertyImages.length > 1" class="image-controls">
@@ -82,6 +81,16 @@
               <button *ngIf="property!.isAvailable && userRole === 'CLIENT'" class="btn btn-primary" (click)="goToBooking()">
                 <i class="bi bi-calendar-check"></i> Prenota
               </button>
+
+              <!-- Bottone lascia recensione -->
+              <button class="btn btn-outline-primary"
+                      *ngIf="userRole === 'CLIENT'"
+                      [routerLink]="['/client-review']"
+                      [queryParams]="{ propertyId: property.id }">
+                <i class="bi bi-pencil-square"></i> Lascia una recensione
+              </button>
+
+
               <button (click)="goBack()" class="btn btn-outline-secondary ms-2">
                 <i class="bi bi-arrow-left"></i> Torna indietro
               </button>
@@ -118,12 +127,10 @@
     <img [src]="imageBaseUrl + property!.propertyImages[currentImageIndex]" alt="Immagine a schermo intero">
 
     <div class="fullscreen-controls">
-      <button class="nav-btn fs-prev" (click)="prevImage()"
-              *ngIf="property!.propertyImages.length > 1">
+      <button class="nav-btn fs-prev" (click)="prevImage()" *ngIf="property!.propertyImages.length > 1">
         <i class="bi bi-chevron-left"></i>
       </button>
-      <button class="nav-btn fs-next" (click)="nextImage()"
-              *ngIf="property!.propertyImages.length > 1">
+      <button class="nav-btn fs-next" (click)="nextImage()" *ngIf="property!.propertyImages.length > 1">
         <i class="bi bi-chevron-right"></i>
       </button>
     </div>
@@ -137,3 +144,31 @@
     </div>
   </div>
 </div>
+
+<!-- Sezione recensioni -->
+<div *ngIf="!loading && property" class="mt-5">
+  <h3 class="text-center mb-4">Recensioni sulla proprietà</h3>
+
+  <div *ngIf="reviews.length === 0" class="text-center text-muted">
+    <i class="bi bi-chat-left-text fs-4"></i><br>
+    Nessuna recensione disponibile per questa proprietà.
+  </div>
+
+  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4" *ngIf="reviews.length > 0">
+    <div class="col" *ngFor="let review of reviews">
+      <div class="card h-100 shadow-sm border-primary">
+        <div class="card-body">
+          <h5 class="card-title text-primary">
+            <i class="bi bi-star-fill text-warning me-1"></i> {{ review.rating }}/5
+          </h5>
+          <h6 class="card-subtitle mb-2 text-muted">{{ review.title }}</h6>
+          <p class="card-text">{{ review.description }}</p>
+          <p class="card-text text-end fst-italic" *ngIf="review.reviewer?.firstname">
+            — {{ review.reviewer.firstname }} {{ review.reviewer.lastname }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

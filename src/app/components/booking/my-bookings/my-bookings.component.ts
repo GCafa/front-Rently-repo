@@ -4,13 +4,14 @@ import { BookingModel } from '../../../models/booking-model';
 import { UserService } from '../../../services/user.service';
 import { CommonModule, NgIf, NgForOf } from '@angular/common';
 import {ApiPathUtil} from '../../../utils/ApiPathUtil';
+import {RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-my-bookings',
   templateUrl: './my-bookings.component.html',
   styleUrls: ['./my-bookings.component.css'],
   standalone: true,
-  imports: [CommonModule, NgIf, NgForOf]
+  imports: [CommonModule, NgIf, NgForOf, RouterLink]
 })
 export class MyBookingsComponent implements OnInit {
   bookings: BookingModel[] = [];

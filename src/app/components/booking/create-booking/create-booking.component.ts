@@ -71,7 +71,7 @@ export class CreateBookingComponent implements OnInit {
           form.couponCode
         );
 
-        // ✅ Aggiunta del log
+
         console.log('📤 BookingCreateRequest inviato:', bookingRequest);
 
         this.bookingService.saveBooking(bookingRequest).subscribe({

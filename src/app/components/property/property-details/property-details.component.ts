@@ -1,10 +1,13 @@
 import { Component, OnInit, HostListener } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { PropertyService } from '../../../services/property.service';
 import { PropertyModel } from '../../../models/property-model';
 import { ApiPathUtil } from '../../../utils/ApiPathUtil';
 import { CommonModule, Location } from '@angular/common';
-import {UserService} from '../../../services/user.service';
+import { UserService } from '../../../services/user.service';
+import { UserModel } from '../../../models/user-model';
+import { ReviewModel } from '../../../models/review-model';
+import { ReviewService } from '../../../services/review.service';
 
 @Component({
   selector: 'app-property-details',
@@ -12,24 +15,28 @@ import {UserService} from '../../../services/user.service';
   standalone: true,
   imports: [
     CommonModule,
+    RouterLink,
   ],
   styleUrls: ['./property-details.component.css']
 })
 export class PropertyDetailsComponent implements OnInit {
   property: PropertyModel | null = null;
+  reviews: ReviewModel[] = [];
   errorMessage: string = '';
   loading: boolean = true;
   imageBaseUrl = ApiPathUtil.getImageBaseUrl();
   currentImageIndex: number = 0;
   showFullscreen: boolean = false;
   userRole: string | null = null;
+  currentUser: UserModel | null = null;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private location: Location,
     private propertyService: PropertyService,
-    private userService: UserService
+    private userService: UserService,
+    private reviewService: ReviewService
   ) {}
 
   ngOnInit(): void {
@@ -37,19 +44,15 @@ export class PropertyDetailsComponent implements OnInit {
 
     this.userService.getCurrentUser().subscribe({
       next: (user) => {
-        if (!user) {
-          this.userRole = null;
-          console.warn('Utente non autenticato.');
-        } else {
-          this.userRole = user.role ? user.role.toUpperCase() : null;
-        }
+        this.userRole = user?.role?.toUpperCase() || null;
+        this.currentUser = user;
 
-        // Caricamento proprietà dopo aver ottenuto l'utente
         if (propertyId > 0) {
           this.propertyService.getPropertyById(propertyId).subscribe({
             next: (data) => {
               this.property = data;
               this.loading = false;
+              this.loadReviews(propertyId);  // Carica recensioni dopo la proprietà
             },
             error: (error) => {
               console.error('Errore caricamento proprietà:', error);
@@ -71,7 +74,16 @@ export class PropertyDetailsComponent implements OnInit {
     });
   }
 
-
+  loadReviews(propertyId: number): void {
+    this.reviewService.getReviewsByPropertyId(propertyId).subscribe({
+      next: (reviews) => {
+        this.reviews = reviews;
+      },
+      error: () => {
+        console.error('Errore nel caricamento delle recensioni');
+      }
+    });
+  }
 
   nextImage(): void {
     if (this.property?.propertyImages?.length) {
@@ -108,7 +120,6 @@ export class PropertyDetailsComponent implements OnInit {
       this.router.navigate(['/create-booking'], { state: { property: this.property } });
     }
   }
-
 
   @HostListener('document:keydown', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent): void {

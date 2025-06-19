@@ -36,9 +36,6 @@ export class PropertyService {
     return this.http.post<CustomResponse>(`${this.apiUrl}/update/${propertyUpdateRequest}`, formData);
   }
 
-  deleteProperty(propertyId: number): Observable<CustomResponse> {
-    return this.http.delete<CustomResponse>(`${this.apiUrl}/delete/${propertyId}`);
-  }
 
   getPropertyById(propertyId: number): Observable<PropertyModel> {
     return this.http.get<PropertyModel>(`${this.apiUrl}/${propertyId}`);

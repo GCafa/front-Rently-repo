@@ -70,17 +70,5 @@ export class PropertyListComponent implements OnInit {
     });
   }
 
-  deleteProperty(propertyId: number): void {
-    this.propertyService.deleteProperty(propertyId).subscribe({
-      next: () => {
-        this.properties = this.properties.filter(p => p.id !== propertyId);
-        this.successMessage = 'Proprietà eliminata con successo.';
-      },
-      error: () => {
-        this.errorMessage = 'Errore durante l\'eliminazione.';
-      }
-    });
-  }
-
   protected readonly ApiPathUtil = ApiPathUtil;
 }
