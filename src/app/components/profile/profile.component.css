@@ -85,7 +85,7 @@ body {
 /* Tipografia */
 h2.text-primary {
   font-size: 1.75rem;
-  color: #2D404E;
+  color: #8845c0;
   text-align: center !important;
   margin-bottom: 2rem;
   width: 100%;
@@ -110,7 +110,7 @@ h2.text-primary {
 }
 
 .user-field {
-  color: #2D404E;
+  color: #8845c0;
   font-weight: 500;
   font-size: 1.1rem;
   letter-spacing: 0.3px;

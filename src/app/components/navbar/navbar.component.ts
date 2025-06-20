@@ -172,7 +172,7 @@ export class NavbarComponent implements OnInit {
       },
       {
         label: 'Pagamenti',
-        icon: 'fa fa-sign-out-alt',
+        icon: 'bi bi-cash-coin',
         visible: this.isHost,
         command: () => this.goToHostDashboard()
       },

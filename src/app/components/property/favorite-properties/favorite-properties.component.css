@@ -1,24 +1,36 @@
-.card-img-top {
-  max-height: 200px;
-  object-fit: cover;
+.card {
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  background-color: #ffffff;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
 }
 
 .card-title {
   font-size: 1.2rem;
-  font-weight: 600;
+  color: #212529;
 }
 
-.card-text {
-  font-size: 0.95rem;
+.object-fit-cover {
+  object-fit: cover;
 }
 
-.container {
-  padding-bottom: 50px;
-}
-.card {
-  position: relative;
+.btn-primary {
+  background-color: #8845c0;
+  border-color: #6314aa;
 }
 
-button.btn-danger {
-  z-index: 2;
+.btn-outline-danger:hover {
+  background-color: #dc3545;
+  color: #fff;
+  border-color: #dc3545;
+}
+
+.badge {
+  font-size: 0.75rem;
+  padding: 0.4em 0.6em;
+  border-radius: 1em;
+  background-color: #f8f9fa;
 }

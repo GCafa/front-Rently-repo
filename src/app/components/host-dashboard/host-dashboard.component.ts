@@ -27,8 +27,8 @@ export class HostDashboardComponent implements OnInit {
 
   fromDate: string = '';
   toDate: string = '';
-  selectedApartment: string = '';
   apartments: PropertyModel[] = [];
+  selectedApartment: string = '';
 
   constructor(
     private bookingService: BookingService,
@@ -69,32 +69,21 @@ export class HostDashboardComponent implements OnInit {
     this.propertyService.getPropertiesByHostId(hostId).subscribe({
       next: (data) => {
         this.apartments = data;
-      },
-      error: () => {
-        console.error('Errore nel caricamento degli appartamenti');
       }
     });
   }
 
   applyFilters(): void {
-    let filtered = [...this.originalBookings];
+    const from = this.fromDate ? new Date(this.fromDate).getTime() : Number.MIN_SAFE_INTEGER;
+    const to = this.toDate ? new Date(this.toDate).getTime() : Number.MAX_SAFE_INTEGER;
 
-    if (this.selectedApartment) {
-      filtered = filtered.filter(b => b.title === this.selectedApartment);
-    }
+    this.bookings = this.originalBookings.filter(b => {
+      const checkIn = new Date(b.checkInDate).getTime();
+      const matchDate = checkIn >= from && checkIn <= to;
+      const matchApartment = this.selectedApartment ? b.title === this.getApartmentTitle(this.selectedApartment) : true;
+      return matchDate && matchApartment;
+    });
 
-    const from = this.fromDate ? new Date(this.fromDate).getTime() : null;
-    const to = this.toDate ? new Date(this.toDate).getTime() : null;
-
-    if (from) {
-      filtered = filtered.filter(b => new Date(b.checkInDate).getTime() >= from);
-    }
-
-    if (to) {
-      filtered = filtered.filter(b => new Date(b.checkInDate).getTime() <= to);
-    }
-
-    this.bookings = filtered;
     this.totalEarnings = this.calculateTotal(this.bookings);
   }
 
@@ -104,6 +93,10 @@ export class HostDashboardComponent implements OnInit {
     this.selectedApartment = '';
     this.bookings = [...this.originalBookings];
     this.totalEarnings = this.calculateTotal(this.bookings);
+  }
+
+  getApartmentTitle(apartmentId: string): string {
+    return this.apartments.find(p => p.id == +apartmentId)?.title || '';
   }
 
   calculateTotal(bookings: BookingDashboardResponse[]): number {

@@ -1,68 +1,64 @@
-<div class="container py-4">
-  <h2 class="mb-4 text-center custom-primary">Dashboard Host</h2>
+<div class="container py-5">
+  <!-- Header -->
+  <div class="text-center mb-4">
+    <h2 class="elegant-title">
+      <i class="bi bi-house-door me-2"></i>Dashboard Host
+    </h2>
+    <p class="text-muted">Visualizza e gestisci con precisione le tue prenotazioni</p>
+  </div>
 
   <!-- Filtri -->
-  <div class="card shadow-sm mb-4 border-0 rounded-4">
-    <div class="card-body p-4">
-      <h5 class="card-title mb-3"><i class="bi bi-funnel me-2"></i>Filtra prenotazioni</h5>
-
-      <!-- Appartamento -->
-      <div class="mb-3">
-        <label class="form-label">Appartamento</label>
-        <select class="form-select" [(ngModel)]="selectedApartment">
-          <option value="">Tutti gli appartamenti</option>
-          <option *ngFor="let apt of apartments" [value]="apt.title">{{ apt.title }}</option>
-        </select>
-      </div>
-
-      <!-- Date -->
-      <div class="row g-3 mb-3">
+  <div class="card border-0 shadow-sm mb-4 rounded-4">
+    <div class="card-body">
+      <div class="row g-3 align-items-end">
         <div class="col-md-4">
-          <input type="date" class="form-control" placeholder="Dal" [(ngModel)]="fromDate">
+          <label class="form-label">Appartamento</label>
+          <select class="form-select" [(ngModel)]="selectedApartment">
+            <option value="">Tutti</option>
+            <option *ngFor="let apt of apartments" [value]="apt.id">{{ apt.title }}</option>
+          </select>
         </div>
-        <div class="col-md-4">
-          <input type="date" class="form-control" placeholder="Al" [(ngModel)]="toDate">
+        <div class="col-md-3">
+          <label class="form-label">Dal</label>
+          <input type="date" class="form-control" [(ngModel)]="fromDate">
         </div>
-        <div class="col-md-4 d-flex justify-content-between">
-          <button class="btn btn-primary w-100 me-2" (click)="applyFilters()">Applica Filtri</button>
-          <button class="btn btn-secondary w-100" (click)="resetFilters()">Reset</button>
+        <div class="col-md-3">
+          <label class="form-label">Al</label>
+          <input type="date" class="form-control" [(ngModel)]="toDate">
+        </div>
+        <div class="col-md-2">
+          <button class="btn btn-dark w-100" (click)="applyFilters()">Filtra</button>
         </div>
       </div>
     </div>
-  </div>
-
-  <!-- Loading -->
-  <div *ngIf="loading" class="text-center my-5">
-    <div class="spinner-border text-primary" role="status"></div>
-    <p class="mt-2">Caricamento prenotazioni...</p>
-  </div>
-
-  <!-- Error -->
-  <div *ngIf="errorMessage" class="alert alert-danger text-center">
-    <i class="bi bi-exclamation-triangle-fill me-2"></i>
-    {{ errorMessage }}
   </div>
 
   <!-- Totale -->
-  <div *ngIf="!loading && bookings.length > 0" class="mb-3 text-end">
-    <h5><strong>Guadagno Totale:</strong> €{{ totalEarnings }}</h5>
+  <div *ngIf="bookings.length > 0" class="text-end mb-4">
+    <span class="fs-5 text-muted">Totale guadagni: </span>
+    <span class="fs-4 fw-semibold">€{{ totalEarnings }}</span>
   </div>
 
   <!-- Prenotazioni -->
-  <div *ngIf="!loading && bookings.length > 0" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
     <div class="col" *ngFor="let booking of bookings">
-      <div class="card h-100 shadow-sm rounded-4 p-3">
-        <h5 class="card-title">{{ booking.title }}</h5>
-        <p class="card-text mb-1"><strong>Ospite:</strong> {{ booking.user.firstname }} {{ booking.user.lastname }}</p>
-        <p class="card-text mb-1"><strong>Check In:</strong> {{ booking.checkInDate }}</p>
-        <p class="card-text mb-1"><strong>Check Out:</strong> {{ booking.checkOutDate }}</p>
-        <p class="card-text"><strong>Totale:</strong> €{{ booking.total }}</p>
+      <div class="card shadow-sm border-0 rounded-4 p-3 h-100">
+        <h5 class="fw-bold mb-3">{{ booking.title }}</h5>
+        <ul class="list-unstyled small text-muted">
+          <li><i class="bi bi-person-fill me-2 text-secondary"></i>{{ booking.user.firstname }} {{ booking.user.lastname }}</li>
+          <li><i class="bi bi-calendar-check me-2 text-success"></i>Check-in: {{ booking.checkInDate | date }}</li>
+          <li><i class="bi bi-calendar-x me-2 text-danger"></i>Check-out: {{ booking.checkOutDate | date }}</li>
+        </ul>
+        <div class="text-end mt-3">
+          <span class="badge bg-light text-dark border fw-normal">Totale: €{{ booking.total }}</span>
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- Nessun risultato -->
-  <div *ngIf="!loading && bookings.length === 0" class="text-center text-muted fs-5 mt-4">
-    Nessuna prenotazione trovata per i filtri selezionati.
+  <!-- Nessuna prenotazione -->
+  <div *ngIf="!loading && bookings.length === 0" class="text-center text-muted mt-5 fs-5">
+    <i class="bi bi-calendar-x mb-2 fs-3 d-block"></i>
+    Nessuna prenotazione trovata.
   </div>
 </div>
