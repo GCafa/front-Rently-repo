@@ -70,11 +70,13 @@ export class UserService {
 
   addFavoriteProperty(username: string, propertyId: number): Observable<UserModel> {
     return this.http.post<UserModel>(
-      `${this.apiUrl}/favorite-properties/${propertyId}`,
+      `${this.apiUrl}/favorite-properties/add`,
       null,
-      { params: { username } }
+      { params: {username: username, propertyId: propertyId.toString() }
+      }
     );
   }
+
 
   removeFavoriteProperty(username: string, propertyId: number): Observable<UserModel> {
     return this.http.delete<UserModel>(

@@ -407,4 +407,21 @@ h2.text-center {
     width: 40px;
     height: 40px;
   }
+
+  .alert-success {
+    position: fixed;
+    top: 80px;
+    right: 20px;
+    z-index: 1050;
+    animation: fadeOut 0.5s ease-out 2.5s forwards;
+  }
+
+  @keyframes fadeOut {
+    to {
+      opacity: 0;
+      transform: translateY(-20px);
+      pointer-events: none;
+    }
+  }
+
 }

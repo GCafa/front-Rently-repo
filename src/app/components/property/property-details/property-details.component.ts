@@ -30,6 +30,8 @@ export class PropertyDetailsComponent implements OnInit {
   userRole: string | null = null;
   currentUser: UserModel | null = null;
 
+  showFavoriteSuccess: boolean = false; // ✅ MESSAGGIO SUCCESSO
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -119,6 +121,28 @@ export class PropertyDetailsComponent implements OnInit {
     if (this.property) {
       this.router.navigate(['/create-booking'], { state: { property: this.property } });
     }
+  }
+
+  addToFavorites(): void {
+    if (!this.currentUser || !this.property) {
+      this.errorMessage = 'Errore: utente o proprietà non disponibili.';
+      return;
+    }
+
+    this.userService.addFavoriteProperty(this.currentUser.username, this.property.id).subscribe({
+      next: () => {
+        this.errorMessage = '';
+        this.showFavoriteSuccess = true;
+
+        // ✅ Nascondi il messaggio dopo 3 secondi
+        setTimeout(() => {
+          this.showFavoriteSuccess = false;
+        }, 3000);
+      },
+      error: () => {
+        this.errorMessage = 'Errore durante l\'aggiunta ai preferiti.';
+      }
+    });
   }
 
   @HostListener('document:keydown', ['$event'])
