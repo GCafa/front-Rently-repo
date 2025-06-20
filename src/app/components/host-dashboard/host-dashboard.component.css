@@ -1,0 +1,79 @@
+/* Colore primario personalizzato */
+.custom-primary {
+  color: #0d6efd;
+}
+
+/* Titolo della card */
+.card-title {
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #0d6efd;
+}
+
+/* Animazione di scaling su hover */
+.card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: none;
+  border-radius: 1rem;
+}
+
+.card:hover {
+  transform: scale(1.015);
+  box-shadow: 0 0.75rem 1.5rem rgba(0, 0, 0, 0.1);
+}
+
+/* Etichette dei form */
+.form-label {
+  font-weight: 500;
+  color: #495057;
+}
+
+/* Effetto hover migliorato */
+.hover-effect {
+  transition: all 0.3s ease;
+  border-radius: 1rem;
+}
+
+.hover-effect:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Bottone primario */
+.btn-primary {
+  background-color: #0d6efd;
+  border: none;
+  font-weight: 500;
+}
+
+.btn-primary:hover {
+  background-color: #0b5ed7;
+}
+
+/* Bottone secondario */
+.btn-secondary {
+  background-color: #6c757d;
+  border: none;
+}
+
+.btn-secondary:hover {
+  background-color: #5c636a;
+}
+
+/* Input */
+input[type="date"], .form-select {
+  border-radius: 0.5rem;
+  padding: 0.75rem;
+}
+
+/* Spinner */
+.spinner-border {
+  width: 3rem;
+  height: 3rem;
+}
+
+/* Nessun risultato */
+.text-muted.fs-5 {
+  font-style: italic;
+  color: #adb5bd !important;
+}
