@@ -44,7 +44,7 @@ export class ProfileComponent implements OnInit {
 
   onImageError(): void {
     if (this.user) {
-      this.user.imageUrl = 'assets/images/defaultProfileImage.png';
+      this.user.imageUrl = 'defaultProfileImage.png';
     }
   }
 

@@ -6,17 +6,17 @@ import { CustomResponse } from '../../../dto/CustomResponse';
 import { NgClass, CommonModule } from '@angular/common';
 import { UserModel } from "../../../models/user-model";
 import { AuthService } from '../../../services/auth.service';
-import {ApiPathUtil} from '../../../utils/ApiPathUtil';
+import { ApiPathUtil } from '../../../utils/ApiPathUtil';
 
 @Component({
-    selector: 'app-user-modify',
-    templateUrl: './modify.component.html',
-    styleUrls: ['./modify.component.css'],
-    imports: [
-        CommonModule,
-        ReactiveFormsModule,
-        NgClass,
-    ]
+  selector: 'app-user-modify',
+  templateUrl: './modify.component.html',
+  styleUrls: ['./modify.component.css'],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    NgClass,
+  ]
 })
 export class ModifyComponent implements OnInit {
   user: UserModel | null = null;
@@ -32,7 +32,7 @@ export class ModifyComponent implements OnInit {
     private fb: FormBuilder,
     private router: Router,
     private authService: AuthService
-) {}
+  ) {}
 
   ngOnInit(): void {
     this.userService.getCurrentUser().subscribe({
@@ -72,82 +72,53 @@ export class ModifyComponent implements OnInit {
     this.submitted = true;
     if (this.modifyForm.invalid) return;
 
-    // Reset dei messaggi precedenti
     this.errorMessage = '';
     this.successMessage = '';
     this.loading = true;
 
-    const formData = new FormData();
-    formData.append(
-      'UserModifyRequest',
-      JSON.stringify(this.modifyForm.value)
-    );
-    if (this.selectedImage) {
-      formData.append('image', this.selectedImage);
-    }
+    // Prepariamo i dati dell'utente
+    const userData = {
+      username: this.modifyForm.value.username,
+      email: this.modifyForm.value.email,
+      password: this.modifyForm.value.password
+    };
 
-    this.userService.modifyWithImage(formData, this.selectedImage).subscribe({
+    this.userService.modifyWithImage(userData, this.selectedImage).subscribe({
       next: (resp: CustomResponse) => {
         this.successMessage = 'Profilo aggiornato con successo! Verrai reindirizzato alla pagina di login.';
         this.loading = false;
+        setTimeout(() => this.logout(), 1200);
+      },
+      error: this.handleError.bind(this)
+    });
+  }
+
+  private handleError(err: any): void {
+    this.loading = false;
+    console.error('Errore aggiornamento utente:', err);
+
+    switch (err.status) {
+      case 400:
+        this.errorMessage = 'Password errata o l\'utente esiste già';
+        break;
+      case 401:
+        this.errorMessage = 'Sessione scaduta. Effettua nuovamente il login.';
         setTimeout(() => this.router.navigate(['/login']), 1200);
-      },
-      error: (err: any) => {
-        this.loading = false;
-        console.log('Errore aggiornamento utente:', err);
-
-        if (err.status === 400) {
-          this.errorMessage = 'Password errata';
-        } else if (err.status === 401) {
-          this.errorMessage = 'Sessione scaduta. Effettua nuovamente il login.';
-          setTimeout(() => this.router.navigate(['/login']), 1200);
-        } else if (err.status === 403) {
-          this.errorMessage = 'Non hai i permessi necessari per questa operazione.';
-        } else if (err.status === 404) {
-          this.errorMessage = 'Utente non trovato.';
-        } else {
-          this.errorMessage = err.error?.message || 'Errore durante l\'aggiornamento del profilo.';
-        }
-      }
-    });
-
-
-    this.userService.modify(formData).subscribe({
-      next: (resp: CustomResponse) => {
-        this.successMessage = 'Profilo aggiornato con successo! Verrai reindirizzato alla pagina di login.';
-        this.loading = false;
-        setTimeout(() => this.logout(), 1200)
-      },
-      error: (err: any) => {
-        this.loading = false;
-        console.error('Errore aggiornamento utente:', err);
-
-        switch (err.status) {
-          case 400:
-            this.errorMessage = 'Password errata.';
-            break;
-          case 401:
-            this.errorMessage = 'Sessione scaduta. Effettua nuovamente il login.';
-            setTimeout(() => this.router.navigate(['/login']), 1200);
-            break;
-          case 403:
-            this.errorMessage = 'Non hai i permessi necessari per questa operazione.';
-            break;
-          case 404:
-            this.errorMessage = 'Utente non trovato.';
-            break;
-          default:
-            this.errorMessage = err.error?.message || 'Errore durante l\'aggiornamento del profilo.';
-            break;
-        }
-      }
-    });
-
-
+        break;
+      case 403:
+        this.errorMessage = 'Non hai i permessi necessari per questa operazione.';
+        break;
+      case 404:
+        this.errorMessage = 'Utente non trovato.';
+        break;
+      default:
+        this.errorMessage = err.error?.message || 'Errore durante l\'aggiornamento del profilo.';
+        break;
+    }
   }
 
   logout() {
-    this.authService.logout(); // Questo rimuove token e utente dal localStorage/sessionStorage
+    this.authService.logout();
     this.router.navigate(['/login']).then(() => location.reload());
   }
 

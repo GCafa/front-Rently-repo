@@ -171,11 +171,17 @@ export class NavbarComponent implements OnInit {
         command: () => this.goToAdminBookingList()
       },
       {
+        label: 'Pagamenti',
+        icon: 'fa fa-sign-out-alt',
+        visible: this.isHost,
+        command: () => this.goToHostDashboard()
+      },
+      {
         label: 'Logout',
         icon: 'fa fa-sign-out-alt',
         visible: true,
         command: () => this.logout()
-      }
+      },
     ];
   }
 
@@ -229,6 +235,10 @@ export class NavbarComponent implements OnInit {
 
   goToAdminBookingList(): void {
     this.router.navigate(['/admin-bookings']);
+  }
+
+  goToHostDashboard(): void {
+    this.router.navigate(['/host-dashboard']);
   }
 
   logout(): void {

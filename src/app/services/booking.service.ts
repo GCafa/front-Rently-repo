@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import {map, Observable} from 'rxjs';
 import { BookingModel } from '../models/booking-model';
 import { BookingCreateRequest } from '../dto/request/BookingCreateRequest';
 import { CustomResponse } from '../dto/CustomResponse';
 import { ApiPathUtil } from '../utils/ApiPathUtil';
+import {BookingDashboardResponse} from '../dto/BookingDashboardResponse';
+import {UserSummary} from '../dto/UserSummary';
 
 @Injectable({
   providedIn: 'root'
@@ -37,5 +39,22 @@ export class BookingService {
   generateConfirmationCode(bookingId: number): Observable<string> {
     return this.http.get<string>(`${this.apiUrl}/generate-code`);
   }
+
+  getHostBookingDashboard(hostId: number): Observable<BookingDashboardResponse[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/host/${hostId}`).pipe(
+      map(response =>
+        response.map(item =>
+          new BookingDashboardResponse(
+            item.title,
+            new UserSummary(item.user.id, item.user.firstname, item.user.lastname),
+            item.checkInDate,
+            item.checkOutDate,
+            item.total
+          )
+        )
+      )
+    );
+  }
+
 
 }
