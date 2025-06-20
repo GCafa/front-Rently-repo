@@ -177,6 +177,12 @@ export class NavbarComponent implements OnInit {
         command: () => this.goToHostDashboard()
       },
       {
+        label: 'Preferiti',
+        icon: 'bi bi-heart-fill me-1',
+        visible: this.isClient,
+        command: () => this.goToFavoritePropertyList()
+      },
+      {
         label: 'Logout',
         icon: 'fa fa-sign-out-alt',
         visible: true,
@@ -214,7 +220,7 @@ export class NavbarComponent implements OnInit {
   }
 
   goToFavoritePropertyList(): void {
-    this.router.navigate(['/property-list']);
+    this.router.navigate(['/favorite-properties']);
   }
 
   goToUserVisualization(): void {
@@ -240,6 +246,7 @@ export class NavbarComponent implements OnInit {
   goToHostDashboard(): void {
     this.router.navigate(['/host-dashboard']);
   }
+
 
   logout(): void {
     this.authService.logout();

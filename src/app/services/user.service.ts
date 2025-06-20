@@ -79,11 +79,15 @@ export class UserService {
 
 
   removeFavoriteProperty(username: string, propertyId: number): Observable<UserModel> {
-    return this.http.delete<UserModel>(
-      `${this.apiUrl}/favorite-properties/${propertyId}`,
-      { params: { username } }
+    return this.http.post<UserModel>(
+      `${this.apiUrl}/favorite-properties/remove`,
+      null,
+      {
+        params: { username, propertyId }
+      }
     );
   }
+
 
   rechargeBalance(username: string, amount: number): Observable<any> {
     const params = new HttpParams()

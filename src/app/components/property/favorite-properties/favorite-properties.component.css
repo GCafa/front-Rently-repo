@@ -1,0 +1,24 @@
+.card-img-top {
+  max-height: 200px;
+  object-fit: cover;
+}
+
+.card-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.card-text {
+  font-size: 0.95rem;
+}
+
+.container {
+  padding-bottom: 50px;
+}
+.card {
+  position: relative;
+}
+
+button.btn-danger {
+  z-index: 2;
+}

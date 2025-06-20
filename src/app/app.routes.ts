@@ -25,6 +25,7 @@ import {ViewAllPropertiesComponent} from './components/property/view-all-propert
 import {AdminBookingListComponent} from './components/booking/admin-booking-list/admin-booking-list.component';
 import {MyBookingsComponent} from './components/booking/my-bookings/my-bookings.component';
 import {ClientReviewComponent} from './components/review/client-review/client-review.component';
+import {FavoritePropertiesComponent} from './components/property/favorite-properties/favorite-properties.component';
 
 
 
@@ -55,6 +56,8 @@ export const routes: Routes = [
   { path: 'my-bookings', component: MyBookingsComponent, canActivate: [authGuard]},
   { path: 'admin-bookings', component: AdminBookingListComponent, canActivate: [authGuard]},
   { path: 'client-review', component: ClientReviewComponent, canActivate: [authGuard]},
+  { path: 'favorite-properties', component: FavoritePropertiesComponent, canActivate: [authGuard]},
+
   // Fallback route
   { path: '**', redirectTo: '/home' }
 ];
