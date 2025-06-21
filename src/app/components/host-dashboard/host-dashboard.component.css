@@ -1,9 +1,26 @@
+/* Sfondo pagina */
+:host {
+  display: block;
+  min-height: 100vh;
+  margin: 0 6%;
+  /*padding-bottom: 2rem;*/
+}
+
+/* Overlay contenuto centrale */
+.overlay {
+  background-color: rgba(255, 255, 255, 0.85);
+  border-radius: 1rem;
+  padding: 2rem;
+}
+
+/* Titolo elegante */
 .elegant-title {
   font-weight: 600;
   font-size: 2rem;
-  color: #212529;
+  color: #571790;
 }
 
+/* Card */
 .card {
   background-color: #fff;
   border-radius: 1rem;
@@ -11,30 +28,34 @@
 }
 
 .card:hover {
-  box-shadow: 0 6px 20px rgba(0,0,0,0.05);
+  box-shadow: 0 6px 20px rgb(136, 69, 192);
   transform: translateY(-2px);
 }
 
+/* Etichette */
 .form-label {
   font-weight: 500;
-  color: #495057;
+  color: #571790;
 }
 
+/* Bottoni */
 .btn-dark {
-  background-color: #343a40;
+  background-color: #571790;
   border: none;
 }
 
 .btn-dark:hover {
-  background-color: #23272b;
+  background-color: #8845c0;
 }
 
+/* Badge guadagno */
 .badge {
   padding: 0.5rem 0.75rem;
   border-radius: 2rem;
   font-size: 0.9rem;
 }
 
+/* Testo secondario */
 .text-muted {
-  color: #6c757d !important;
+  color: #8845c0 !important;
 }

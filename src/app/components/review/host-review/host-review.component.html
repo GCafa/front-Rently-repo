@@ -1,0 +1,35 @@
+<div class="container py-5" *ngIf="!loading">
+  <h2 class="text-center text-purple mb-4">Rispondi alla recensione</h2>
+
+  <div *ngIf="errorMessage" class="alert alert-danger text-center">
+    {{ errorMessage }}
+  </div>
+
+  <div *ngIf="successMessage" class="alert alert-success text-center">
+    {{ successMessage }}<br>
+    <small class="text-muted">Verrai reindirizzato al profilo...</small>
+  </div>
+
+  <div *ngIf="!errorMessage && review">
+    <div class="card mb-4 shadow-sm border-0 rounded-4">
+      <div class="card-body">
+        <h5 class="card-title text-purple fw-bold">{{ review.title }}</h5>
+        <p class="card-text">{{ review.description }}</p>
+        <p><strong>Rating:</strong> {{ review.rating }} ⭐</p>
+        <p class="text-muted">Recensione lasciata il {{ review.createdAt | date:'medium' }}</p>
+      </div>
+    </div>
+
+    <form [formGroup]="form" (ngSubmit)="submit()">
+      <div class="form-group mb-3">
+        <label for="response" class="form-label">Risposta dell'host</label>
+        <textarea id="response" class="form-control" formControlName="response" rows="4" placeholder="Scrivi la tua risposta..."></textarea>
+      </div>
+
+      <button class="btn btn-primary w-100 text-white" type="submit" [disabled]="form.invalid || form.disabled"
+              style="background-color: #6f42c1; border-color: #6f42c1;">
+        Invia risposta
+      </button>
+    </form>
+  </div>
+</div>

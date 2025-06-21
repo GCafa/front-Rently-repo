@@ -1,7 +1,7 @@
 .page-container {
   position: relative;
   min-height: calc(100vh - 70px);
-  background: #f8f9fa;
+  /*background: #f8f9fa;*/
   overflow: hidden;
 }
 
