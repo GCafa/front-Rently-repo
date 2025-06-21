@@ -1,58 +1,78 @@
 import { Component, OnInit } from '@angular/core';
 import { BookingService } from '../../../services/booking.service';
-import { BookingModel } from '../../../models/booking-model';
 import { UserService } from '../../../services/user.service';
-import { CommonModule, NgIf, NgForOf } from '@angular/common';
-import {ApiPathUtil} from '../../../utils/ApiPathUtil';
+import { BookingModel } from '../../../models/booking-model';
+import { ApiPathUtil } from '../../../utils/ApiPathUtil';
+import {DatePipe, NgClass, NgForOf, NgIf} from '@angular/common';
 import {RouterLink} from '@angular/router';
+
+declare var bootstrap: any;
 
 @Component({
   selector: 'app-my-bookings',
   templateUrl: './my-bookings.component.html',
-  styleUrls: ['./my-bookings.component.css'],
-  standalone: true,
-  imports: [CommonModule, NgIf, NgForOf, RouterLink]
+  imports: [
+    DatePipe,
+    NgClass,
+    RouterLink,
+    NgIf,
+    NgForOf
+  ],
+  styleUrls: ['./my-bookings.component.css']
 })
 export class MyBookingsComponent implements OnInit {
   bookings: BookingModel[] = [];
   loading = true;
   errorMessage = '';
+  imageBaseUrl = ApiPathUtil.getImageBaseUrl();
+
+  bookingIdToDelete: number | null = null;
 
   constructor(
     private bookingService: BookingService,
     private userService: UserService
-  ) {
-  }
+  ) {}
 
   ngOnInit(): void {
     this.userService.getCurrentUser().subscribe({
-      next: (user: { id: any; }) => {
-        if (!user) {
-          this.errorMessage = 'Utente non autenticato.';
-          this.loading = false;
-          return;
-        }
-        const userId = user.id;
-        this.bookingService.getAllUsersBookings(userId).subscribe({
+      next: (user) => {
+        this.bookingService.getAllUsersBookings(user.id).subscribe({
           next: (data) => {
             this.bookings = data;
-            console.log('Prenotazioni recuperate:', this.bookings);
             this.loading = false;
           },
-          error: (err) => {
-            this.errorMessage = 'Errore durante il caricamento delle Prenotazioni.';
-            console.error(err);
+          error: () => {
+            this.errorMessage = 'Errore durante il caricamento delle prenotazioni.';
             this.loading = false;
           }
         });
       },
-      error: (err) => {
-        this.errorMessage = 'Errore nel recupero dell’utente.';
-        console.error(err);
+      error: () => {
+        this.errorMessage = 'Errore nel recupero dell’utente autenticato.';
         this.loading = false;
       }
     });
   }
 
-  protected readonly ApiPathUtil = ApiPathUtil;
+  openCancelModal(bookingId: number): void {
+    this.bookingIdToDelete = bookingId;
+    const modal = document.getElementById('confirmCancelModal');
+    if (modal) new bootstrap.Modal(modal).show();
+  }
+
+  confirmCancellation(): void {
+    if (!this.bookingIdToDelete) return;
+    this.bookingService.cancelBooking(this.bookingIdToDelete).subscribe({
+      next: () => {
+        this.bookings = this.bookings.filter(b => b.id !== this.bookingIdToDelete);
+        this.bookingIdToDelete = null;
+        const modal = bootstrap.Modal.getInstance(document.getElementById('confirmCancelModal')!);
+        modal?.hide();
+      },
+      error: () => {
+        this.errorMessage = 'Errore durante la cancellazione della prenotazione.';
+        this.bookingIdToDelete = null;
+      }
+    });
+  }
 }
