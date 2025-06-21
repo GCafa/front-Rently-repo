@@ -253,7 +253,7 @@ export class NavbarComponent implements OnInit {
   }
 
   onImageError() {
-    this.userImage = 'assets/images/default-profile.png'; // Assicurati di avere un'immagine di default
+    this.userImage = 'assets/images/defaultProfileImage.png'; // Assicurati di avere un'immagine di default
     console.error('Errore nel caricamento dell\'immagine del profilo');
   }
 

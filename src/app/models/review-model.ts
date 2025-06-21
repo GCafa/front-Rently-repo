@@ -1,27 +1,31 @@
-import {UserModel} from "./user-model";
-import {PropertyModel} from "./property-model";
+import { UserModel } from "./user-model";
+import { PropertyModel } from "./property-model";
 
 export class ReviewModel {
-  reviewId: number;
+  id: number;
   title: string;
   description: string;
   reviewer: UserModel;
-  property: PropertyModel;
-  reviewed: UserModel;
+  property: PropertyModel | null;
+  reviewed: UserModel | null;
   createdAt: Date;
   rating: number;
+  hostResponse: string | null;
+  hostResponseCreatedAt: Date | null;
 
   constructor(
-    reviewId: number,
+    id: number,
     title: string,
     description: string,
     reviewer: UserModel,
-    property: PropertyModel,
-    reviewed: UserModel,
+    property: PropertyModel | null,
+    reviewed: UserModel | null,
     createdAt: Date,
-    rating: number
+    rating: number,
+    hostResponse: string | null,
+    hostResponseCreatedAt: Date | null
   ) {
-    this.reviewId = reviewId;
+    this.id = id;
     this.title = title;
     this.description = description;
     this.reviewer = reviewer;
@@ -29,5 +33,7 @@ export class ReviewModel {
     this.reviewed = reviewed;
     this.createdAt = createdAt;
     this.rating = rating;
+    this.hostResponse = hostResponse;
+    this.hostResponseCreatedAt = hostResponseCreatedAt;
   }
 }

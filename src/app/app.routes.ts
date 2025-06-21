@@ -27,6 +27,7 @@ import {MyBookingsComponent} from './components/booking/my-bookings/my-bookings.
 import {ClientReviewComponent} from './components/review/client-review/client-review.component';
 import {FavoritePropertiesComponent} from './components/property/favorite-properties/favorite-properties.component';
 import {HostDashboardComponent} from './components/host-dashboard/host-dashboard.component';
+import {HostReviewComponent} from './components/review/host-review/host-review.component';
 
 
 
@@ -59,7 +60,7 @@ export const routes: Routes = [
   { path: 'client-review', component: ClientReviewComponent, canActivate: [authGuard]},
   { path: 'favorite-properties', component: FavoritePropertiesComponent, canActivate: [authGuard]},
   { path: 'host-dashboard', component: HostDashboardComponent, canActivate: [authGuard]  },
-
+  { path: 'response-review/:reviewId', component: HostReviewComponent, canActivate: [authGuard] },
   // Fallback route
   { path: '**', redirectTo: '/home' }
 ];

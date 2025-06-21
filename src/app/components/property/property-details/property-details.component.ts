@@ -157,4 +157,10 @@ export class PropertyDetailsComponent implements OnInit {
       }
     }
   }
+  isHostOfProperty(property: PropertyModel | null): boolean {
+    return (this.currentUser?.id === this.property?.host.id)
+  }
+
+
+
 }

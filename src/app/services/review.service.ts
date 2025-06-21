@@ -44,4 +44,9 @@ export class ReviewService {
   getAllReviews(): Observable<ReviewModel[]> {
     return this.http.get<ReviewModel[]>(`${this.apiUrl}`);
   }
+
+  addHostResponse(reviewId: number, responseRequest: { response: string }): Observable<CustomResponse> {
+    return this.http.post<CustomResponse>(`${this.apiUrl}/${reviewId}/host-response`, responseRequest);
+  }
+
 }

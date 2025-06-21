@@ -105,27 +105,43 @@
     <hr class="my-5">
     <div>
       <h3 class="text-center mb-4 text-secondary">Recensioni sulla proprietà</h3>
+
       <div *ngIf="reviews.length === 0" class="text-center text-muted">
         <i class="bi bi-chat-left-text fs-4"></i><br>Nessuna recensione disponibile.
       </div>
+
       <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4" *ngIf="reviews.length > 0">
         <div class="col" *ngFor="let review of reviews">
           <div class="card h-100 shadow-sm border-primary rounded-4">
-            <div class="card-body">
-              <h5 class="card-title text-primary">
-                <i class="bi bi-star-fill text-warning me-1"></i> {{ review.rating }}/5
-              </h5>
+            <div class="card-body d-flex flex-column">
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <h5 class="card-title text-primary mb-0">
+                  <i class="bi bi-star-fill text-warning me-1"></i> {{ review.rating }}/5
+                </h5>
+
+                <!-- Bottone Rispondi visibile solo all'host -->
+                <button *ngIf="isHostOfProperty(review.property)" class="btn btn-sm btn-outline-primary"
+                   [routerLink]="['/response-review/', review.id]">
+                  Rispondi
+                </button>
+              </div>
+
               <h6 class="card-subtitle mb-2 text-muted">{{ review.title }}</h6>
               <p class="card-text">{{ review.description }}</p>
-              <p class="card-text text-end fst-italic" *ngIf="review.reviewer?.firstname">
+
+              <p class="card-text text-end fst-italic" *ngIf="review.reviewer">
                 — {{ review.reviewer.firstname }} {{ review.reviewer.lastname }}
               </p>
+
+              <div *ngIf="review.hostResponse" class="alert alert-light border mt-3">
+                <strong>Risposta dell'host:</strong>
+                <p class="mb-0">{{ review.hostResponse }}</p>
+              </div>
             </div>
           </div>
         </div>
+
       </div>
-    </div>
-  </div>
 
   <!-- Modal fullscreen -->
   <div *ngIf="showFullscreen && property?.propertyImages?.length" class="fullscreen-modal" tabindex="0">
@@ -152,3 +168,5 @@
     </div>
   </div>
 </div>
+  </div>
+  </div>
