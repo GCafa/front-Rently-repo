@@ -8,7 +8,7 @@ body {
   justify-content: center;
   align-items: center;
   min-height: calc(100vh - 80px);
-  background: linear-gradient(135deg, rgba(246, 141, 68, 0.02) 0%, rgba(155, 87, 214, 0.05) 100%);
+  /*background: linear-gradient(135deg, rgba(246, 141, 68, 0.02) 0%, rgba(155, 87, 214, 0.05) 100%);*/
   padding: 2rem;
 }
 
