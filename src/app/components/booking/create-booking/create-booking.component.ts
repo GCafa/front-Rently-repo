@@ -45,7 +45,7 @@ export class CreateBookingComponent implements OnInit {
       checkOutDate: ['', Validators.required],
       numOfAdults: [1, [Validators.required, Validators.min(1)]],
       numOfChildren: [0, [Validators.required, Validators.min(0)]],
-      couponCode: ['' || null]
+      couponCode: [null]
     });
   }
 
@@ -68,7 +68,7 @@ export class CreateBookingComponent implements OnInit {
           form.numOfChildren,
           user,
           this.property!,
-          form.couponCode
+          form.couponCode === '' ? null : form.couponCode
         );
 
 
