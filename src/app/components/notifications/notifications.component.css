@@ -111,3 +111,34 @@
   font-style: italic;
   background: rgba(0,0,0,0.02);
 }
+.notification-header .btn-group .btn {
+  border-radius: 20px;
+  font-size: 0.75rem;
+  padding: 5px 12px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  border: none;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+}
+
+.notification-header .btn-outline-primary {
+  color: #5c1f91;
+  background-color: white;
+  border: 1px solid #5c1f91;
+}
+
+.notification-header .btn-outline-primary:hover {
+  background-color: #5c1f91;
+  color: white;
+}
+
+.notification-header .btn-outline-danger {
+  color: #b32828;
+  background-color: white;
+  border: 1px solid #b32828;
+}
+
+.notification-header .btn-outline-danger:hover {
+  background-color: #b32828;
+  color: white;
+}

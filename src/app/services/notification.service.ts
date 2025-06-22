@@ -17,10 +17,6 @@ export class NotificationService {
     return this.http.get<NotificationModel[]>(`${this.apiUrl}`);
   }
 
-  getNotificationById(notificationId: number): Observable<NotificationModel> {
-    return this.http.get<NotificationModel>(`${this.apiUrl}/${notificationId}`);
-  }
-
   markAsRead(notificationId: number): Observable<CustomResponse> {
     return this.http.post<CustomResponse>(`${this.apiUrl}/${notificationId}/mark-read`, {});
   }
@@ -34,6 +30,6 @@ export class NotificationService {
   }
 
   deleteAllNotifications(): Observable<CustomResponse> {
-    return this.http.delete<CustomResponse>(`${this.apiUrl}/all`);
+    return this.http.delete<CustomResponse>(`${this.apiUrl}/delete-all`);
   }
 }

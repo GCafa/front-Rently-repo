@@ -1,4 +1,3 @@
-<!-- src/app/components/notifications/notifications.component.html -->
 <div class="notifications-container">
   <div class="notification-icon" (click)="toggleDropdown()">
     <i class="fa fa-bell"></i>
@@ -9,9 +8,15 @@
 
   @if (isDropdownOpen) {
     <div class="notification-dropdown">
-      <div class="notification-header">
-        <h3>Notifiche</h3>
+      <div class="notification-header d-flex justify-content-between align-items-center">
+        <h3 class="m-0">Notifiche</h3>
+        <div class="btn-group btn-group-sm">
+          <button class="btn btn-outline-primary" (click)="markAllAsRead()">✔️ Letti</button>
+          <button class="btn btn-outline-danger" (click)="deleteAll()">🗑️ Elimina</button>
+        </div>
       </div>
+
+      <hr class="my-2">
 
       <div class="notification-list">
         @if (notifications.length > 0) {
@@ -22,7 +27,7 @@
             </app-notification-item>
           }
         } @else {
-          <div class="no-notifications">
+          <div class="no-notifications text-center text-muted">
             <p>Non ci sono notifiche</p>
           </div>
         }

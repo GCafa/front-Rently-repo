@@ -42,4 +42,28 @@ export class NotificationsComponent implements OnInit {
   updateUnreadCount(): void {
     this.unreadCount = this.notifications.filter(n => !n.read).length;
   }
+
+  markAllAsRead(): void {
+    this.notificationService.markAllAsRead().subscribe({
+      next: () => {
+        this.loadNotifications();
+      },
+      error: (err) => {
+        console.error('Errore nel segnare tutte le notifiche come lette:', err);
+      }
+    });
+  }
+
+  deleteAll(): void {
+    this.notificationService.deleteAllNotifications().subscribe({
+      next: () => {
+        this.notifications = [];
+        this.unreadCount = 0;
+      },
+      error: (err) => {
+        console.error('Errore nell\'eliminazione delle notifiche:', err);
+      }
+    });
+  }
+
 }
