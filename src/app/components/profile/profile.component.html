@@ -34,13 +34,6 @@
               <div class="col-7 text-start user-field">{{ field.value }}</div>
             </div>
 
-            <!-- Pulsanti principali -->
-            <div class="d-flex flex-wrap gap-3 mb-3">
-              <button class="btn btn-outline-danger px-4" (click)="logout()">
-                <i class="bi bi-box-arrow-right"></i> Logout
-              </button>
-            </div>
-
             <!-- Sezione visibile solo agli Host -->
             <div class="mt-3" *ngIf="isHost">
               <a class="btn btn-outline-secondary w-100" routerLink="/property-list">
@@ -49,13 +42,6 @@
               <a class="btn btn-outline-success mt-2 w-100" routerLink="/create-property">
                 <i class="bi bi-plus-circle"></i> Inserisci una nuova proprietà
               </a>
-            </div>
-
-            <!-- Chat -->
-            <div class="mt-4">
-              <button class="btn btn-outline-info w-100" routerLink="/chat">
-                <i class="bi bi-chat-dots"></i> Apri Chat
-              </button>
             </div>
 
 

@@ -79,11 +79,15 @@ export class AuthService {
   }
 
   logout(): void {
-    localStorage.removeItem(this.tokenKey);
-    localStorage.removeItem(this.userKey);
+    localStorage.clear();
+    sessionStorage.clear();
     this.currentUserSubject.next(null);
-    this.router.navigate(['/login']);
+
+    this.router.navigateByUrl('/login').then(() => {
+      window.location.reload();
+    });
   }
+
 
   isAuthenticated(): boolean {
     return !!localStorage.getItem(this.tokenKey);
