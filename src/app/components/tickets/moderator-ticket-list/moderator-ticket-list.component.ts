@@ -16,7 +16,6 @@ import {TicketStatusTranslatePipe} from '../../../pipes/ticket-status-translate.
     NgForOf,
     NgIf,
     NgClass,
-    RouterLink,
     TicketStatusTranslatePipe
   ],
   styleUrls: ['./moderator-ticket-list.component.css']

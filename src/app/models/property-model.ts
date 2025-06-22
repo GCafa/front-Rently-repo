@@ -23,8 +23,6 @@ export class PropertyModel {
   bookings: BookingModel[];
   propertyImages: string[];
   reviews: ReviewModel[];
-  cleaningFee: number;
-  serviceFee: number;
 
   constructor(
     id: number,
@@ -46,8 +44,6 @@ export class PropertyModel {
     bookings: BookingModel[],
     propertyImages: string[],
     reviews: ReviewModel[],
-    cleaningFee: number = 0,
-    serviceFee: number = 0
   ) {
     this.id = id;
     this.host = host;
@@ -68,7 +64,5 @@ export class PropertyModel {
     this.bookings = bookings;
     this.propertyImages = propertyImages;
     this.reviews = reviews;
-    this.cleaningFee = cleaningFee;
-    this.serviceFee = serviceFee;
   }
   }

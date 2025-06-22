@@ -193,7 +193,7 @@ export class NavbarComponent implements OnInit {
         icon: 'fa fa-sign-out-alt',
         visible: true,
         command: () => this.logout()
-      },
+      }
     ];
   }
 

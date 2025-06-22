@@ -95,6 +95,13 @@
               <button (click)="goBack()" class="btn btn-outline-secondary">
                 <i class="bi bi-arrow-left"></i> Indietro
               </button>
+
+              <button *ngIf="userRole === 'HOST' && isHostOfProperty(property)"
+                      class="btn btn-outline-primary"
+                      [routerLink]="['/update-property', property.id]">
+                <i class="bi bi-pencil-square"></i> Modifica proprietà
+              </button>
+
             </div>
           </div>
         </div>
@@ -157,7 +164,7 @@
   </div>
 
   <!-- Toast successo -->
-  <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 1055">
+  <div class="position-fixed bottom-0 end-0 p-3">
     <div class="toast align-items-center text-white bg-success border-0 show" role="alert"
          *ngIf="showFavoriteSuccess">
       <div class="d-flex">
@@ -169,4 +176,5 @@
   </div>
 </div>
   </div>
-  </div>
+</div>
+

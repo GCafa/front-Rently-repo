@@ -31,6 +31,7 @@ import {HostReviewComponent} from './components/review/host-review/host-review.c
 import {
   ViewAllPropertiesAdminComponent
 } from './components/property/view-all-properties-admin/view-all-properties-admin.component';
+import {UpdatePropertyComponent} from './components/property/update-property/update-property.component';
 
 
 
@@ -65,6 +66,7 @@ export const routes: Routes = [
   { path: 'host-dashboard', component: HostDashboardComponent, canActivate: [authGuard]  },
   { path: 'response-review/:reviewId', component: HostReviewComponent, canActivate: [authGuard] },
   { path: 'view-all-properties-admin', component: ViewAllPropertiesAdminComponent, canActivate: [authGuard]},
+  { path: 'update-property/:id', component: UpdatePropertyComponent, canActivate: [authGuard] },
   // Fallback route
   { path: '**', redirectTo: '/home' }
 ];

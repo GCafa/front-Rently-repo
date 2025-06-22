@@ -1,0 +1,54 @@
+<div class="container mt-4">
+  <h2 class="elegant-title">Modifica Proprietà</h2>
+
+  <div class="card p-4 shadow-sm">
+    <form [formGroup]="updateForm" (ngSubmit)="onSubmit()">
+      <div class="mb-3">
+        <label class="form-label">Titolo</label>
+        <input type="text" class="form-control" formControlName="title" />
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Descrizione</label>
+        <textarea class="form-control" rows="3" formControlName="description"></textarea>
+      </div>
+
+      <div class="row">
+        <div class="col-md-4 mb-3">
+          <label class="form-label">Prezzo per notte</label>
+          <input type="number" class="form-control" formControlName="pricePerNight" />
+        </div>
+        <div class="col-md-4 mb-3">
+          <label class="form-label">Camere</label>
+          <input type="number" class="form-control" formControlName="bedrooms" />
+        </div>
+        <div class="col-md-4 mb-3">
+          <label class="form-label">Bagni</label>
+          <input type="number" class="form-control" formControlName="bathrooms" />
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Ospiti Massimi</label>
+        <input type="number" class="form-control" formControlName="maxGuests" />
+      </div>
+
+      <div class="form-check mb-3">
+        <input type="checkbox" class="form-check-input" formControlName="isAvailable" id="isAvailable" />
+        <label class="form-check-label" for="isAvailable">Disponibile</label>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Immagini (opzionali)</label>
+        <input type="file" class="form-control" (change)="onImagesSelected($event)" multiple />
+      </div>
+
+      <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
+      <div *ngIf="successMessage" class="alert alert-success">{{ successMessage }}</div>
+
+      <button type="submit" class="btn btn-dark" [disabled]="loading">
+        {{ loading ? 'Salvataggio...' : 'Aggiorna' }}
+      </button>
+    </form>
+  </div>
+</div>

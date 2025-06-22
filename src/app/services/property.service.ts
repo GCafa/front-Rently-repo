@@ -33,7 +33,7 @@ export class PropertyService {
         formData.append('images', image);
       });
     }
-    return this.http.post<CustomResponse>(`${this.apiUrl}/update/${propertyUpdateRequest}`, formData);
+    return this.http.post<CustomResponse>(`${this.apiUrl}/update`, formData);
   }
 
 

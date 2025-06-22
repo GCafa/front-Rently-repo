@@ -1,0 +1,33 @@
+.elegant-title {
+  font-weight: 600;
+  font-size: 2rem;
+  color: #571790;
+}
+
+.card {
+  background-color: #fff;
+  border-radius: 1rem;
+  transition: 0.2s ease;
+}
+
+.card:hover {
+  box-shadow: 0 6px 20px rgba(136, 69, 192, 0.2);
+  transform: translateY(-2px);
+}
+
+.form-label {
+  font-weight: 500;
+  color: #571790;
+}
+
+.btn-dark {
+  background-color: #571790;
+  border: none;
+  border-radius: 1rem;
+  padding: 0.6rem 1.2rem;
+  font-weight: 500;
+}
+
+.btn-dark:hover {
+  background-color: #8845c0;
+}

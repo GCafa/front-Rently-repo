@@ -5,7 +5,7 @@ export class PropertyUpdateRequest {
   bedrooms: number;
   bathrooms: number;
   maxGuests: number;
-  isActive: boolean;
+  isAvailable: boolean;
 
   constructor(
     title: string,
@@ -14,7 +14,7 @@ export class PropertyUpdateRequest {
     bedrooms: number,
     bathrooms: number,
     maxGuests: number,
-    isActive: boolean
+    isAvailable: boolean
   ) {
     this.title = title;
     this.description = description;
@@ -22,6 +22,6 @@ export class PropertyUpdateRequest {
     this.bedrooms = bedrooms;
     this.bathrooms = bathrooms;
     this.maxGuests = maxGuests;
-    this.isActive = isActive;
+    this.isAvailable = isAvailable;
   }
 }
