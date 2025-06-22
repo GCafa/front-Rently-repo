@@ -1,0 +1,17 @@
+.elegant-title {
+  font-weight: 600;
+  font-size: 2rem;
+  color: #571790;
+}
+
+.elegant-subtitle {
+  font-weight: 500;
+  font-size: 1.2rem;
+  color: #8845c0;
+}
+
+.card {
+  background-color: #fff;
+  border-radius: 1rem;
+  box-shadow: 0 6px 12px rgba(136, 69, 192, 0.1);
+}

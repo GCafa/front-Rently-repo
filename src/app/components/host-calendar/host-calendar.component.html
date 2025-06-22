@@ -1,0 +1,91 @@
+<div class="container mt-4">
+  <h2 class="elegant-title">Calendario Disponibilità Host</h2>
+
+  <div class="card p-4">
+    <div class="mb-3">
+      <label for="propertySelect" class="form-label">Seleziona Proprietà</label>
+      <select
+        id="propertySelect"
+        class="form-select"
+        [(ngModel)]="selectedProperty"
+        (ngModelChange)="onPropertyChange($event)"
+      >
+        <option *ngFor="let property of properties" [ngValue]="property">
+          {{ property.title }}
+        </option>
+      </select>
+    </div>
+
+    <form [formGroup]="dateForm" (ngSubmit)="viewBookings()" class="mb-3">
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label for="startDate" class="form-label">Data Inizio</label>
+          <input
+            type="date"
+            id="startDate"
+            class="form-control"
+            formControlName="startDate"
+          />
+        </div>
+        <div class="col-md-6 mb-3">
+          <label for="endDate" class="form-label">Data Fine</label>
+          <input
+            type="date"
+            id="endDate"
+            class="form-control"
+            formControlName="endDate"
+          />
+        </div>
+      </div>
+
+      <div *ngIf="selectedProperty" class="mt-4">
+        <h5 class="elegant-subtitle">Riepilogo selezione</h5>
+        <div class="card p-3">
+          <p><strong>Proprietà:</strong> {{ selectedProperty.title }}</p>
+          <p><strong>Periodo:</strong> dal {{ formatDate(dateForm.value.startDate) }} al {{ formatDate(dateForm.value.endDate) }}</p>
+          <button type="submit" class="btn btn-primary mt-2" [disabled]="dateForm.invalid">
+            Visualizza prenotazioni nel periodo
+          </button>
+        </div>
+      </div>
+    </form>
+
+    <div *ngIf="showBookings" class="mt-4">
+      <h5 class="elegant-subtitle">Prenotazioni nel periodo selezionato</h5>
+
+      <div *ngIf="isLoading" class="text-center my-4">
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Caricamento...</span>
+        </div>
+        <p class="mt-2">Caricamento prenotazioni...</p>
+      </div>
+
+      <div *ngIf="!isLoading && bookings.length === 0" class="alert alert-info">
+        Nessuna prenotazione trovata nel periodo selezionato.
+      </div>
+
+      <div *ngIf="!isLoading && bookings.length > 0" class="card p-3">
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Cliente</th>
+                <th>Check-in</th>
+                <th>Check-out</th>
+                <th>Totale</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let booking of bookings">
+                <td>{{ booking.user.firstname }} {{ booking.user.lastname }}</td>
+                <td>{{ formatDate(booking.checkInDate) }}</td>
+                <td>{{ formatDate(booking.checkOutDate) }}</td>
+                <td>€ {{ booking.total }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

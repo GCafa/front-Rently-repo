@@ -32,6 +32,7 @@ import {
   ViewAllPropertiesAdminComponent
 } from './components/property/view-all-properties-admin/view-all-properties-admin.component';
 import {UpdatePropertyComponent} from './components/property/update-property/update-property.component';
+import {HostCalendarComponent} from './components/host-calendar/host-calendar.component';
 
 
 
@@ -67,6 +68,7 @@ export const routes: Routes = [
   { path: 'response-review/:reviewId', component: HostReviewComponent, canActivate: [authGuard] },
   { path: 'view-all-properties-admin', component: ViewAllPropertiesAdminComponent, canActivate: [authGuard]},
   { path: 'update-property/:id', component: UpdatePropertyComponent, canActivate: [authGuard] },
+  { path: 'host-calendar', component: HostCalendarComponent, canActivate: [authGuard] },
   // Fallback route
   { path: '**', redirectTo: '/home' }
 ];

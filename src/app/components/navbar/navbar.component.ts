@@ -189,6 +189,12 @@ export class NavbarComponent implements OnInit {
         command: () => this.goToViewAllPropertiesAdmin()
       },
       {
+        label: 'Calendario Host',
+        icon: 'fa fa-calendar',
+        visible: this.isHost,
+        command: () => this.goToHostCalendar()
+      },
+      {
         label: 'Logout',
         icon: 'fa fa-sign-out-alt',
         visible: true,
@@ -255,6 +261,10 @@ export class NavbarComponent implements OnInit {
 
   goToViewAllPropertiesAdmin(): void {
     this.router.navigate(['/view-all-properties-admin']);
+  }
+
+  goToHostCalendar(): void {
+    this.router.navigate(['/host-calendar']);
   }
 
   logout(): void {

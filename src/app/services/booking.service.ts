@@ -48,6 +48,12 @@ export class BookingService {
       )
     );
   }
+  getBookedDates(propertyId: number): Observable<string[]> {
+    return this.http.get<string[]>(`${this.apiUrl}/booked-dates/${propertyId}`);
+  }
 
+  blockDateRange(payload: { propertyId: number; start: string; end: string }): Observable<any> {
+    return this.http.post(`${this.apiUrl}/block-dates`, payload);
+  }
 
 }
