@@ -183,6 +183,12 @@ export class NavbarComponent implements OnInit {
         command: () => this.goToFavoritePropertyList()
       },
       {
+        label: 'Visualizza Appartamenti',
+        icon: 'fa fa-eye',
+        visible: this.isAdmin,
+        command: () => this.goToViewAllPropertiesAdmin()
+      },
+      {
         label: 'Logout',
         icon: 'fa fa-sign-out-alt',
         visible: true,
@@ -247,6 +253,9 @@ export class NavbarComponent implements OnInit {
     this.router.navigate(['/host-dashboard']);
   }
 
+  goToViewAllPropertiesAdmin(): void {
+    this.router.navigate(['/view-all-properties-admin']);
+  }
 
   logout(): void {
     this.authService.logout();

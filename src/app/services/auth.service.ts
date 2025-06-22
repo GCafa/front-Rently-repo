@@ -101,13 +101,6 @@ export class AuthService {
     return localStorage.getItem(this.tokenKey);
   }
 
-  hasRole(role: string): boolean {
-    const user = this.getCurrentUser();
-    if (!user || !user.role) {
-      return false;
-    }
-    return user.role === role;
-  }
 
   private decodeToken(token: string): any {
     const payload = token.split('.')[1];

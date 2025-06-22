@@ -20,9 +20,6 @@ export class BookingService {
     return this.http.post<CustomResponse>(`${this.apiUrl}/create`, bookingCreateRequest);
   }
 
-  getBooking(confirmationCode: string): Observable<BookingModel> {
-    return this.http.get<BookingModel>(`${this.apiUrl}/${confirmationCode}`);
-  }
 
   getAllBookings(): Observable<BookingModel[]> {
     return this.http.get<BookingModel[]>(`${this.apiUrl}/bookings`);
@@ -34,10 +31,6 @@ export class BookingService {
 
   cancelBooking(bookingId: number): Observable<CustomResponse> {
     return this.http.delete<CustomResponse>(`${this.apiUrl}/${bookingId}`);
-  }
-
-  generateConfirmationCode(bookingId: number): Observable<string> {
-    return this.http.get<string>(`${this.apiUrl}/generate-code`);
   }
 
   getHostBookingDashboard(hostId: number): Observable<BookingDashboardResponse[]> {

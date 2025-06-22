@@ -49,19 +49,15 @@ export class PropertyService {
     return this.http.get<PropertyModel[]>(`${this.apiUrl}/host/${hostId}`);
   }
 
-  getPropertiesByCity(city: string): Observable<PropertyModel[]> {
-    return this.http.get<PropertyModel[]>(`${this.apiUrl}/city/${city}`);
-  }
-
-  getAvailableProperties(): Observable<PropertyModel[]> {
-    return this.http.get<PropertyModel[]>(`${this.apiUrl}/available`);
-  }
-
   toggleActiveStatus(propertyId: number): Observable<CustomResponse> {
     return this.http.post<CustomResponse>(`${this.apiUrl}/toggle-active/${propertyId}`, null);
   }
 
   searchAvailableProperties(availablePropertiesRequest: AvailablePropertyRequest): Observable<PropertyModel[]> {
     return this.http.post<PropertyModel[]>(`${this.apiUrl}/search/available`, availablePropertiesRequest);
+  }
+
+  deleteProperty(propertyId: number): Observable<CustomResponse> {
+    return this.http.delete<CustomResponse>(`${this.apiUrl}/delete/${propertyId}`);
   }
 }

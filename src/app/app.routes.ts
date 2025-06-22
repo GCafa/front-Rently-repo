@@ -28,6 +28,9 @@ import {ClientReviewComponent} from './components/review/client-review/client-re
 import {FavoritePropertiesComponent} from './components/property/favorite-properties/favorite-properties.component';
 import {HostDashboardComponent} from './components/host-dashboard/host-dashboard.component';
 import {HostReviewComponent} from './components/review/host-review/host-review.component';
+import {
+  ViewAllPropertiesAdminComponent
+} from './components/property/view-all-properties-admin/view-all-properties-admin.component';
 
 
 
@@ -61,6 +64,7 @@ export const routes: Routes = [
   { path: 'favorite-properties', component: FavoritePropertiesComponent, canActivate: [authGuard]},
   { path: 'host-dashboard', component: HostDashboardComponent, canActivate: [authGuard]  },
   { path: 'response-review/:reviewId', component: HostReviewComponent, canActivate: [authGuard] },
+  { path: 'view-all-properties-admin', component: ViewAllPropertiesAdminComponent, canActivate: [authGuard]},
   // Fallback route
   { path: '**', redirectTo: '/home' }
 ];
