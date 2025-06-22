@@ -31,22 +31,47 @@ export class ViewAllPropertiesComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // opzionale: carica tutte le proprietà inizialmente o lascia vuoto
-    // this.loadAll();
+    // Carica tutte le proprietà inizialmente
+    this.loadAll();
+  }
+
+  loadAll(): void {
+    this.propertyService.getAllProperties().subscribe({
+      next: (data) => {
+        this.properties = data;
+        this.errorMessage = '';
+      },
+      error: () => {
+        this.errorMessage = 'Errore nel caricamento delle proprietà.';
+      }
+    });
   }
 
   searchAvailable(): void {
-    if (!this.checkInDate || !this.checkOutDate || !this.city) {
-      this.errorMessage = 'Tutti i campi sono obbligatori.';
+    // Se non è stato inserito alcun criterio di ricerca, mostra tutte le proprietà
+    if (!this.checkInDate && !this.checkOutDate && !this.city && this.numOfAdults === 1 && this.numOfChildren === 0) {
+      this.loadAll();
       return;
     }
 
+    // Imposta valori predefiniti per i campi non compilati
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    const dayAfterTomorrow = new Date();
+    dayAfterTomorrow.setDate(dayAfterTomorrow.getDate() + 2);
+
+    const checkIn = this.checkInDate ? new Date(this.checkInDate) : tomorrow;
+    const checkOut = this.checkOutDate ? new Date(this.checkOutDate) : dayAfterTomorrow;
+    const city = this.city || '';
+    const adults = this.numOfAdults || 1;
+    const children = this.numOfChildren || 0;
+
     const request = new AvailablePropertyRequest(
-      new Date(this.checkInDate),
-      new Date(this.checkOutDate),
-      this.city,
-      this.numOfAdults,
-      this.numOfChildren
+      checkIn,
+      checkOut,
+      city,
+      adults,
+      children
     );
 
     this.propertyService.searchAvailableProperties(request).subscribe({
