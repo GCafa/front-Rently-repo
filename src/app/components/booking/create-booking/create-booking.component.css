@@ -69,3 +69,79 @@ button.btn {
   color: #0f5132;
   border: 1px solid #badbcc;
 }
+.booking-container {
+  background-color: #ffffff;
+  border: 1px solid #e0d5f5;
+  border-radius: 1.5rem;
+  padding: 2rem;
+  max-width: 700px;
+  margin: 0 auto;
+  box-shadow: 0 8px 20px rgba(87, 23, 144, 0.1);
+}
+
+.form-label {
+  font-weight: 500;
+  color: #571790;
+}
+
+input.form-control,
+textarea.form-control {
+  border: 1px solid #c9a9f5;
+  border-radius: 0.5rem;
+  transition: box-shadow 0.2s ease;
+}
+
+input.form-control:focus,
+textarea.form-control:focus {
+  box-shadow: 0 0 0 0.25rem rgba(87, 23, 144, 0.25);
+  border-color: #8845c0;
+}
+
+.btn-gradient {
+  background: linear-gradient(90deg, #571790, #8845c0);
+  color: #fff;
+  border: none;
+  border-radius: 0.75rem;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.btn-gradient:hover {
+  background: linear-gradient(90deg, #8845c0, #571790);
+  transform: translateY(-2px);
+}
+
+.summary-box {
+  background-color: #f9f6fd;
+  border: 1px solid #e4d6fb;
+  border-left: 5px solid #8845c0;
+  padding: 1.5rem;
+  border-radius: 1rem;
+}
+
+.text-gradient {
+  background: linear-gradient(to right, #571790, #8845c0);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.alert {
+  font-size: 1rem;
+}
+.violet-box {
+  background-color: #f6f0fb;
+  border: 1px solid #d7c3f0;
+  border-left: 5px solid #8845c0;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 4px 12px rgba(136, 69, 192, 0.1);
+}
+
+.violet-title {
+  color: #571790;
+  font-weight: 600;
+}
+
+.text-purple {
+  color: #8845c0;
+}
+

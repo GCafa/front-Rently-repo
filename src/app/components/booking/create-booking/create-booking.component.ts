@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { BookingService } from '../../../services/booking.service';
-import { AuthService } from '../../../services/auth.service';
 import { PropertyModel } from '../../../models/property-model';
 import { BookingCreateRequest } from '../../../dto/request/BookingCreateRequest';
 import { CommonModule, NgIf } from '@angular/common';
@@ -21,6 +20,9 @@ export class CreateBookingComponent implements OnInit {
   bookingForm!: FormGroup;
   errorMessage: string = '';
   successMessage: string = '';
+  numberOfNights = 0;
+  totalAmount = 0;
+  couponDiscount = 0;
 
   constructor(
     private fb: FormBuilder,
@@ -33,8 +35,6 @@ export class CreateBookingComponent implements OnInit {
     const state = history.state;
     this.property = state.property as PropertyModel | null;
 
-    console.log('📦 Property from state:', this.property);
-
     if (!this.property) {
       this.errorMessage = 'Proprietà non disponibile.';
       return;
@@ -45,8 +45,37 @@ export class CreateBookingComponent implements OnInit {
       checkOutDate: ['', Validators.required],
       numOfAdults: [1, [Validators.required, Validators.min(1)]],
       numOfChildren: [0, [Validators.required, Validators.min(0)]],
-      couponCode: [null]
+      couponCode: ['']
     });
+
+    this.bookingForm.valueChanges.subscribe(() => this.updateSummary());
+  }
+
+  updateSummary(): void {
+    const checkIn = new Date(this.bookingForm.value.checkInDate);
+    const checkOut = new Date(this.bookingForm.value.checkOutDate);
+
+    const msPerDay = 1000 * 60 * 60 * 24;
+    this.numberOfNights = (checkOut.getTime() - checkIn.getTime()) / msPerDay;
+
+    if (this.numberOfNights > 0 && this.property) {
+      this.totalAmount = this.numberOfNights * this.property.pricePerNight;
+
+      const code = this.bookingForm.value.couponCode?.toLowerCase();
+      if (code === 'sconto10') {
+        this.couponDiscount = 10;
+        this.totalAmount = this.totalAmount * 0.9;
+      } else if (code === 'sconto20') {
+        this.couponDiscount = 20;
+        this.totalAmount = this.totalAmount * 0.8;
+      } else {
+        this.couponDiscount = 0;
+      }
+
+      this.totalAmount = Math.round(this.totalAmount * 100) / 100;
+    } else {
+      this.totalAmount = 0;
+    }
   }
 
   onSubmit(): void {
@@ -71,27 +100,20 @@ export class CreateBookingComponent implements OnInit {
           form.couponCode === '' ? null : form.couponCode
         );
 
-
-        console.log('📤 BookingCreateRequest inviato:', bookingRequest);
-
         this.bookingService.saveBooking(bookingRequest).subscribe({
-          next: (res) => {
+          next: () => {
             this.successMessage = 'Prenotazione completata con successo!';
           },
           error: (error) => {
             const errorMsg = error.error?.message || error.message || 'Errore sconosciuto';
-
             if (errorMsg.includes('Unable to complete the payment')) {
               this.errorMessage = 'Saldo insufficiente per completare la prenotazione.';
               setTimeout(() => this.router.navigate(['/recharge-balance']), 1500);
-            }
-            else if (errorMsg.includes('Property not available for the selected dates')) {
-              this.errorMessage = 'Proprietà non disponibile per le date selezionate. Scegli date diverse.';
-            }
-            else if (errorMsg.includes('Coupon not found')) {
+            } else if (errorMsg.includes('Property not available')) {
+              this.errorMessage = 'Proprietà non disponibile per le date selezionate.';
+            } else if (errorMsg.includes('Coupon not found')) {
               this.errorMessage = 'Il codice coupon inserito non è valido.';
-            }
-            else {
+            } else {
               this.errorMessage = 'Errore durante la prenotazione: ' + errorMsg;
             }
           }
