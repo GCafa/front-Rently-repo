@@ -1,0 +1,54 @@
+<!-- Contenitore generale -->
+<div class="container py-5">
+
+  <h2 class="text-center text-purple mb-4">Gestione Appartamenti</h2>
+
+  <div *ngIf="successMessage" class="alert alert-success text-center rounded-4 fw-semibold">
+    {{ successMessage }}
+  </div>
+  <div *ngIf="errorMessage" class="alert alert-danger text-center rounded-4 fw-semibold">
+    {{ errorMessage }}
+  </div>
+
+  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+    <div class="col" *ngFor="let property of properties">
+      <div class="card shadow-sm border-0 rounded-4 h-100">
+        <img *ngIf="property.propertyImages.length > 0"
+             [src]="ApiPathUtil.getImageBaseUrl() + property.propertyImages[0]"
+             class="card-img-top rounded-top-4 property-image"
+             alt="{{ property.title }}">
+        <div class="card-body d-flex flex-column">
+          <h5 class="card-title fw-bold text-purple">{{ property.title }}</h5>
+          <p class="card-text small text-muted mb-3">
+            {{ property.description?.slice(0, 100) }}...
+          </p>
+          <div class="mt-auto d-flex justify-content-between">
+            <a [routerLink]="['/property-details', property.id]" class="btn btn-outline-primary btn-sm rounded-pill px-3">
+              Dettagli
+            </a>
+            <button (click)="openDeleteModal(property.id, property.title)"
+                    class="btn btn-outline-danger btn-sm rounded-pill px-3">
+              Elimina
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="!loading && properties.length === 0" class="text-center mt-5 text-muted fs-5">
+    <i class="bi bi-house-slash fs-3 mb-2 d-block"></i>
+    Nessuna proprietà trovata.
+  </div>
+</div>
+
+<!-- MODALE di conferma -->
+<div class="custom-modal-backdrop" *ngIf="showModal">
+  <div class="custom-modal shadow-lg">
+    <h5 class="mb-3 fw-semibold">Vuoi davvero eliminare <br>"{{ selectedPropertyTitle }}"?</h5>
+    <div class="d-flex justify-content-end gap-3">
+      <button class="btn btn-outline-secondary rounded-pill px-4" (click)="cancelDelete()">Annulla</button>
+      <button class="btn btn-gradient rounded-pill px-4" (click)="confirmDelete()">Ok</button>
+    </div>
+  </div>
+</div>
