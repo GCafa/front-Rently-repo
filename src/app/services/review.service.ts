@@ -17,14 +17,6 @@ export class ReviewService {
     return this.http.post<CustomResponse>(`${this.apiUrl}/property/${propertyId}`, reviewCreateRequest);
   }
 
-  createUserReview(userId: number, reviewCreateRequest: any): Observable<CustomResponse> {
-    return this.http.post<CustomResponse>(`${this.apiUrl}/user/${userId}`, reviewCreateRequest);
-  }
-
-  updateReview(reviewId: number, reviewUpdateRequest: any): Observable<CustomResponse> {
-    return this.http.put<CustomResponse>(`${this.apiUrl}/${reviewId}`, reviewUpdateRequest);
-  }
-
   deleteReview(reviewId: number): Observable<CustomResponse> {
     return this.http.delete<CustomResponse>(`${this.apiUrl}/${reviewId}`);
   }
