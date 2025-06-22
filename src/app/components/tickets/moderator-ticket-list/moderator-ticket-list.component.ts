@@ -28,7 +28,7 @@ export class ModeratorTicketListComponent implements OnInit {
   currentStatus: string | null = null;
   TicketStatus = TicketStatus;
 
-  constructor(private ticketService: TicketService, private router: Router) {}
+  constructor(protected ticketService: TicketService, private router: Router) {}
 
   ngOnInit(): void {
     this.loadTickets();
@@ -64,4 +64,20 @@ export class ModeratorTicketListComponent implements OnInit {
   viewTicket(id: number): void {
     this.router.navigate(['/ticket', id]);
   }
+
+  solveTicket(id: number): void {
+    this.ticketService.solveTicket(id).subscribe({
+      next: () => this.loadTickets(this.currentStatus),
+      error: () => alert('Errore nel segnare il ticket come risolto.')
+    });
+  }
+
+  closeTicket(id: number): void {
+    this.ticketService.closeTicket(id).subscribe({
+      next: () => this.loadTickets(this.currentStatus),
+      error: () => alert('Errore nella chiusura del ticket.')
+    });
+  }
+
+
 }

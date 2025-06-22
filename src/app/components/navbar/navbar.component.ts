@@ -185,7 +185,7 @@ export class NavbarComponent implements OnInit {
       {
         label: 'Visualizza Appartamenti',
         icon: 'fa fa-eye',
-        visible: this.isAdmin,
+        visible: this.isModeratorOrAdmin,
         command: () => this.goToViewAllPropertiesAdmin()
       },
       {
