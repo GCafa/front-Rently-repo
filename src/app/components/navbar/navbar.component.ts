@@ -127,13 +127,6 @@ export class NavbarComponent implements OnInit {
         visible: this.isClient,
         command: () => this.goToViewAllProperties()
       },
-
-      {
-        label: 'Appartamenti preferiti',
-        icon: 'fa-solid fa-boxes-stacked',
-        visible: this.isClient,
-        command: () => this.goToFavoritePropertyList()
-      },
       {
         label: 'Ticket',
         icon: 'fa-solid fa-ticket',
