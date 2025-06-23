@@ -50,8 +50,9 @@ export class ChatComponent implements OnInit {
     this.userService.getCurrentUser().subscribe({
       next: user => {
         this.currentUser = user;
-        // Load the conversation if we have a receiver ID
+
         if (this.receiverId) {
+          // Load the conversation with a specific user
           this.loadConversation();
         }
       },
@@ -61,6 +62,7 @@ export class ChatComponent implements OnInit {
       }
     });
   }
+
 
   loadConversation(): void {
     if (!this.receiverId) return;

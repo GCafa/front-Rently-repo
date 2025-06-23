@@ -195,6 +195,12 @@ export class NavbarComponent implements OnInit {
         command: () => this.goToHostCalendar()
       },
       {
+        label: 'Chat con i clienti',
+        icon: 'fa fa-comments',
+        visible: this.isHost,
+        command: () => this.goToHostChats()
+      },
+      {
         label: 'Logout',
         icon: 'fa fa-sign-out-alt',
         visible: true,
@@ -265,6 +271,10 @@ export class NavbarComponent implements OnInit {
 
   goToHostCalendar(): void {
     this.router.navigate(['/host-calendar']);
+  }
+
+  goToHostChats(): void {
+    this.router.navigate(['/host-chats']);
   }
 
   logout(): void {

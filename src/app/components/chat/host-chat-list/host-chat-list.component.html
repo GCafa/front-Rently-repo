@@ -1,0 +1,51 @@
+<div class="container mt-4">
+  <div class="card shadow">
+    <div class="card-header bg-primary text-white">
+      <h5 class="mb-0">Le tue chat con i clienti</h5>
+    </div>
+
+    <div class="card-body">
+      <!-- Loading spinner -->
+      <div *ngIf="loading" class="text-center my-4">
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Caricamento...</span>
+        </div>
+        <p class="mt-2">Caricamento conversazioni...</p>
+      </div>
+
+      <!-- Error message -->
+      <div *ngIf="error" class="alert alert-danger">
+        {{ error }}
+      </div>
+
+      <!-- No conversations -->
+      <div *ngIf="!loading && conversations.length === 0" class="text-center my-4 text-muted">
+        <i class="bi bi-chat-dots fs-1"></i>
+        <p>Nessuna conversazione trovata.</p>
+      </div>
+
+      <!-- Conversations list -->
+      <div *ngIf="!loading && conversations.length > 0" class="list-group">
+        <a *ngFor="let conv of conversations"
+           [routerLink]="['/chat', conv.id]"
+           class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+          <div>
+            <h6 class="mb-1">{{ conv.username }}</h6>
+            <small *ngIf="conv.lastMessage" class="text-muted">
+              {{ conv.lastMessage | slice:0:50 }}{{ conv.lastMessage.length > 50 ? '...' : '' }}
+            </small>
+            <small *ngIf="!conv.lastMessage" class="text-muted">Nessun messaggio</small>
+          </div>
+          <div class="d-flex align-items-center">
+            <span *ngIf="conv.unreadCount > 0" class="badge bg-primary rounded-pill me-2">
+              {{ conv.unreadCount }}
+            </span>
+            <small class="text-muted" *ngIf="conv.lastMessageDate">
+              {{ conv.lastMessageDate | date:'short' }}
+            </small>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

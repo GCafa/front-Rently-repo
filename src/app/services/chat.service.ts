@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { ChatMessageModel} from '../models/chatMessage-model';
 import { ChatMessageRequest} from '../dto/request/ChatMessageRequest';
 import {ApiPathUtil} from '../utils/ApiPathUtil';
+import {UserModel} from '../models/user-model';
 
 @Injectable({
   providedIn: 'root'
@@ -20,5 +21,9 @@ export class ChatService {
 
   getConversation(userId: number): Observable<ChatMessageModel[]> {
     return this.http.get<ChatMessageModel[]>(`${this.apiUrl}/user/${userId}`);
+  }
+
+  getAllHostConversations(): Observable<UserModel[]> {
+    return this.http.get<UserModel[]>(`${this.apiUrl}/users`);
   }
 }
