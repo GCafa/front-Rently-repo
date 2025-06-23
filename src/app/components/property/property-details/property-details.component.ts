@@ -161,6 +161,12 @@ export class PropertyDetailsComponent implements OnInit {
     return (this.currentUser?.id === this.property?.host.id)
   }
 
+  openChatWithHost(): void {
+    if (this.property && this.property.host && this.property.host.id) {
+      this.router.navigate(['/chat', this.property.host.id]);
+    }
+  }
+
 
 
 }

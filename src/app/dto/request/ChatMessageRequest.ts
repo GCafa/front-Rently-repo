@@ -1,8 +1,8 @@
 export class ChatMessageRequest {
   content: string;
-  receiverId: string;
+  receiverId: number;
 
-  constructor(content: string, receiverId: string) {
+  constructor(content: string, receiverId: number) {
     this.content = content;
     this.receiverId = receiverId;
   }

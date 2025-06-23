@@ -33,6 +33,7 @@ import {
 } from './components/property/view-all-properties-admin/view-all-properties-admin.component';
 import {UpdatePropertyComponent} from './components/property/update-property/update-property.component';
 import {HostCalendarComponent} from './components/host-calendar/host-calendar.component';
+import {ChatComponent} from './components/chat/chat.component';
 
 
 
@@ -69,6 +70,7 @@ export const routes: Routes = [
   { path: 'view-all-properties-admin', component: ViewAllPropertiesAdminComponent, canActivate: [authGuard]},
   { path: 'update-property/:id', component: UpdatePropertyComponent, canActivate: [authGuard] },
   { path: 'host-calendar', component: HostCalendarComponent, canActivate: [authGuard] },
+  { path: 'chat/:receiverId', component: ChatComponent, canActivate: [authGuard] },
   // Fallback route
   { path: '**', redirectTo: '/home' }
 ];

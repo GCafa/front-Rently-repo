@@ -1,0 +1,49 @@
+<div class="container mt-4">
+  <div class="card shadow">
+    <div class="card-header bg-primary text-white">
+      <h5 class="mb-0">Chat</h5>
+    </div>
+
+    <div class="card-body">
+      <!-- Loading spinner -->
+      <div *ngIf="loading" class="text-center my-4">
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Caricamento...</span>
+        </div>
+        <p class="mt-2">Caricamento messaggi...</p>
+      </div>
+
+      <!-- Error message -->
+      <div *ngIf="error" class="alert alert-danger">
+        {{ error }}
+      </div>
+
+      <!-- No messages -->
+      <div *ngIf="!loading && messages.length === 0" class="text-center my-4 text-muted">
+        <i class="bi bi-chat-dots fs-1"></i>
+        <p>Nessun messaggio. Inizia la conversazione!</p>
+      </div>
+
+      <!-- Messages list -->
+      <div *ngIf="!loading && messages.length > 0" class="messages-list mb-4">
+        <div *ngFor="let msg of messages" class="message mb-3" [ngClass]="{ 'mine': isMine(msg), 'theirs': !isMine(msg) }">
+          <div class="message-bubble p-3 rounded" [ngClass]="{ 'bg-primary text-white': isMine(msg), 'bg-light': !isMine(msg) }">
+            <p class="content mb-1">{{ msg.content }}</p>
+            <small class="meta text-end d-block" [ngClass]="{ 'text-white-50': isMine(msg), 'text-muted': !isMine(msg) }">
+              {{ msg.sendAt | date:'short' }}
+            </small>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-footer">
+      <form [formGroup]="chatForm" (ngSubmit)="sendMessage()" class="d-flex">
+        <input type="text" formControlName="content" class="form-control" placeholder="Scrivi un messaggio..." />
+        <button type="submit" class="btn btn-primary ms-2" [disabled]="chatForm.invalid">
+          <i class="bi bi-send"></i> Invia
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
