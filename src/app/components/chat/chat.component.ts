@@ -68,7 +68,17 @@ export class ChatComponent implements OnInit {
     this.loading = true;
     this.chatService.getConversation(this.receiverId).subscribe({
       next: (msgs) => {
-        this.messages = msgs;
+        // Ensure all messages have a valid sender property
+        this.messages = msgs.map(msg => {
+          if (!msg.sender) {
+            // For messages without a sender, try to determine if it's from the current user
+            // This is a best-effort approach and might need adjustment based on your backend logic
+            if (msg.receiver && msg.receiver.id !== this.currentUser.id) {
+              msg.sender = this.currentUser;
+            }
+          }
+          return msg;
+        });
         this.loading = false;
       },
       error: (err) => {
@@ -88,6 +98,11 @@ export class ChatComponent implements OnInit {
     const request = new ChatMessageRequest(content, this.receiverId);
     this.chatService.sendMessage(request).subscribe({
       next: (msg) => {
+        // Ensure the message has a sender property before adding it to the messages array
+        if (!msg.sender) {
+          // If sender is null, set it to the current user
+          msg.sender = this.currentUser;
+        }
         this.messages.push(msg);
         this.chatForm.reset();
       },
@@ -99,6 +114,6 @@ export class ChatComponent implements OnInit {
   }
 
   isMine(msg: ChatMessageModel): boolean {
-    return msg.sender?.id === this.currentUser.id;
+    return msg.sender && msg.sender.id === this.currentUser.id;
   }
 }
