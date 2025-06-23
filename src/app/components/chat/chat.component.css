@@ -1,50 +1,69 @@
-.chat-container {
-  max-width: 700px;
-  margin: 0 auto;
-  background: #f8f9fa;
-  border-radius: 10px;
-  padding: 20px;
-}
-
+/* Imposta un'altezza massima con scroll per i messaggi */
 .messages-list {
   max-height: 400px;
   overflow-y: auto;
-  margin-bottom: 20px;
+  padding-right: 10px;
 }
 
-.message {
-  margin-bottom: 15px;
-  padding: 10px 15px;
-  border-radius: 20px;
-  max-width: 70%;
-  word-wrap: break-word;
-  position: relative;
-}
-
+/* Allineamento dei messaggi */
 .message.mine {
-  background-color: #571790;
-  color: white;
-  align-self: flex-end;
-  margin-left: auto;
+  text-align: right;
 }
 
 .message.theirs {
-  background-color: #e0e0e0;
-  color: #333;
-  align-self: flex-start;
-  margin-right: auto;
+  text-align: left;
 }
 
-.message .meta {
-  display: block;
-  font-size: 0.75rem;
-  margin-top: 5px;
-  text-align: right;
-  opacity: 0.7;
+/* Stile per le "bolle" dei messaggi */
+.message-bubble {
+  display: inline-block;
+  max-width: 75%;
+  word-wrap: break-word;
+  border-radius: 16px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
 }
 
-.chat-form {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+/* Colori coerenti con una palette viola-blu */
+.bg-primary {
+  background-color: #6f42c1 !important; /* viola bootstrap */
+}
+
+.text-primary {
+  color: #6f42c1 !important;
+}
+
+.text-white-50 {
+  color: rgba(255, 255, 255, 0.6) !important;
+}
+
+/* Input e pulsante */
+.card-footer input.form-control {
+  border-radius: 20px;
+  padding: 0.5rem 1rem;
+}
+
+.card-footer button.btn {
+  border-radius: 20px;
+  padding: 0.5rem 1.2rem;
+}
+
+/* Scrollbar elegante */
+.messages-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.messages-list::-webkit-scrollbar-thumb {
+  background-color: rgba(111, 66, 193, 0.5);
+  border-radius: 3px;
+}
+
+.messages-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Responsive spacing */
+@media (max-width: 576px) {
+  .message-bubble {
+    max-width: 90%;
+  }
 }
