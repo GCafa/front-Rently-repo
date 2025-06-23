@@ -1,32 +1,98 @@
 .review-container {
-  max-width: 600px;
-  margin: 50px auto;
+  max-width: 700px;
+  margin: 2rem auto;
+  padding: 2rem;
   background-color: #ffffff;
-  padding: 25px;
-  border-radius: 10px;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
+/* Titolo */
 .review-container h2 {
+  color: #6f42c1;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
   text-align: center;
-  margin-bottom: 25px;
 }
 
+/* Form group */
 .form-group {
-  margin-bottom: 20px;
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 0.5rem;
+  display: block;
 }
 
 .form-control {
-  width: 100%;
-  padding: 10px;
-  font-size: 1rem;
+  border-radius: 12px;
+  padding: 0.6rem 1rem;
+  border: 1px solid #ccc;
+  transition: border-color 0.3s ease;
 }
 
-.btn {
-  width: 100%;
+.form-control:focus {
+  border-color: #6f42c1;
+  box-shadow: 0 0 0 0.2rem rgba(111, 66, 193, 0.25);
+  outline: none;
 }
 
+/* Pulsanti */
+button.btn {
+  border-radius: 20px;
+  padding: 0.5rem 1.2rem;
+  font-weight: 500;
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 0.5rem;
+}
+
+button.btn-primary {
+  background-color: #6f42c1;
+  border-color: #6f42c1;
+  color: #fff;
+}
+
+button.btn-primary:hover {
+  background-color: #5b38a5;
+  border-color: #5b38a5;
+}
+
+button.btn-secondary {
+  background-color: #e2e2e2;
+  border-color: #e2e2e2;
+  color: #333;
+}
+
+button.btn-secondary:hover {
+  background-color: #d4d4d4;
+  border-color: #d4d4d4;
+}
+
+/* Fix margine disallineato */
+button.btn-secondary.mb-3 {
+  margin-bottom: 0 !important;
+}
+
+/* Messaggio di conferma o errore */
 .message {
+  font-weight: 500;
+  color: #28a745;
   text-align: center;
-  font-weight: bold;
+}
+
+/* Responsive layout */
+@media (max-width: 576px) {
+  .review-container {
+    padding: 1.5rem 1rem;
+  }
+
+  button.btn {
+    width: 100%;
+    margin-right: 0;
+    margin-bottom: 0.75rem;
+  }
 }

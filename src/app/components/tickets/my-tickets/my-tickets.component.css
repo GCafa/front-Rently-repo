@@ -1,98 +1,67 @@
-/* Stili generali */
-.container {
-  max-width: 1200px;
-}
-
-/* Stili per la card principale */
-.card {
-  border-radius: 12px;
-  transition: all 0.3s ease;
-  border: none;
-}
-
-.card-body {
-  padding: 1.5rem;
-}
-
-.shadow-sm {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08) !important;
-}
-
-/* Stili per gli elementi della lista */
-.list-group-item {
-  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-  border-radius: 8px !important;
-  border-left: 4px solid transparent;
-}
-
-.hover-effect:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-  border-left: 4px solid #0d6efd;
-}
-
-/* Stili per i badge di stato */
-.badge {
-  padding: 0.5rem 0.75rem;
-  font-weight: 500;
-  border-radius: 6px;
-  font-size: 0.85rem;
-}
-
-/* Personalizzazione titoli e testi */
 h2 {
   font-weight: 600;
-  color: #2c3e50;
+  color: #571790;
 }
 
-h5.text-primary {
-  font-weight: 600;
-}
-
-.text-muted {
-  font-size: 0.95rem;
-}
-
-/* Stili per i bottoni */
-.btn-primary {
-  transition: all 0.2s;
-  border-radius: 8px;
-}
-
-.btn-primary:hover {
-  transform: scale(1.05);
-  box-shadow: 0 4px 8px rgba(13, 110, 253, 0.2);
+p.text-muted {
+  font-size: 1rem;
 }
 
 .btn-outline-secondary {
-  border-radius: 8px;
-  padding: 8px 16px;
+  border-radius: 1rem;
+  padding: 0.5rem 1rem;
+  font-weight: 500;
 }
 
-.btn-outline-secondary:hover {
-  background-color: #f8f9fa;
-  color: #6c757d;
+.card {
+  border-radius: 1rem;
 }
 
-/* Animazioni per il caricamento */
 .spinner-border {
   width: 2rem;
   height: 2rem;
 }
 
-/* Stili responsivi */
-@media (max-width: 768px) {
-  .d-flex.justify-content-between {
-    flex-direction: column;
-    align-items: flex-start !important;
-  }
+.list-group-item {
+  border-radius: 1rem !important;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
 
-  .d-flex.justify-content-between a.btn {
-    margin-top: 1rem;
-    align-self: flex-start;
-  }
+.list-group-item:hover {
+  box-shadow: 0 6px 16px rgba(87, 23, 144, 0.15);
+  transform: translateY(-2px);
+}
 
-  .d-flex.justify-content-between.align-items-center div {
-    margin-bottom: 1rem;
-  }
+.hover-effect {
+  cursor: pointer;
+}
+
+.btn-primary {
+  background-color: #571790;
+  border: none;
+  border-radius: 1rem;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+}
+
+.btn-primary:hover {
+  background-color: #8845c0;
+}
+
+.badge {
+  font-size: 0.85rem;
+  padding: 0.4em 0.8em;
+  border-radius: 0.75rem;
+}
+
+.alert {
+  border-radius: 1rem;
+}
+
+.text-primary {
+  color: #571790 !important;
+}
+
+.text-muted i {
+  vertical-align: -0.15em;
 }

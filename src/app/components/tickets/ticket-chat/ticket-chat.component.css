@@ -1,38 +1,76 @@
 .ticket-chat-container {
   max-width: 800px;
-  margin: auto;
+  margin: 0 auto;
+  padding: 2rem;
+  background-color: #fff;
+  border-radius: 1rem;
+  box-shadow: 0 6px 20px rgba(87, 23, 144, 0.1);
+}
+
+.ticket-chat-container h3 {
+  color: #571790;
+  font-weight: 600;
 }
 
 .chat-box {
   max-height: 400px;
   overflow-y: auto;
-  padding: 1rem;
-  border: 1px solid #ccc;
-  background-color: #f9f9f9;
-  border-radius: 8px;
-  margin-bottom: 1rem;
+  padding: 0.5rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 1rem;
+  background-color: #fafafa;
 }
 
 .reply-user {
-  text-align: left;
-  margin-bottom: 1rem;
+  background-color: #eae6f8;
+  border-left: 4px solid #8845c0;
+  border-radius: 1rem;
 }
 
 .reply-moderator {
-  text-align: right;
-  margin-bottom: 1rem;
+  background-color: #f5f5f5;
+  border-left: 4px solid #ccc;
+  border-radius: 1rem;
 }
 
 .meta {
   font-size: 0.85rem;
-  color: #666;
+  color: #6c757d;
 }
 
 .content {
-  background-color: #e2e2e2;
-  display: inline-block;
-  padding: 0.5rem 1rem;
-  border-radius: 12px;
-  max-width: 75%;
-  word-wrap: break-word;
+  font-size: 1rem;
+  color: #333;
+}
+
+form.d-flex {
+  margin-top: 1.5rem;
+}
+
+input.form-control {
+  border-radius: 1rem;
+  border: 1px solid #ccc;
+  padding: 0.6rem 1rem;
+}
+
+.btn-success {
+  background-color: #571790;
+  border: none;
+  border-radius: 1rem;
+  font-weight: 500;
+  padding: 0.6rem 1.2rem;
+}
+
+.btn-success:hover {
+  background-color: #8845c0;
+}
+
+.alert {
+  border-radius: 1rem;
+}
+
+.spinner-border {
+  width: 2rem;
+  height: 2rem;
+  color: #571790;
 }
