@@ -46,6 +46,9 @@
           <button type="submit" class="btn btn-primary mt-2" [disabled]="dateForm.invalid">
             Visualizza prenotazioni nel periodo
           </button>
+          <button type="button" class="btn btn-danger ms-2 mt-2" [disabled]="dateForm.invalid" (click)="blockDates()">
+            Blocca date nel periodo
+          </button>
         </div>
       </div>
     </form>

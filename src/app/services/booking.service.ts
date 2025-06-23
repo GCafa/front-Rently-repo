@@ -7,6 +7,8 @@ import { CustomResponse } from '../dto/CustomResponse';
 import { ApiPathUtil } from '../utils/ApiPathUtil';
 import {BookingDashboardResponse} from '../dto/BookingDashboardResponse';
 import {UserSummary} from '../dto/UserSummary';
+import {PropertyModel} from '../models/property-model';
+import {UserModel} from '../models/user-model';
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +20,21 @@ export class BookingService {
 
   saveBooking(bookingCreateRequest: BookingCreateRequest): Observable<CustomResponse> {
     return this.http.post<CustomResponse>(`${this.apiUrl}/create`, bookingCreateRequest);
+  }
+
+  blockBookingOnDate(property: PropertyModel, date: Date, host: UserModel): Observable<CustomResponse> {
+    const fakeBooking = new BookingCreateRequest(
+      date,
+      date,
+      1,
+      0,
+      host, // Assuming user is an object with at least an id
+      property,
+      null
+    );
+
+    // This method will add a fake booking to block a date for a property
+    return this.saveBooking(fakeBooking);
   }
 
 
@@ -36,7 +53,8 @@ export class BookingService {
   getHostBookingDashboard(hostId: number): Observable<BookingDashboardResponse[]> {
     return this.http.get<any[]>(`${this.apiUrl}/host/${hostId}`).pipe(
       map(response =>
-        response.map(item =>
+        // Filter out bookings where the user is the host (host-created bookings to block dates)
+        response.filter(item => item.user.id !== hostId).map(item =>
           new BookingDashboardResponse(
             item.title,
             new UserSummary(item.user.id, item.user.firstname, item.user.lastname),
@@ -48,12 +66,4 @@ export class BookingService {
       )
     );
   }
-  getBookedDates(propertyId: number): Observable<string[]> {
-    return this.http.get<string[]>(`${this.apiUrl}/booked-dates/${propertyId}`);
-  }
-
-  blockDateRange(payload: { propertyId: number; start: string; end: string }): Observable<any> {
-    return this.http.post(`${this.apiUrl}/block-dates`, payload);
-  }
-
 }

@@ -21,7 +21,8 @@ export class AdminBookingListComponent implements OnInit {
   ngOnInit(): void {
     this.bookingService.getAllBookings().subscribe({
       next: (data) => {
-        this.bookings = data;
+        // Filter out bookings where the user is the host of the property (host-created bookings to block dates)
+        this.bookings = data.filter(booking => booking.user.id !== booking.property.host.id);
         this.loading = false;
       },
       error: () => {

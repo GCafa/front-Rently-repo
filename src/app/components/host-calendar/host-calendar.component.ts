@@ -6,6 +6,7 @@ import { PropertyModel } from '../../models/property-model';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BookingDashboardResponse } from '../../dto/BookingDashboardResponse';
+import {UserModel} from '../../models/user-model';
 
 @Component({
   selector: 'app-host-calendar',
@@ -18,7 +19,8 @@ export class HostCalendarComponent implements OnInit {
   propertyId?: number;
   hostId!: number;
   properties: PropertyModel[] = [];
-  selectedProperty?: PropertyModel;
+  host!: UserModel;
+  selectedProperty!: PropertyModel;
   bookings: BookingDashboardResponse[] = [];
   showBookings: boolean = false;
   isLoading: boolean = false;
@@ -28,7 +30,7 @@ export class HostCalendarComponent implements OnInit {
     private bookingService: BookingService,
     private userService: UserService,
     private propertyService: PropertyService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
   ) {}
 
   ngOnInit(): void {
@@ -37,6 +39,7 @@ export class HostCalendarComponent implements OnInit {
     this.userService.getCurrentUser().subscribe({
       next: (user) => {
         this.hostId = user.id;
+        this.host = user;
         this.loadHostProperties();
       },
       error: (error) => {
@@ -128,6 +131,102 @@ export class HostCalendarComponent implements OnInit {
       error: (error) => {
         console.error('Error fetching bookings:', error);
         this.isLoading = false;
+      }
+    });
+  }
+
+  blockDates(): void {
+    if (this.dateForm.invalid || !this.selectedProperty) {
+      return;
+    }
+
+    this.isLoading = true;
+
+    // Set startDate to beginning of the day (00:00:00)
+    const startDate = new Date(this.dateForm.value.startDate);
+    startDate.setHours(0, 0, 0, 0);
+
+    // Set endDate to end of the day (23:59:59)
+    const endDate = new Date(this.dateForm.value.endDate);
+    endDate.setHours(23, 59, 59, 999);
+
+    // First, get all bookings for the host to identify which dates are already booked
+    this.bookingService.getHostBookingDashboard(this.hostId).subscribe({
+      next: (bookings) => {
+        // Filter bookings for the selected property
+        const propertyBookings = bookings.filter(booking =>
+          booking.title === this.selectedProperty?.title
+        );
+
+        // Create a Set to store all dates that are already booked
+        const bookedDates = new Set<string>();
+
+        // For each booking, add all dates between checkInDate and checkOutDate to the bookedDates Set
+        propertyBookings.forEach(booking => {
+          const checkIn = new Date(booking.checkInDate);
+          const checkOut = new Date(booking.checkOutDate);
+
+          // Iterate through each day of the booking
+          const currentDate = new Date(checkIn);
+          while (currentDate <= checkOut) {
+            bookedDates.add(currentDate.toISOString().split('T')[0]); // Store date as YYYY-MM-DD
+            currentDate.setDate(currentDate.getDate() + 1);
+          }
+        });
+
+        // Now block only dates that are not already booked
+        const currentDate = new Date(startDate);
+        let blockedCount = 0;
+        const totalDays = Math.ceil((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24)) + 1;
+
+        while (currentDate <= endDate) {
+          const dateString = currentDate.toISOString().split('T')[0];
+
+          // Only block the date if it's not already booked
+          if (!bookedDates.has(dateString)) {
+            const dateToBlock = new Date(currentDate);
+            this.bookingService.blockBookingOnDate(this.selectedProperty, dateToBlock, this.host).subscribe({
+              next: () => {
+                console.log(`Blocked date: ${dateToBlock.toLocaleDateString()}`);
+                blockedCount++;
+
+                // Check if this is the last date to process
+                if (blockedCount === totalDays - bookedDates.size) {
+                  this.isLoading = false;
+                  alert(`Date bloccate con successo! (${blockedCount} date bloccate)`);
+                  // Optionally refresh the view
+                  this.viewBookings();
+                }
+              },
+              error: (error) => {
+                console.error(`Error blocking date ${dateToBlock.toLocaleDateString()}:`, error);
+                blockedCount++;
+
+                // Check if this is the last date to process
+                if (blockedCount === totalDays - bookedDates.size) {
+                  this.isLoading = false;
+                  alert(`Alcune date non sono state bloccate correttamente. Controlla la console per i dettagli.`);
+                }
+              }
+            });
+          } else {
+            console.log(`Date ${dateString} is already booked, skipping`);
+          }
+
+          // Move to the next day
+          currentDate.setDate(currentDate.getDate() + 1);
+        }
+
+        // If there are no dates to block, show a message
+        if (bookedDates.size === totalDays) {
+          this.isLoading = false;
+          alert('Tutte le date nel periodo selezionato sono già prenotate.');
+        }
+      },
+      error: (error) => {
+        console.error('Error fetching bookings:', error);
+        this.isLoading = false;
+        alert('Si è verificato un errore durante il recupero delle prenotazioni.');
       }
     });
   }

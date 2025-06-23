@@ -8,7 +8,7 @@ export class BookingCreateRequest {
   numOfChildren: number;
   user: UserModel;
   property: PropertyModel;
-  couponCode: string;
+  couponCode: string | null;
 
   constructor(
     checkInDate: Date,
@@ -17,7 +17,7 @@ export class BookingCreateRequest {
     numOfChildren: number,
     user: UserModel,
     property: PropertyModel,
-    couponCode: string
+    couponCode: string | null
   ) {
     this.checkInDate = checkInDate;
     this.checkOutDate = checkOutDate;
